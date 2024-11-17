@@ -1,0 +1,6 @@
+.env
+*.pyc
+db.sqlite3
+
+core/migrations/0*.py
+core/migrations/!__init__.py

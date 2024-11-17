@@ -1,0 +1,26 @@
+.navigation_panel {
+    display: flex;
+    height: 100%;
+    padding: 1rem;
+    width: calc(100% - 7rem);
+    left: 7rem;
+    position: relative;
+
+    &__row {
+        align-items: center !important;
+        justify-content: center;
+        margin-left: auto;
+        @include flex-row;
+        gap: .3rem;
+    }
+
+    &__user_auth {
+        padding: 1rem;
+        @include flex-column-start;
+        width: fit-content;
+
+        span {
+            color: $color-gray;
+        }
+    }
+}

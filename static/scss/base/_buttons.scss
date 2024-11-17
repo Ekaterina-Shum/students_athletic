@@ -1,0 +1,18 @@
+.button {
+    padding: 7px;
+    width: 100%;
+    font-size: 13px;
+    transition: .3s ease-in-out;
+    @include flex-center;
+
+
+    &.auth {
+      background-color: #0095FF;
+      border-radius: .7rem;
+      padding: 1rem;
+      height: 3rem;
+      font-size: 1.1rem;
+      color: #fff;
+    }
+    
+}

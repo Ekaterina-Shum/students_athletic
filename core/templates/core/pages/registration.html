@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<form hx-post="{% url 'core:registration' %}" hx-target="#registration-form" hx-swap="innerHTML">
+    {% csrf_token %}
+    <div id="registration-form" class="login_container">
+        <div class="login_container__content">
+            <div class="login_container__content__header">
+                <h1 class="login_container__content__header__title">Регистрация в системе</h1>
+                <p class="login_container__content__header__description">Пожалуйста, заполните представленные реквизиты</p>
+            </div>
+            <div class="login_container__content__body">
+                <div class="form_container">
+                    <label for="email">Электронная почта</label>
+                    <input required type="email" name="email" class="container_input inputing" id="email">
+                </div>
+
+                <div class="form_container">
+                    <label for="password">Пароль</label>
+                    <input required type="password" name="password" class="container_input inputing" id="password">
+                </div>
+                <div class="form_container">
+                    <label for="approved-password">Подтвердить пароль</label>
+                    <input required type="password" name="approved_password" class="container_input inputing" id="approved-password">
+                </div>
+                <div class="form_container">
+                    <label for="last-name">Фамилия</label>
+                    <input required type="text" name="last_name" class="container_input inputing" id="last-name">
+                </div>
+                <div class="form_container">
+                    <label for="first-name">Имя</label>
+                    <input required type="text" name="first_name" class="container_input inputing" id="first-name">
+                </div>
+                <div class="form_container">
+                    <label for="patronymic">Отчество</label>
+                    <input required type="text" name="patronymic" class="container_input inputing" id="patronymic">
+                </div>
+                <button class="button auth" type="submit">Зарегистрироваться</button>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    document.addEventListener("htmx:responseError", function(evt) {
+        alert("Ошибка: " + evt.detail.xhr.responseText);
+    });
+    </script>
+{% endblock content %}

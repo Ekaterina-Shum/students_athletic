@@ -1,0 +1,111 @@
+.account_container {
+    @include flex-column-start;
+    width: 100%;
+    gap: 2rem;
+    padding: 5rem;
+    height: 100%;
+
+    &__row {
+        width: 100%;
+        @include flex-row;
+        gap: 1rem;
+    }
+
+    &__header {
+        @include flex-column-start;
+        gap: .1rem;
+
+        &__title {
+            font-size: 25px;
+            font-weight: 500;
+            &.color {
+                color: inherit;
+                -webkit-box-decoration-break: clone;
+                -webkit-text-fill-color: transparent;
+                -webkit-background-clip: text !important;
+                background: linear-gradient(114.69deg, #1AE1CA, #40E6D3 0.01%, #547DD2);
+            }
+        }
+    }
+
+    &__content {
+        flex: 1;
+        height: 100%;
+        border-radius: 1rem;
+        padding: 3rem;
+        background-color: #fff;
+
+        &__header {
+            @include flex-row;
+            align-items: center;
+            gap: 1rem;
+            &__title {
+                font-size: 1.2rem;
+            }
+        }
+
+        &__body {
+            gap: .3rem;
+            margin-block: 3rem;
+            @include flex-column-start;
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            ul {
+                margin-block: 1rem;
+                
+                h2 {
+                    font-size: 1.1rem;
+                    margin-bottom: 1rem;
+                }
+
+
+                li {
+                    padding-block: 5px;
+
+                    span:nth-child(2) {
+                        color: #A39BA6;
+                    }
+                }
+            }
+
+            &__information {
+                width: 100%;
+                @include flex-row;
+                border-radius: 1rem;
+                padding: 1rem;
+                border: 1px solid #e2e2e2;
+                gap: 1rem;
+
+                &__initials {
+                    border-radius: 50%;
+                    padding: 1rem;
+                    background-color: #F3EEF3;
+
+                    span {
+                        font-size: 1rem;
+                    }
+                }
+                &__body {
+                    @include flex-column-start;
+                    gap: .5rem;
+
+                    h1 {
+                        font-size: 1.2rem;
+                    }
+
+
+                
+                    
+
+                    span {
+                        font-size: .9rem;
+                        color: #A39BA6;
+                    }
+                }
+            }
+        }
+    }
+}

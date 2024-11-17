@@ -1,0 +1,15 @@
+.content {
+    max-width: calc($container-width + $container-padding-x * 2);
+    margin-inline: auto;
+    padding-inline: $container-padding-x;
+    height: 100%;
+    width: 100%;
+
+    &.full {
+        max-width: calc($container-width-full + $container-padding-x * 2);
+    }
+
+    &.block {
+        margin-block: 1.4rem;
+    }
+}

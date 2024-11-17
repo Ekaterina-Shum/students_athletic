@@ -1,0 +1,195 @@
+.form_container {
+    @include flex-column-start;
+    gap: 8px;
+    width: 100%;
+    font-size: 14px;
+
+
+    &.row-option {
+        @include border-gray;
+        @include flex-row;
+        padding: 14px;
+        align-items: center;
+    }
+
+    &.button-toggle-container {
+        @include flex-column-start;
+    }
+
+    label {
+        font-size: 15px;
+        color: #6E7689;
+    }
+
+    
+}
+
+.container_input {
+    min-height: 47px;
+    font-size: 15px;
+    padding: 0 13px 0 15px;
+    height: 100%;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    width: 100%;
+    color: $color-gray;
+    border-radius: 7px;
+
+    &.inputing {
+        @include border-gray;
+        min-height: 44px;
+        border-radius: 8px;
+        color: $color-dark;
+        transition: .4s ease-in-out;
+        &:focus {
+            border: 1px solid #70A8FF;
+        }
+    }
+
+    &.textarea {
+        @include border-gray;
+        padding: 9px;
+        font-size: 13px;
+        min-height: fit-content;
+        color: $color-dark;
+        transition: .4s ease-in-out;
+
+        &:focus {
+            border: 1px solid #70A8FF;
+        }
+    }
+
+
+    &__checkbox {
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+
+        &__label {
+            flex: 0 0 16.333%;
+
+            &.full-line {
+                flex: 0 0 auto;
+                width: fit-content;
+
+                .container_input__checkbox-title {
+                    align-items: flex-start;
+                }
+            }
+        }
+
+        &:checked + &-title {
+            border-color: $color-blue;
+            color: $color-blue;
+
+            .card_container__icon, 
+            .ccard_container {
+                color: #70A8FF;
+              }
+        }
+
+        &-title {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 7px;
+            font-size: 12px;
+            border-radius: 0.6rem;
+            border: 1px solid $color-gray;
+            transition: 0.3s ease-in-out;
+            cursor: pointer;
+            position: relative;
+        }
+
+    }
+}
+
+
+.container_select {
+    position: relative;
+    width: 100%;
+    display: inline-block;
+
+    &.select_create {
+        height: 100%;
+        width: 100%;
+        border-radius: 8px;
+
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #D0D4DD !important;
+        border: none;
+        cursor: pointer;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .select_search {
+        height: 100%;
+        width: 100%;
+        border-radius: 8px;
+
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        padding: 10px;
+    
+        background-color: #EFF4F8;
+        color: #73768E;
+        border: 1px solid #E1EBF0;
+        border: none;
+        cursor: pointer;
+    
+        &:focus {
+            outline: none;
+        }
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 60%;
+        right: 10px;
+        transform: translateY(-50%);
+        border: 5px solid transparent;
+        border-top-color: #73768E;
+        pointer-events: none;
+    }
+}
+
+
+.selected_filters {
+    @include flex-start;
+    width: 100%;
+    height: 10px;
+    transition: height .4s ease-in-out;
+    gap: 15px;
+    height: fit-content;
+
+    &__selected-filter {
+        @include flex-center;
+        width: fit-content;
+        border-color: #70A8FF !important;
+        background-color: #f3f8ff;
+        font-size: 13px;
+        color: #70A8FF;
+        padding: 7px;
+        gap: 9px;
+        @include border-gray;
+
+        &__remove-filter {
+            font-size: 20px;
+            color: #70A8FF;
+            font-weight: 400;
+            cursor: pointer;
+        }
+    }
+}

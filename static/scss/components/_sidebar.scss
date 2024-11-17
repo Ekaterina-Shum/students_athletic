@@ -1,0 +1,37 @@
+.navigation {
+    color: rgba(12,21,35, 1) !important;
+    position: fixed;
+    font-weight: 500;
+    z-index: 3;
+    padding-block: 3rem;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    width: 90px;
+    height: 100vh;
+    background-color: #ffffff;
+
+    &__container {
+        @include flex-column-center;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        gap: 2rem;
+        height: 100%;
+        padding-block: 15px;
+
+        &__element {
+            display: flex;
+            align-items: center;
+
+            &__link {
+                display: flex;
+                align-items: center;
+                padding: .5rem;
+                border-radius: .7rem;
+                background-color: #F6F7F8;
+                cursor: pointer;
+            }
+        }
+    }
+}

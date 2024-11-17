@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="login_container">
+    <div class="login_container__content">
+        <div class="login_container__content__header">
+            <h1 class="login_container__content__header__title">Аутентификация в системе</h1>
+            <p class="login_container__content__header__description">Пожалуйста, введите электронную почту и пароль для входа в систему</p>
+        </div>
+        <div class="login_container__content__body">
+            <div class="form_container">
+                <label for="host-name">Электронная почта</label>
+                <input required type="email" name="host_name" class="container_input inputing" id="host-name">
+            </div>
+
+            <div class="form_container">
+                <label for="host-name">Пароль</label>
+                <input required type="password" name="host_name" class="container_input inputing" id="host-name">
+            </div>
+            <button class="button auth" type="button">Войти в систему</button>
+        </div>
+    </div>
+</div>
+{% endblock content %}

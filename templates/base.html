@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+  <script src="{% static '/js/htmx.min.js' %}" defer></script>
+  <script src="{% static '/js/hyperscript.min.js' %}" defer></script>
+  <title>Спортивные достижения | {{ title }}</title>
+  {% block scripts %}
+
+  {% endblock scripts %}
+</head>
+<body>
+    <section class="main_container_row">
+      {% if user.is_authenticated %}
+        {% include "./navigation.html" %}
+      {% endif %}
+      {% block sidebar %}{% endblock sidebar %}
+    </section>
+    <section class="main_container content {% if request.resolver_match.url_name == 'lk' %}full{% endif %}" hx-history-elt>
+        {% block content %}{% endblock content %}
+    </section>
+</body>
+
+</html>
