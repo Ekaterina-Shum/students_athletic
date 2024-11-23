@@ -10,7 +10,7 @@ urlpatterns = [
 
     path('requests/', login_required(staff_requests), name='staff-requests'),
 
-    path('events/', login_required(staff_events), name='staff-events'),
+    path('tournaments/', login_required(staff_events), name='staff-tournaments'),
     path('students/', login_required(staff_students), name='staff-students'),
 
     path('students/approved/<int:id>/', login_required(staff_students_approved), name='staff-students-approved'),

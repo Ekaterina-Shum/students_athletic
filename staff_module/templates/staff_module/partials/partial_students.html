@@ -1,4 +1,22 @@
-{% for staff in staffs %}
+{% for student in students %}
+<table cellpadding="0" cellspacing="11" class="table__content approved_students"  id="certs-staffs-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Email</th>
+        <th>ФИО</th>
+        <th>Группа</th>
+      </tr>
+  </thead>
+    <tbody id="certs-staffs-table-body">
+                <tr class="table-row">
+                    <td>{{ student.user.id }}</td>
+                    <td>{{ student.user.email }}</td>
+                    <td>{{ student.user.get_full_name }}</td>
+                    <td>{{ student.study_group.name }}</td>
+                </tr>
+    </tbody>
+  </table>
 {% empty %}
-<span>Отсутствуют учетные записи студентов</span>
+<span>Отсутствуют</span>
 {% endfor %}

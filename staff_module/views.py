@@ -12,6 +12,7 @@ def staff_home(request):
 
     staffs = Staff.objects.all()
 
+
     title = 'Личный кабинет'
 
     context = {
@@ -22,7 +23,12 @@ def staff_home(request):
     if request.user.groups.filter(name="Кураторы").exists():
         approved_students = Student.objects.filter(approved=False, study_group__curator=request.user)
         context['approved_students'] = approved_students
-
+    if request.user.is_superuser:
+        students = Student.objects.all()
+        
+    elif request.user.groups.filter(name="Кураторы").exists():
+        students = Student.objects.filter(study_group__curator=request.user)
+    context['students'] = students
 
     return render(request, template, context)
 
