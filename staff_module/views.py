@@ -9,6 +9,7 @@ from django.contrib.auth.hashers import make_password
 def staff_home(request):
     template = './staff_module/pages/home.html'
 
+
     staffs = Staff.objects.all()
 
     title = 'Личный кабинет'
@@ -17,6 +18,11 @@ def staff_home(request):
         "title": title,
         'staffs': staffs
     }
+
+    if request.user.groups.filter(name="Кураторы").exists():
+        approved_students = Student.objects.filter(approved=False, study_group__curator=request.user)
+        context['approved_students'] = approved_students
+
 
     return render(request, template, context)
 
@@ -63,7 +69,7 @@ def staff_create(request):
             study_group = StudyGroup.objects.get(id=education_group) if education_group != 'Нет' else None
             study_group.curator = staff
 
-            render(request, './staff_module/partials/partial_staffs.html', context)
+            return render(request, './staff_module/partials/partial_staffs.html', context)
 
 
 def staff_requests(request):
@@ -89,6 +95,23 @@ def staff_events(request):
 
     return render(request, template, context)
 
+
+def staff_students_approved(request, *args, **kwargs):
+    if request.method == 'POST':
+        student_id = kwargs.get('id')
+
+        approved_students = Student.objects.filter(approved=False, study_group__curator=request.user)
+
+        user = User.objects.filter(id=student_id).first()
+        student = Student.objects.get(user=user)
+        student.approved = True
+        student.save()
+
+        context = {
+            'approved_students': approved_students
+        }
+
+        return render(request, './staff_module/partials/partial_approved_students.html', context)
 
 def staff_students(request):
     template = './staff_module/pages/events.html'

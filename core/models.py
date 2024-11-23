@@ -100,9 +100,10 @@ class Student(models.Model):
     ]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='user')
+    study_group =models.ForeignKey("StudyGroup", verbose_name=_("Группа"), on_delete=models.CASCADE, blank=True, null=True)
     approved = models.BooleanField(_("Учетная запись подтверждена"), default=False)
-    main_sport = models.ForeignKey("Sports", verbose_name=_("Основной вид спорта"), null=True, on_delete=models.CASCADE)
-    additional_sport = models.ForeignKey("Sports", verbose_name=_("Дополнительный вид спорта"), null=True, related_name='additional_sport', on_delete=models.CASCADE)
+    main_sport = models.ForeignKey("Sports", verbose_name=_("Основной вид спорта"), null=True, blank=True, on_delete=models.CASCADE)
+    additional_sport = models.ForeignKey("Sports", verbose_name=_("Дополнительный вид спорта"), null=True, blank=True, related_name='additional_sport', on_delete=models.CASCADE)
     country = models.CharField(max_length=12, choices=COUNTRY_CHOICES, default='RU', null=True)
 
     def __str__(self):
@@ -125,7 +126,6 @@ class StudyGroup(models.Model):
     ]
 
     name = models.CharField(max_length=50, unique=True)
-    students = models.ManyToManyField('Student', related_name='groups', blank=True)
     course = models.IntegerField(_("Курс"))
     term = models.IntegerField(_("Семестр"))
     specialization = models.ForeignKey("Specialization", verbose_name=_("Специальность"), blank=True, null=True, on_delete=models.CASCADE)

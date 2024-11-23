@@ -1,0 +1,35 @@
+{% for approved_student in approved_students %}
+<table cellpadding="0" cellspacing="11" class="table__content approved_students"  id="certs-staffs-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Email</th>
+        <th>ФИО</th>
+        <th>Подтверждение</th>
+      </tr>
+  </thead>
+    <tbody id="certs-staffs-table-body">
+                <tr class="table-row">
+                    <td>{{ approved_student.user.id }}</td>
+                    <td>{{ approved_student.user.email }}</td>
+                    <td>{{ approved_student.user.get_full_name }}</td>
+                    <td>
+
+
+                        <button
+                        type="submit"
+                        hx-target="#approved-students"
+                        hx-include="#approved-student"
+                        hx-swap="innerHTML transition:true"
+                        hx-post="{% url 'staff_module:staff-students-approved' id=approved_student.user.id %}"
+                        class="table_link approved">
+                            Подтвердить
+                        </a>
+                    </button>
+                    </td>
+                </tr>
+    </tbody>
+  </table>
+{% empty %}
+<span>Отсутствуют</span>
+{% endfor %}

@@ -40,6 +40,9 @@ def signup(request):
         if User.objects.filter(email=email).exists():
             return render(request, 'core/partials/signuprejected.html', context={'error_text':'Пользователь с таким email уже существует'})
         
+        
+        study_group = StudyGroup.objects.get(id=education_group)
+
         user = User.objects.create(
             email=email,
             password=make_password(password),
@@ -48,12 +51,11 @@ def signup(request):
             patronymic=patronymic
         )
 
-        student = Student.objects.create(
+        Student.objects.create(
             user=user,
-            approved=False,
+            study_group=study_group
         )
 
-        StudyGroup.objects.get(id=education_group).students.add(student)
 
         return render(request, 'core/partials/signupgone.html')
 

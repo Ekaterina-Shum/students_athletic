@@ -1,0 +1,64 @@
+.table__content {
+    display: grid;
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 100%;
+
+    thead,
+    tbody,
+    tr {
+      display: contents;
+
+      .not_found_elements {
+        text-align: center;
+        display: grid;
+        grid-column: 1 / -1;
+      }
+    }
+
+
+    th,
+    td {
+      padding: 19px;
+      overflow: hidden;
+      color: #2b2b2b;
+      font-size: .8rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+
+    th {
+        text-align: left;
+        font-weight: 400;
+        border-bottom: 1px solid $color-gray-2;
+        font-size: .8rem;
+        color: $color-gray;
+      }
+
+
+      td {
+        padding-block: 1rem;
+        height: fit-content;
+        min-height: 5rem;
+        color: #2b2b2b;
+
+        .table_link {
+            padding: .5rem;
+            transition: .8s ease-in-out;
+
+            &.approved {
+                color: #679F81;
+                background-color: #ECFDF3;
+            }
+        }
+    }
+
+    &.approved_students {
+        grid-template-columns:
+        minmax(0px, .3fr)
+        minmax(0px, .7fr)
+        minmax(0px, 1fr)
+        minmax(0px, .5fr);
+    }
+}
