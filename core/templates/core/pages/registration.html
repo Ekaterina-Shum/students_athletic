@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<form hx-post="{% url 'core:registration' %}" hx-target="#registration-form" hx-swap="innerHTML">
+<form 
+    hx-post="{% url 'core:lk-signup' %}" 
+    hx-swap="innerHTML transition:true"
+    hx-target="#registration-form">
     {% csrf_token %}
     <div id="registration-form" class="signup_container">
         <div class="signup_container__content">
@@ -27,7 +30,7 @@
                 <div class="form_container">
                     <label for="education-group">Учебная группа</label>
                     <select name="education_group" class="container_select select_create" id="education-group">
-                        {% for group in groups %}
+                        {% for group in education_groups %}
                             <option value="{{ group.id }}">{{ group }}</option>
                         {% endfor %}    
                     </select>
@@ -49,9 +52,4 @@
         </div>
     </div>
 </form>
-<script>
-    document.addEventListener("htmx:responseError", function(evt) {
-        alert("Ошибка: " + evt.detail.xhr.responseText);
-    });
-    </script>
 {% endblock content %}

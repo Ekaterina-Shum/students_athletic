@@ -1,0 +1,10 @@
+<div class="signup_container__content">
+    <div class="signup_container__content__header">
+        <img src="/static/img/rejected.svg">
+        <h1 class="signup_container__content__header__title">Ошибка регистрации</h1>
+        <p class="signup_container__content__header__description">{{ error_text }}</p>
+    </div>
+    <div class="signup_container__content__body">
+        <a class="button confirm" href="{% url "core:lk-signup" %}">Далее</a>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import login, account, requests, registration
+from .views import login, account, requests, signup
 
 app_name = 'core'
 
@@ -9,5 +9,5 @@ urlpatterns = [
     # path('lk/requests/<int:req_id>/', mailer_detail, name='lk-requests-detail'),
     # path('clients/', clients_stock, name='clients-stock'),
     path('login/', login, name='login'),
-    path('registration/', registration, name='registration'),
+    path('signup/', signup, name='lk-signup'),
 ]

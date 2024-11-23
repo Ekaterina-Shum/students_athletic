@@ -4,7 +4,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django.http import JsonResponse
-from .models import User, Student
+from .models import User, Student, StudyGroup
 from django.contrib.auth.hashers import make_password
 import json
 
@@ -13,7 +13,14 @@ def logout(request):
     logout(request)
     return HttpResponseRedirect('/login')
 
-def registration(request):
+def signup(request):
+    if request.method == 'GET':
+        education_groups = StudyGroup.objects.all()
+
+        context = {'education_groups': education_groups}
+
+        return render(request, 'core/pages/registration.html', context)
+    
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -21,12 +28,13 @@ def registration(request):
         last_name = request.POST.get('last_name')
         first_name = request.POST.get('first_name')
         patronymic = request.POST.get('patronymic')
+        education_group = request.POST.get('education_group')
 
         if password != approved_password:
-            return HttpResponse('Пароли не совпадают', status=400)
+            return render(request, 'core/partials/signuprejected.html', context={'error_text':'Пароли не совпадают'})
 
         if User.objects.filter(email=email).exists():
-            return HttpResponse('Пользователь с таким email уже существует', status=400)
+            return render(request, 'core/partials/signuprejected.html', context={'error_text':'Пользователь с таким email уже существует'})
         
         user = User.objects.create(
             email=email,
@@ -36,14 +44,14 @@ def registration(request):
             patronymic=patronymic
         )
 
-        Student.objects.create(
+        student = Student.objects.create(
             user=user,
             approved=False,
         )
 
-        return HttpResponse('Регистрация прошла успешно!', status=200)
+        StudyGroup.objects.get(id=education_group).students.add(student)
 
-    return render(request, 'core/pages/registration.html')
+        return render(request, 'core/partials/signupgone.html')
 
 def login(request):
     template = './core/pages/login.html'

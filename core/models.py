@@ -19,7 +19,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(_("Фамилия"), max_length=100)
     patronymic = models.CharField(_("Отчество"), max_length=100, blank=True, null=True)
     username = None
-    
+
     groups = models.ManyToManyField(
         Group,
         verbose_name=_("Группы"),
@@ -92,14 +92,14 @@ class Student(models.Model):
         ('RU', 'Россия'),
     ]
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='student_profile')
-    approved = models.BooleanField(_("Учетная запись подтверждена"))
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='user')
+    approved = models.BooleanField(_("Учетная запись подтверждена"), default=False)
     main_sport = models.ForeignKey("Sports", verbose_name=_("Основной вид спорта"), null=True, on_delete=models.CASCADE)
     additional_sport = models.ForeignKey("Sports", verbose_name=_("Дополнительный вид спорта"), null=True, related_name='additional_sport', on_delete=models.CASCADE)
     country = models.CharField(max_length=12, choices=COUNTRY_CHOICES, default='RU', null=True)
 
     def __str__(self):
-        return f"{self.user.first_name} {self.user.last_name}"
+        return f"{self.user.first_name} {self.user.patronymic} {self.user.last_name}"
 
 
 
@@ -118,10 +118,10 @@ class StudyGroup(models.Model):
     ]
 
     name = models.CharField(max_length=50, unique=True)
-    students = models.ManyToManyField('Student', related_name='groups')
+    students = models.ManyToManyField('Student', related_name='groups', blank=True)
     course = models.IntegerField(_("Курс"))
     term = models.IntegerField(_("Семестр"))
-    specialization = models.ForeignKey("Specialization", verbose_name=_("Специальность"), on_delete=models.CASCADE)
+    specialization = models.ForeignKey("Specialization", verbose_name=_("Специальность"), blank=True, null=True, on_delete=models.CASCADE)
     curator = models.OneToOneField("User", on_delete=models.SET_NULL, null=True, blank=True)
     level_education = models.CharField(max_length=50, choices=LEVEL_EDUCATION, default='bachelor')
     create_date = models.DateTimeField(auto_now_add=True)
