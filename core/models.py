@@ -1,27 +1,49 @@
 from django.db import models
 import uuid
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Group, Permission
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import AbstractBaseUser
 from core.managers import AccountManager
 
 
-class User(AbstractBaseUser):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    is_admin = models.BooleanField(default=False)
-    is_stuff = models.BooleanField(default=False)
-    email = models.EmailField(_('Адрес электронной почты'), unique=True)
+class User(AbstractBaseUser, PermissionsMixin):
+    id = models.AutoField(primary_key=True)
+    uuid = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
+    email = models.EmailField(max_length=100, unique=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_locked = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
     first_name = models.CharField(_("Имя"), max_length=100)
     last_name = models.CharField(_("Фамилия"), max_length=100)
     patronymic = models.CharField(_("Отчество"), max_length=100, blank=True, null=True)
     username = None
+    groups = models.ManyToManyField(
+        Group,
+        verbose_name=_("Группы"),
+        blank=True,
+        related_name="groups",
+    )
+    permissions = models.ManyToManyField(
+        Permission, 
+        verbose_name=_("Права пользователя"),
+        blank=True,
+        related_name="permissions",
+    )
+
     
     objects = AccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['password']
+    REQUIRED_FIELDS = ['first_name', 'last_name']
 
     def __str__(self):
         return self.email
+    
+    def get_full_name(self):
+        parts = [self.last_name, self.first_name, self.patronymic]
+        return " ".join(filter(None, parts))
 
 
 class Sports(models.Model):
