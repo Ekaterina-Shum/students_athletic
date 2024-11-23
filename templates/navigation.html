@@ -1,9 +1,20 @@
 <nav class="navigation_panel">
     <div class="navigation_panel__row">
-        <span class="user_initials">КВ</span>
+        <span class="user_initials">А</span>
         <div class="navigation_panel__user_auth">
-            <p>Кашуркин В.Ю.</p>
-            <span>Стдуент</span>
+            <p>
+            {% if request.user.is_superuser %}Администратор
+            {% else %}
+                {{ request.user.get_full_name }}
+            {% endif %}
+            </p>
+            <span>
+            {% if request.user.is_superuser %}    
+                Администратор
+            {% else %}
+                {{ request.user.get_full_name }}
+            {% endif %}
+            </span>
         </div>
     </div>
 </nav>

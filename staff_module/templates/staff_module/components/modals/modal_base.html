@@ -1,0 +1,13 @@
+<div class="modal" id="modal-base" _="on closeModal add .closing then wait for animationend then remove me">
+    <div class="modal-backdrop" _="on click trigger closeModal"></div>
+        <div class="modal-content {% if middle_modal %}middle_modal {% endif %}{% if small_modal %}small-height{% endif %}">
+            <div class="modal-body-row" id="modalContent">
+                {% block sidebar %}{% endblock sidebar %}
+                <section class="{% if sidebar_exists %}modal-body content{% else %}modal-body{% endif %}" id="modal-content">
+                {% block modal_content %}{% endblock modal_content %}
+            </section>
+            </div>
+        </div>
+  </div>
+  
+  

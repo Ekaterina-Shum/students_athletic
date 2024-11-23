@@ -1,1 +1,61 @@
 {% extends "base.html" %}
+
+{% block sidebar %}
+    {% include "../components/sidebar.html" %}
+{% endblock sidebar %}
+
+
+{% block content %}
+<div class="account_container">
+    <div class="account_container__header">
+        <h1 class="account_container__header__title">Здравствуйте, {% if request.user.is_superuser %}Администратор{% endif %}</h1>
+        <h1 class="account_container__header__title color">Административная панель</h1>
+    </div>
+    <div class="account_container__row">
+    <div class="account_container__content">
+        <div class="account_container__content__header">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.14 19.5C20.91 17.7 22 15.22 22 12.5C22 6.98 17.52 2.5 12 2.5C6.48 2.5 2 6.98 2 12.5C2 15.22 3.08 17.68 4.84 19.49" stroke="#766EDF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12.0001 21.5C13.8668 21.5 15.3801 19.9867 15.3801 18.12C15.3801 16.2533 13.8668 14.74 12.0001 14.74C10.1334 14.74 8.62012 16.2533 8.62012 18.12C8.62012 19.9867 10.1334 21.5 12.0001 21.5Z" stroke="#766EDF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M15.25 12H16C16.82 12 17.5 11.33 17.5 10.5C17.5 9.68 16.82 9 16 9C15.18 9 14.5 9.67 14.5 10.5V11.25C14.5 11.66 14.84 12 15.25 12Z" stroke="#766EDF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>                
+            <h1 class="account_container__content__header__title">Сотрудники</h1>
+            <button 
+            hx-target="body" 
+            hx-get="{% url 'staff_module:create-staff' %}"
+            hx-swap="beforeend"
+            class="button create">Создать</button>
+        </div>
+        <div id="admin-staffs" class="account_container__content__body">
+            {% include "../partials/partial_staffs.html" %}
+        </div>
+    </div>
+    <div class="account_container__content">
+        <div class="account_container__content__header">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.67 14H4C2.9 14 2 14.9 2 16V22H8.67V14Z" stroke="#766EDF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M13.3301 10H10.6601C9.56016 10 8.66016 10.9 8.66016 12V22H15.3301V12C15.3301 10.9 14.4401 10 13.3301 10Z" stroke="#766EDF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M20.0001 17H15.3301V22H22.0001V19C22.0001 17.9 21.1001 17 20.0001 17Z" stroke="#766EDF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12.5202 2.06982L13.0502 3.12981C13.1202 3.27981 13.3102 3.41981 13.4702 3.43981L14.4302 3.59982C15.0402 3.69982 15.1902 4.1498 14.7502 4.5798L14.0002 5.3298C13.8702 5.4598 13.8002 5.69981 13.8402 5.86981L14.0502 6.78982C14.2202 7.51982 13.8302 7.79982 13.1902 7.41982L12.2902 6.88982C12.1302 6.78982 11.8602 6.78982 11.7002 6.88982L10.8002 7.41982C10.1602 7.79982 9.77022 7.51982 9.94022 6.78982L10.1502 5.86981C10.1902 5.69981 10.1202 5.4498 9.99023 5.3298L9.25023 4.58981C8.81023 4.14981 8.95023 3.7098 9.57023 3.6098L10.5302 3.44982C10.6902 3.41982 10.8802 3.27982 10.9502 3.13982L11.4802 2.0798C11.7702 1.4998 12.2302 1.49982 12.5202 2.06982Z" stroke="#766EDF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                
+            <h1 class="account_container__content__header__title">Студенты</h1>
+        </div>
+    </div>
+</div>
+<div class="account_container__row">
+    <div class="account_container__content">
+        <div class="account_container__content__header">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.5 5H16.5C17.12 5 17.67 5.02 18.16 5.09C20.79 5.38 21.5 6.62 21.5 10V14C21.5 17.38 20.79 18.62 18.16 18.91C17.67 18.98 17.12 19 16.5 19H7.5C6.88 19 6.33 18.98 5.84 18.91C3.21 18.62 2.5 17.38 2.5 14V10C2.5 6.62 3.21 5.38 5.84 5.09C6.33 5.02 6.88 5 7.5 5Z" stroke="#766EDF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4.5 2H19.5" stroke="#766EDF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M5 22H20" stroke="#766EDF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                
+                
+            <h1 class="account_container__content__header__title">Классификаторы</h1>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock content %}

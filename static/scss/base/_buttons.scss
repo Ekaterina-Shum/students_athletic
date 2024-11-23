@@ -5,6 +5,10 @@
     transition: .3s ease-in-out;
     @include flex-center;
 
+    &.cancel {
+      border: 1px solid $color-gray;
+    }
+
 
     &.confirm {
       background-color: #C01631;
@@ -13,6 +17,21 @@
       height: 3rem;
       font-size: 1.1rem;
       color: #fff;
+    }
+
+    &.create {
+      border:1px solid #766EDF;
+      border-radius: .2rem;
+      padding: 1rem;
+      height: 1rem;
+      font-size: .8rem;
+      color: #766EDF;
+      transition: .6s ease-in-out;
+
+      &:hover {
+        background-color: #766EDF;
+        color: #fff;
+      }
     }
     
 }

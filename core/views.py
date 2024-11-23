@@ -1,14 +1,14 @@
-from django.shortcuts import render
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth import logout as auth_logout
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.models import Group
 from django.http import JsonResponse
 from .models import User, Student, StudyGroup
+from django.urls import reverse
 from staff_module.models import Staff
 from django.contrib.auth.hashers import make_password
-import json
 
 
 def logout(request):
@@ -57,44 +57,58 @@ def signup(request):
 
         return render(request, 'core/partials/signupgone.html')
 
-def login(request):
+def lk_login(request):
     template = './core/pages/login.html'
-    if request.user.is_authenticated:
-        return redirect('core:lk')
-    
-    if request.method == "POST":
-        email = request.POST.get('email').lower()
-        password = request.POST.get('password')
 
-        if email and password:
-            user = authenticate(email=email, password=password)
+    if request.user.is_authenticated:
+        return JsonResponse({'redirect_url': reverse('core:lk')}, status=200)
+
+    if request.method == "POST":
+        email = request.POST.get('email', '').lower().strip()
+        password = request.POST.get('password', '').strip()
+
+        if not email or not password:
+            return render(request, 'core/partials/loginerror.html', context={'error_text': 'Пожалуйста, заполните все поля'}, status=400)
+
+        user = authenticate(email=email, password=password)
+
+        if user is not None:
             student = Student.objects.filter(user=user).first()
             if student:
-                if student.approved == True:
-                        login(request, user)
-                        return redirect('core:lk')
+                if student.approved:
+                    login(request, user)
+                    return JsonResponse({'redirect_url': reverse('core:lk')}, status=200)
                 else:
-                    return render(request, 'core/partials/loginerror.html', context={'error_text': 'Некорректные учетные данные или Ваш профиль еще не подтвержден куратором'})
-            else:
-                staff = Staff.objects.filter(user=user).first()
-                if staff:
-                    if user.is_active == True:
-                        if user.is_staff:
-                            curator_group = Group.objects.filter(name='Кураторы').first()
-                            if curator_group and curator_group in user.groups.all():
-                                login(request, user)
-                                return redirect('staff_module:staff-home')
-                        else:
-                            return render(request, 'core/partials/loginerror.html', context={'error_text': 'Доступ запрещен'})
-                return render(request, 'core/partials/loginerror.html', context={'error_text': 'Вы не являетесь студентом или сотрудником'})
+                    return render(request, 'core/partials/loginerror.html', context={
+                        'error_text': 'Ваш профиль еще не подтвержден куратором.'
+                    }, status=400)
 
-        else:
-            messages.error(request, f'Неверные данные. Пожалуйста, повторите попытку')
-            return redirect('core:login')
+            if user.is_superuser:
+                login(request, user)
+                return JsonResponse({'redirect_url': reverse('staff_module:staff-home')}, status=200)
 
-    else:
-        return render(request, template)
+            staff = Staff.objects.filter(user=user).first()
+            if staff and user.is_active:
+                if user.is_staff:
+                    curator_group = Group.objects.filter(name='Кураторы').first()
+                    if curator_group and curator_group in user.groups.all():
+                        login(request, user)
+                        return JsonResponse({'redirect_url': reverse('staff_module:staff-home')}, status=200)
 
+                return render(request, 'core/partials/loginerror.html', context={
+                    'error_text': 'Доступ запрещен.'
+                })
+
+        return render(request, 'core/partials/loginerror.html', context={
+            'error_text': 'Некорректные учетные данные.'
+        })
+
+    return render(request, template)
+
+def logout(request):
+    auth_logout(request)
+
+    return redirect('core:login')
 
 
 def account(request):

@@ -1,12 +1,17 @@
 {% extends "base.html" %}
 {% load static %}
+
+{% block scripts %}
+<script src="{% static '/js/login.js' %}" defer></script>
+{% endblock scripts %}
+
 {% block content %}
 <div class="login_container">
     <form 
     hx-post="{% url 'core:login' %}" 
-    hx-swap="innerHTML transition:true"
-    hx-target="#login-form">
-    
+    hx-target="#login-form"
+    hx-push-url="false"
+    hx-swap="innerHTML transition:true swap:1s">
     {% csrf_token %}
     <div id="login-form" class="login_container__content">
         <div class="login_container__content__header">
