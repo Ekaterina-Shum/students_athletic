@@ -19,6 +19,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(_("Фамилия"), max_length=100)
     patronymic = models.CharField(_("Отчество"), max_length=100, blank=True, null=True)
     username = None
+    
     groups = models.ManyToManyField(
         Group,
         verbose_name=_("Группы"),

@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_htmx',
     'core.apps.CoreConfig',
+    'staff_module.apps.StaffModuleConfig',
 ]
 
 MIDDLEWARE = [

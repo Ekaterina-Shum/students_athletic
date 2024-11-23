@@ -4,3 +4,6 @@ db.sqlite3
 
 core/migrations/0*.py
 core/migrations/!__init__.py
+
+staff_module/migrations/0*.py
+staff_module/migrations/!__init__.py
