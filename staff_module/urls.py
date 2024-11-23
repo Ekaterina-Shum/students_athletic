@@ -1,11 +1,12 @@
 from django.urls import path
 from .views import staff_home, staff_requests, staff_events, staff_students
+from django.contrib.auth.decorators import login_required
 
 app_name = 'staff_module'
 
 urlpatterns = [
-    path('home/', staff_home, name='staff-home'),
-    path('requests/', staff_requests, name='staff-requests'),
-    path('events/', staff_events, name='staff-events'),
-    path('students/', staff_students, name='staff-students'),
+    path('home/', login_required(staff_home), name='staff-home'),
+    path('requests/', login_required(staff_requests), name='staff-requests'),
+    path('events/', login_required(staff_events), name='staff-events'),
+    path('students/', login_required(staff_students), name='staff-students'),
 ]

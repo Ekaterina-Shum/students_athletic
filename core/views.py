@@ -15,6 +15,8 @@ def logout(request):
 
 def signup(request):
     if request.method == 'GET':
+        if request.user.is_authenticated:
+            return redirect('core:lk')
         education_groups = StudyGroup.objects.all()
 
         context = {'education_groups': education_groups}
@@ -64,13 +66,22 @@ def login(request):
 
         if email and password:
             user = authenticate(email=email, password=password)
+            student = Student.objects.get(user=user)
+            if student:
+                if user is not None:
+                    if student.approved == True:
+                            login(request, user)
+                            return redirect('core:lk')
+                    else:
+                        return render(request, 'core/partials/loginerror.html')
+            else:
+                if user is not None:
+                    if user.is_active == True:
+                            login(request, user)
+                            return redirect('staff_module:staff-home')
+                    else:
+                        return render(request, 'core/partials/loginerror.html')
 
-            if user is not None:
-                if user.is_active == True:
-                    login(request, user)
-                    return redirect('core:lk')
-                else:
-                    return JsonResponse({'error': 'Ошибка'}, status=302)
         else:
             messages.error(request, f'Неверные данные. Пожалуйста, повторите попытку')
             return redirect('core:login')

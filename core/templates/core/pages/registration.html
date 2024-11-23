@@ -5,6 +5,7 @@
     hx-post="{% url 'core:lk-signup' %}" 
     hx-swap="innerHTML transition:true"
     hx-target="#registration-form">
+    
     {% csrf_token %}
     <div id="registration-form" class="signup_container">
         <div class="signup_container__content">

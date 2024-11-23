@@ -2,23 +2,31 @@
 {% load static %}
 {% block content %}
 <div class="login_container">
-    <div class="login_container__content">
+    <form 
+    hx-post="{% url 'core:login' %}" 
+    hx-swap="innerHTML transition:true"
+    hx-target="#login-form">
+    
+    {% csrf_token %}
+    <div id="login-form" class="login_container__content">
         <div class="login_container__content__header">
+            <img src="{% static '/img/logo_sport.svg' %}">
             <h1 class="login_container__content__header__title">Аутентификация в системе</h1>
             <p class="login_container__content__header__description">Пожалуйста, введите электронную почту и пароль для входа в систему</p>
         </div>
         <div class="login_container__content__body">
             <div class="form_container">
-                <label for="host-name">Электронная почта</label>
-                <input required type="email" name="host_name" class="container_input inputing" id="host-name">
+                <label for="user-email">Электронная почта</label>
+                <input required type="email" name="email" class="container_input inputing" id="user-email">
             </div>
 
             <div class="form_container">
-                <label for="host-name">Пароль</label>
-                <input required type="password" name="host_name" class="container_input inputing" id="host-name">
+                <label for="user-password">Пароль</label>
+                <input required type="password" name="password" class="container_input inputing" id="user-password">
             </div>
-            <button class="button confirm" type="button">Войти в систему</button>
+                <button class="button confirm" type="submit">Войти</button>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 {% endblock content %}

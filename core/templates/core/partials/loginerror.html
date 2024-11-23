@@ -1,0 +1,10 @@
+<div class="login_container__content">
+    <div class="login_container__content__header">
+        <img src="/static/img/rejected.svg">
+        <h1 class="login_container__content__header__title">Ошибка при авторизации</h1>
+        <p class="login_container__content__header__description">Некорректные учетные данные или Ваш профиль еще не подтвержден куратором</p>
+    </div>
+    <div class="login_container__content__body">
+        <a class="button confirm" href="{% url "core:login" %}">Далее</a>
+    </div>
+</div>
