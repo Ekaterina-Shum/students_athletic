@@ -40,12 +40,15 @@ def staff_create(request):
         patronymic = request.POST.get('patronymic')
         education_group = request.POST.get('education_group')
 
-        group = Group.objects.get(id=group_system)
+        group = Group.objects.get(id=group_system) 
 
         if email and password:
+            if User.objects.filter(email=email).exists():
+                return render(request, 'core/partials/signuprejected.html', context={'error_text':'Пользователь с таким email уже существует'})
             user = User.objects.create(
                 email=email,
                 password=make_password(password),
+                is_staff=True,
                 first_name=first_name,
                 last_name=last_name,
                 patronymic=patronymic,
@@ -57,7 +60,7 @@ def staff_create(request):
                 user=user
             )
 
-            study_group = StudyGroup.objects.get(id=education_group)
+            study_group = StudyGroup.objects.get(id=education_group) if education_group != 'Нет' else None
             study_group.curator = staff
 
             render(request, './staff_module/partials/partial_staffs.html', context)

@@ -5,14 +5,16 @@
             <p>
             {% if request.user.is_superuser %}Администратор
             {% else %}
-                {{ request.user.get_full_name }}
+                {{ request.user.get_name_initials }}
             {% endif %}
             </p>
             <span>
             {% if request.user.is_superuser %}    
                 Администратор
             {% else %}
-                {{ request.user.get_full_name }}
+                {% for group in request.user.groups.all %}
+                    {{ group.name }}
+                {% endfor %}
             {% endif %}
             </span>
         </div>

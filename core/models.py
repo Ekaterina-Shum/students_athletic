@@ -45,6 +45,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_full_name(self):
         parts = [self.last_name, self.first_name, self.patronymic]
         return " ".join(filter(None, parts))
+    
+    def get_name_initials(self):
+        if self.patronymic:
+            name = f"{self.last_name} {self.first_name[0].upper()}.{self.patronymic[0].upper()}."
+        else:
+            name = f"{self.last_name} {self.first_name[0].upper()}."
+        return name
 
 
 class Sports(models.Model):

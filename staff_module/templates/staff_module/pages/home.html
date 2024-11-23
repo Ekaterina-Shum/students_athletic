@@ -8,10 +8,21 @@
 {% block content %}
 <div class="account_container">
     <div class="account_container__header">
-        <h1 class="account_container__header__title">Здравствуйте, {% if request.user.is_superuser %}Администратор{% endif %}</h1>
-        <h1 class="account_container__header__title color">Административная панель</h1>
+        <h1 class="account_container__header__title">Здравствуйте, 
+            {% if request.user.is_superuser %}Администратор
+            {% else %}
+                {{ request.user.get_full_name }}
+            {% endif %}</h1>
+        <h1 class="account_container__header__title color">
+            {% if request.user.is_superuser %}
+            Административная панель
+            {% else %}
+            Панель сотрудника
+            {% endif %}
+        </h1>
     </div>
     <div class="account_container__row">
+        {% if request.user.is_superuser %}
     <div class="account_container__content">
         <div class="account_container__content__header">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -30,6 +41,7 @@
             {% include "../partials/partial_staffs.html" %}
         </div>
     </div>
+    {% endif %}
     <div class="account_container__content">
         <div class="account_container__content__header">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -40,6 +52,44 @@
                 </svg>
                 
             <h1 class="account_container__content__header__title">Студенты</h1>
+            <button 
+            hx-target="body" 
+            hx-get="{% url 'staff_module:create-staff' %}"
+            hx-swap="beforeend"
+            class="button create">Создать</button>
+        </div>
+        <div id="students" class="account_container__content__body">
+            {% include "../partials/partial_students.html" %}
+        </div>
+    </div>
+</div>
+{% if request.user.is_superuser %}
+<div class="account_container__row">
+    <div class="account_container__content">
+        <div class="account_container__content__header">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.5 5H16.5C17.12 5 17.67 5.02 18.16 5.09C20.79 5.38 21.5 6.62 21.5 10V14C21.5 17.38 20.79 18.62 18.16 18.91C17.67 18.98 17.12 19 16.5 19H7.5C6.88 19 6.33 18.98 5.84 18.91C3.21 18.62 2.5 17.38 2.5 14V10C2.5 6.62 3.21 5.38 5.84 5.09C6.33 5.02 6.88 5 7.5 5Z" stroke="#766EDF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4.5 2H19.5" stroke="#766EDF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M5 22H20" stroke="#766EDF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                
+                
+            <h1 class="account_container__content__header__title">Классификаторы</h1>
+        </div>
+    </div>
+</div>
+{% endif %}
+<div class="account_container__row">
+    <div class="account_container__content">
+        <div class="account_container__content__header">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.5 5H16.5C17.12 5 17.67 5.02 18.16 5.09C20.79 5.38 21.5 6.62 21.5 10V14C21.5 17.38 20.79 18.62 18.16 18.91C17.67 18.98 17.12 19 16.5 19H7.5C6.88 19 6.33 18.98 5.84 18.91C3.21 18.62 2.5 17.38 2.5 14V10C2.5 6.62 3.21 5.38 5.84 5.09C6.33 5.02 6.88 5 7.5 5Z" stroke="#766EDF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4.5 2H19.5" stroke="#766EDF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M5 22H20" stroke="#766EDF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                
+                
+            <h1 class="account_container__content__header__title">Все соревнования</h1>
         </div>
     </div>
 </div>
@@ -53,7 +103,7 @@
                 </svg>
                 
                 
-            <h1 class="account_container__content__header__title">Классификаторы</h1>
+            <h1 class="account_container__content__header__title">Запросы на подтверждение спортивной категории</h1>
         </div>
     </div>
 </div>
