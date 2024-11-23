@@ -3,13 +3,14 @@
 {% block content %}
 <form hx-post="{% url 'core:registration' %}" hx-target="#registration-form" hx-swap="innerHTML">
     {% csrf_token %}
-    <div id="registration-form" class="login_container">
-        <div class="login_container__content">
-            <div class="login_container__content__header">
-                <h1 class="login_container__content__header__title">Регистрация в системе</h1>
-                <p class="login_container__content__header__description">Пожалуйста, заполните представленные реквизиты</p>
+    <div id="registration-form" class="signup_container">
+        <div class="signup_container__content">
+            <div class="signup_container__content__header">
+                <img src="{% static '/img/logo_sport.svg' %}">
+                <h1 class="signup_container__content__header__title">Регистрация в системе</h1>
+                <p class="signup_container__content__header__description">Пожалуйста, заполните представленные реквизиты</p>
             </div>
-            <div class="login_container__content__body">
+            <div class="signup_container__content__body">
                 <div class="form_container">
                     <label for="email">Электронная почта</label>
                     <input required type="email" name="email" class="container_input inputing" id="email">
@@ -24,6 +25,14 @@
                     <input required type="password" name="approved_password" class="container_input inputing" id="approved-password">
                 </div>
                 <div class="form_container">
+                    <label for="education-group">Учебная группа</label>
+                    <select name="education_group" class="container_select select_create" id="education-group">
+                        {% for group in groups %}
+                            <option value="{{ group.id }}">{{ group }}</option>
+                        {% endfor %}    
+                    </select>
+                </div>
+                <div class="form_container">
                     <label for="last-name">Фамилия</label>
                     <input required type="text" name="last_name" class="container_input inputing" id="last-name">
                 </div>
@@ -35,7 +44,7 @@
                     <label for="patronymic">Отчество</label>
                     <input required type="text" name="patronymic" class="container_input inputing" id="patronymic">
                 </div>
-                <button class="button auth" type="submit">Зарегистрироваться</button>
+                <button class="button confirm" type="submit">Подтвердить</button>
             </div>
         </div>
     </div>

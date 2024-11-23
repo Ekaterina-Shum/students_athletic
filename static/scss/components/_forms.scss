@@ -33,12 +33,10 @@
     letter-spacing: 0.5px;
     width: 100%;
     color: $color-gray;
-    border-radius: 7px;
 
     &.inputing {
         @include border-gray;
         min-height: 44px;
-        border-radius: 8px;
         color: $color-dark;
         transition: .4s ease-in-out;
         &:focus {
@@ -97,7 +95,6 @@
             justify-content: center;
             padding: 7px;
             font-size: 12px;
-            border-radius: 0.6rem;
             border: 1px solid $color-gray;
             transition: 0.3s ease-in-out;
             cursor: pointer;
@@ -116,11 +113,7 @@
     &.select_create {
         height: 100%;
         width: 100%;
-        border-radius: 8px;
 
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
         padding: 10px;
         background-color: #fff;
         border: 1px solid #D0D4DD !important;
@@ -135,7 +128,6 @@
     .select_search {
         height: 100%;
         width: 100%;
-        border-radius: 8px;
 
         appearance: none;
         -webkit-appearance: none;
