@@ -54,17 +54,16 @@ def login(request):
         email = request.POST.get('email').lower()
         password = request.POST.get('password')
 
-        user = authenticate(email=email, password=password)
+        if email and password:
+            user = authenticate(email=email, password=password)
 
-        if user is not None:
-            if user.is_active == True:
-                login(request, user)
-            else:
-                return JsonResponse({'error': 'Ошибка'}, status=302)
-            return redirect('core:login')
-
+            if user is not None:
+                if user.is_active == True:
+                    login(request, user)
+                    return redirect('core:lk')
+                else:
+                    return JsonResponse({'error': 'Ошибка'}, status=302)
         else:
-
             messages.error(request, f'Неверные данные. Пожалуйста, повторите попытку')
             return redirect('core:login')
 
