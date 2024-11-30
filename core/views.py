@@ -196,4 +196,51 @@ def requests(request):
         return render(request, './core/partials/partial_requests.html', context)
     return render(request, template, context)
 
+def achievements(request):
+    template = './core/pages/achievements.html'
+    student = get_object_or_404(Student, user=request.user)
+    requests = RequestSportAchievement.objects.filter(student=student)
 
+    title = 'Спортивные достижения'
+
+    context = {
+        "title": title,
+        "requests": requests
+    }
+
+    if request.htmx:
+        return render(request, './core/partials/partial_requests.html', context)
+    return render(request, template, context)
+
+def tournaments(request):
+    template = './core/pages/tournaments.html'
+    student = get_object_or_404(Student, user=request.user)
+    requests = RequestSportAchievement.objects.filter(student=student)
+
+    title = 'Спортивный рейтинг'
+
+    context = {
+        "title": title,
+        "requests": requests
+    }
+
+    if request.htmx:
+        return render(request, './core/partials/partial_requests.html', context)
+    return render(request, template, context)
+
+
+def events(request):
+    template = './core/pages/events.html'
+    student = get_object_or_404(Student, user=request.user)
+    requests = RequestSportAchievement.objects.filter(student=student)
+
+    title = 'Спортивный рейтинг'
+
+    context = {
+        "title": title,
+        "requests": requests
+    }
+
+    if request.htmx:
+        return render(request, './core/partials/partial_requests.html', context)
+    return render(request, template, context)
