@@ -49,8 +49,12 @@
         </li>
         <li class="navigation__container__element">
             <a 
+            href="!#"
             class="navigation__container__element__link"
-            href="#">
+            hx-target="#app-container"
+            hx-swap="innerHTML transition:true"
+            hx-push-url="false"
+            hx-get="{% url "core:lk-requests" %}">
             <svg width="25" height="25" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M13.5 9H30" stroke="#8B939D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M13.5 18H30" stroke="#8B939D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>

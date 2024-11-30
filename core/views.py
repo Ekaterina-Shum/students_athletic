@@ -125,6 +125,8 @@ def account(request):
         "student": student
     }
 
+    if request.htmx:
+            return render(request, './core/partials/partial_account.html', context)
     return render(request, template, context)
 
 
@@ -201,6 +203,8 @@ def requests(request):
         "title": title
     }
 
+    if request.htmx:
+        return render(request, './core/partials/partial_requests.html', context)
     return render(request, template, context)
 
 
