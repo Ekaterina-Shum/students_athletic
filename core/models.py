@@ -80,16 +80,23 @@ class SportEvent(models.Model):
 class SportAchievement(models.Model):
     ACHIEVEMENT_SCOPE = [
         ('university', 'В рамках университета'),
+        ('out_university', 'Вне университета'),
+    ]
+
+    POSITION_CHOICES = [
+        ('1st', '1-Место'),
+        ('2nd', '2-Место'),
+        ('3rd', '3-Место'),
+        ('participant', 'Участник'),
     ]
 
     student = models.ForeignKey('Student', on_delete=models.CASCADE, related_name="achievements")
     event = models.ForeignKey(SportEvent, on_delete=models.CASCADE, related_name="achievements", null=True, blank=True)
     sport = models.ForeignKey(Sports, on_delete=models.CASCADE, related_name='achievements')
-    position = models.CharField(max_length=10, blank=True, null=True)
-    points = models.PositiveIntegerField(default=0)
+    position = models.CharField(max_length=10, choices=POSITION_CHOICES, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     date_awarded = models.DateField(auto_now_add=True)
-    scope = models.CharField(max_length=20, choices=ACHIEVEMENT_SCOPE, default='university')
+    scope = models.CharField(max_length=20, choices=ACHIEVEMENT_SCOPE, default='out_university')
 
     def __str__(self):
         return f"{self.student} - {self.sport.name} - {self.position or 'Участие'}"
