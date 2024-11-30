@@ -3,7 +3,7 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.contrib.auth.models import Group
 from core.models import User, Student, StudyGroup
-from .models import Staff
+from .models import Staff, SportEvent, ParticipantsSportEvent
 from django.contrib.auth.hashers import make_password
 
 def staff_home(request):
@@ -129,3 +129,21 @@ def staff_students(request):
     }
 
     return render(request, template, context)
+
+
+
+
+def event_create(request):
+    if request.method == 'GET':
+        template = './staff_module/components/modals/create/modal_create_event.html'
+        education_groups = StudyGroup.objects.all()
+        groups = Group.objects.all()
+
+        context = {'middle_modal': True, 'groups': groups, 'education_groups':education_groups, 'small_modal': False }
+        
+        return render(request, template, context)
+
+    if request.method == 'POST':
+        email = request.POST.get('email')
+
+        return render(request, './staff_module/partials/partial_staffs.html', context)
