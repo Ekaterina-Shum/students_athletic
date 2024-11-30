@@ -1,31 +1,24 @@
 {% extends "../../staff_module/components/modals/modal_base.html" %}
 
 {% block modal_content %}
-<form method="POST" class="filters_module_form" id="lk-mysports">
+<form method="POST" class="filters_module_form" id="lk-mysports" enctype="multipart/form-data">
   {% csrf_token %}
 <div class="modal-body__header">
   <h2 class="modal-body__header__title">Спортивные достижения вне университета</h2>
-  <p>Пожалуйста, выберите основной и дополнительный вид спорта, где вы хотите принимать участие</p>
+  <p>Пожалуйста, приложите отсканированный документы, подтверждающие ваши успехи в выбранных категориях спорта</p>
 </div>
 
 <div class="modal-body__content">
   <div class="modal-body-column">
     <div class="form_container">
-        <label for="main-sport">Основной вид спорта</label>
-        <select name="main_sport" class="container_select select_create" id="main-sport">
-            {% for sport in sports %}
-                <option value="{{ sport.id }}">{{ sport.name }}</option>
-            {% endfor %}    
-        </select>
+      <label>Отсканированные награды</label>
+      <input type="file" name="files" multiple _="on change postFiles(this.files)">
     </div>
-    <div class="form_container">
-      <label for="additional-sport">Дополнительный вид спорта</label>
-      <select name="additional_sport" class="container_select select_create" id="additional-sport">
-        {% for sport in sports %}
-            <option value="{{ sport.id }}">{{ sport.name }}</option>
-        {% endfor %}    
-    </select>
-  </div>
+    <div id="uploaded-files" class="uploaded-files">
+      <ul>
+
+      </ul>
+    </div>
   </div>
 </div>
 

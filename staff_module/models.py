@@ -8,10 +8,16 @@ class Staff(models.Model):
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name}"
-    
+
 
 class RequestSportAchievement(models.Model):
+    STATUS_CHOICES = [
+        ('created', 'Создано'),
+        ('accepted', 'Одобрено'),
+        ('rejected', 'Отклонено'),
+    ]
     student = models.ForeignKey("core.Student", verbose_name=_("Студент"), on_delete=models.CASCADE, related_name="request")
+    status = models.CharField(max_length=30, choices=STATUS_CHOICES, default='created', blank=True)
 
     def __str__(self):
         return f"Запрос от {self.student}"

@@ -182,11 +182,14 @@ def create_request(request):
 
 def requests(request):
     template = './core/pages/requests.html'
+    student = get_object_or_404(Student, user=request.user)
+    requests = RequestSportAchievement.objects.filter(student=student)
 
     title = 'Запросы'
 
     context = {
-        "title": title
+        "title": title,
+        "requests": requests
     }
 
     if request.htmx:
