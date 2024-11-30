@@ -1,0 +1,45 @@
+{% extends "../../staff_module/components/modals/modal_base.html" %}
+
+{% block modal_content %}
+<form method="POST" class="filters_module_form" id="lk-mysports">
+  {% csrf_token %}
+<div class="modal-body__header">
+  <h2 class="modal-body__header__title">Спортивные достижения вне университета</h2>
+  <p>Пожалуйста, выберите основной и дополнительный вид спорта, где вы хотите принимать участие</p>
+</div>
+
+<div class="modal-body__content">
+  <div class="modal-body-column">
+    <div class="form_container">
+        <label for="main-sport">Основной вид спорта</label>
+        <select name="main_sport" class="container_select select_create" id="main-sport">
+            {% for sport in sports %}
+                <option value="{{ sport.id }}">{{ sport.name }}</option>
+            {% endfor %}    
+        </select>
+    </div>
+    <div class="form_container">
+      <label for="additional-sport">Дополнительный вид спорта</label>
+      <select name="additional_sport" class="container_select select_create" id="additional-sport">
+        {% for sport in sports %}
+            <option value="{{ sport.id }}">{{ sport.name }}</option>
+        {% endfor %}    
+    </select>
+  </div>
+  </div>
+</div>
+
+<div class="modal-body__footer">
+  <div class="modal-body__footer__buttons">
+    <button class="button cancel" _="on click trigger closeModal" type="button">Отмена</button>
+    <button class="button create full-bg" 
+    _="on click trigger closeModal" 
+    hx-post="{% url 'core:lk-mysports' %}"
+    hx-target="#app-container"
+    hx-include="#lk-mysports"
+    hx-swap="innerHTML"
+    type="button">Создать</button>
+  </div>
+</div>
+</form>
+{% endblock modal_content %}
