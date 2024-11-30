@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth import logout as auth_logout
 from django.contrib import messages
@@ -115,11 +115,14 @@ def logout(request):
 
 def account(request):
     template = './core/pages/account.html'
+    
+    student = get_object_or_404(Student, user=request.user)
 
     title = 'Личный кабинет'
 
     context = {
-        "title": title
+        "title": title,
+        "student": student
     }
 
     return render(request, template, context)

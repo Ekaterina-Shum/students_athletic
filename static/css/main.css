@@ -908,6 +908,19 @@ h2 {
   padding: 3rem;
   background-color: #fff;
 }
+.account_container__content.solo_position {
+  flex: none;
+  max-width: 35rem;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.account_container__content.solo_position p {
+  color: #A39BA6;
+}
+.account_container__content.solo_position button {
+  font-size: 14px;
+  margin-top: 2.3rem;
+}
 .account_container__content__header {
   display: flex;
   align-items: flex-start;

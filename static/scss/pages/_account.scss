@@ -35,6 +35,21 @@
         padding: 3rem;
         background-color: #fff;
 
+        &.solo_position {
+            flex: none;
+            max-width: 35rem;
+            height: fit-content;
+
+            p {
+                color: #A39BA6;
+            }
+
+            button {
+                font-size: 14px;
+                margin-top: 2.3rem;
+            }
+        }
+
         &__header {
             @include flex-row;
             align-items: center;
