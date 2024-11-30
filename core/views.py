@@ -234,7 +234,7 @@ def events(request):
     student = get_object_or_404(Student, user=request.user)
     requests = RequestSportAchievement.objects.filter(student=student)
 
-    title = 'Спортивный рейтинг'
+    title = 'Спортивные мероприятия'
 
     context = {
         "title": title,
