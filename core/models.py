@@ -93,7 +93,7 @@ class SportAchievement(models.Model):
     student = models.ForeignKey('Student', on_delete=models.CASCADE, related_name="achievements")
     event = models.ForeignKey(SportEvent, on_delete=models.CASCADE, related_name="achievements", null=True, blank=True)
     sport = models.ForeignKey(Sports, on_delete=models.CASCADE, related_name='achievements')
-    position = models.CharField(max_length=10, choices=POSITION_CHOICES, blank=True, null=True)
+    position = models.CharField(max_length=20, choices=POSITION_CHOICES, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     date_awarded = models.DateField(auto_now_add=True)
     scope = models.CharField(max_length=20, choices=ACHIEVEMENT_SCOPE, default='out_university')
@@ -153,18 +153,6 @@ class StudyGroup(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class SportAchievement(models.Model):
-    student = models.ForeignKey('Student', on_delete=models.CASCADE, related_name="achievements")
-    event = models.ForeignKey(SportEvent, on_delete=models.CASCADE, related_name="achievements")
-    position = models.CharField(max_length=10, blank=True, null=True)
-    points = models.PositiveIntegerField()
-    description = models.TextField(blank=True, null=True)
-    date_awarded = models.DateField(auto_now_add=True)
-
-    def __str__(self):
-        return self.student
     
 class Faculty(models.Model):
     name = models.CharField(max_length=90, unique=True)
