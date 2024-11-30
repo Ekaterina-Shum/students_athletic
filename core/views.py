@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.models import Group
 from django.http import JsonResponse
-from .models import User, Student, StudyGroup
+from .models import User, Student, StudyGroup, Sports
 from django.urls import reverse
 from staff_module.models import Staff
 from django.contrib.auth.hashers import make_password
@@ -127,6 +127,37 @@ def account(request):
 
     return render(request, template, context)
 
+
+def lk_mysports(request):
+    if request.method == 'GET':
+        template = './core/components/add_mysports.html'
+        sports = Sports.objects.all()
+
+        context = {'middle_modal': True, 'sports': sports, 'small_modal': True }
+        
+        return render(request, template, context)
+
+    if request.method == 'POST':
+        main_sport = request.POST.get('main_sport')
+        additional_sport = request.POST.get('additional_sport')
+
+        main_sport = Sports.objects.get(id=main_sport)
+        additional_sport = Sports.objects.get(id=additional_sport)
+
+        if main_sport and additional_sport:
+            if main_sport != additional_sport:
+                student = get_object_or_404(Student, user=request.user)
+                student.main_sport = main_sport
+                student.additional_sport = additional_sport
+                student.sport_level = 'amateur'
+                student.save()
+                student = get_object_or_404(Student, user=request.user)
+
+                context = {"student": student}
+
+                return render(request, './staff_module/partials/partial_staffs.html', context)
+            else:
+                pass
 
 def requests(request):
     template = './core/pages/requests.html'

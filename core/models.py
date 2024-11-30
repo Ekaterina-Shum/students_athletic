@@ -99,12 +99,19 @@ class Student(models.Model):
         ('RU', 'Россия'),
     ]
 
+    SPORT_LVL = [
+        ('not_specified', 'Не указано'),
+        ('amateur', 'Любитель'),
+        ('sportsman', 'Спортсмен'),
+    ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='user')
     study_group =models.ForeignKey("StudyGroup", verbose_name=_("Группа"), on_delete=models.CASCADE, blank=True, null=True)
     approved = models.BooleanField(_("Учетная запись подтверждена"), default=False)
+    sport_level = models.CharField(max_length=32, choices=SPORT_LVL, default='RU', null=True)
     main_sport = models.ForeignKey("Sports", verbose_name=_("Основной вид спорта"), null=True, blank=True, on_delete=models.CASCADE)
     additional_sport = models.ForeignKey("Sports", verbose_name=_("Дополнительный вид спорта"), null=True, blank=True, related_name='additional_sport', on_delete=models.CASCADE)
-    country = models.CharField(max_length=12, choices=COUNTRY_CHOICES, default='RU', null=True)
+    country = models.CharField(max_length=10, choices=COUNTRY_CHOICES, default='not_specified', null=True)
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.patronymic} {self.user.last_name}"
