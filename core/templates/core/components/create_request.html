@@ -1,5 +1,5 @@
 {% extends "../../staff_module/components/modals/modal_base.html" %}
-
+{% load static %}
 {% block modal_content %}
 <form method="POST" class="filters_module_form" id="lk-mysports" enctype="multipart/form-data">
   {% csrf_token %}
@@ -12,11 +12,12 @@
   <div class="modal-body-column">
     <div class="form_container">
       <label>Отсканированные награды</label>
-      <input type="file" name="files" multiple _="on change postFiles(this.files)">
+      <input type="file" id="upload-files" name="files" multiple
+      _="on load initFileUpload('#upload-files', '#file-list')">
     </div>
     <div id="uploaded-files" class="uploaded-files">
-      <ul>
-
+      <ul id="file-list">
+        <!-- Список прикрепленных файлов -->
       </ul>
     </div>
   </div>
