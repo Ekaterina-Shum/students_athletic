@@ -209,7 +209,7 @@ def achievements(request):
     }
 
     if request.htmx:
-        return render(request, './core/partials/partial_requests.html', context)
+        return render(request, './core/partials/partial_achievements.html', context)
     return render(request, template, context)
 
 def tournaments(request):
@@ -225,7 +225,7 @@ def tournaments(request):
     }
 
     if request.htmx:
-        return render(request, './core/partials/partial_requests.html', context)
+        return render(request, './core/partials/partial_tournaments.html', context)
     return render(request, template, context)
 
 

@@ -37,7 +37,11 @@
         <li class="navigation__container__element">
             <a 
             class="navigation__container__element__link"
-            href="#">
+            href="#"
+            hx-target="#app-container"
+            hx-swap="innerHTML transition:true"
+            hx-push-url="true"
+            hx-get="{% url "core:lk-achievements" %}">
             <svg width="25" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12.1494 16.5V18.6" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M7.14941 22H17.1494V21C17.1494 19.9 16.2494 19 15.1494 19H9.14941C8.04941 19 7.14941 19.9 7.14941 21V22Z" stroke="#8B939D" stroke-width="1.5" stroke-miterlimit="10"/>
