@@ -54,7 +54,7 @@ class RequestSportAchievement(models.Model):
 
 class RequestFiles(models.Model):
     request = models.ForeignKey(RequestSportAchievement, verbose_name=_("Запрос"), on_delete=models.CASCADE, related_name="file")
-    file = models.FileField(upload_to='request_files/',verbose_name=_("Файл"),blank=True,null=True)
+    file = models.FileField(upload_to='media/request_files/',verbose_name=_("Файл"),blank=True,null=True)
     uploaded_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Дата загрузки"))
 
     def __str__(self):

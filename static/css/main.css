@@ -198,6 +198,53 @@ h2 {
   color: #6E7689;
 }
 
+.upload_files {
+  background-color: #766EDF !important;
+  color: #fff !important;
+  cursor: pointer;
+  padding: 1rem;
+  border-radius: 0.7rem;
+}
+.upload_files.hidden {
+  opacity: 0;
+}
+
+.uploaded_files {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #EBEEF4;
+  border-radius: 0.7rem;
+  padding: 1rem;
+}
+.uploaded_files h3 {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+.uploaded_files__list {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  height: 100%;
+  gap: 0.8rem;
+}
+.uploaded_files__list li {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #959595;
+  border-radius: 0.7rem;
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #2b2b2b;
+}
+.uploaded_files__list li button {
+  margin-left: auto;
+  color: #F11845;
+  padding: 0.3rem;
+  width: 5rem;
+  border: 1px solid #F11845;
+}
+
 .container_input {
   min-height: 47px;
   font-size: 15px;
@@ -375,17 +422,20 @@ h2 {
 .modal .modal-body__header {
   gap: 9px;
   width: 100%;
+  justify-content: center;
+  align-items: center !important;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  padding-inline: 25px;
-  margin-block: 21px;
+  padding-inline: 3rem;
+  margin-block: 3rem;
 }
 .modal .modal-body__header__title {
   font-size: 21px;
 }
 .modal .modal-body__header__description {
   font-size: 15px;
+  text-align: center;
   color: #959595;
 }
 .modal .modal-body__content {
@@ -891,8 +941,7 @@ h2 {
   gap: 0.1rem;
 }
 .account_container__header__title {
-  font-size: 25px;
-  font-weight: 500;
+  font-size: 1.5rem;
 }
 .account_container__header__title.color {
   color: inherit;
@@ -906,6 +955,17 @@ h2 {
   height: 100%;
   border-radius: 1rem;
   padding: 3rem;
+  background-color: #fff;
+}
+.account_container__content.purple {
+  background-color: #766EDF !important;
+}
+.account_container__content.purple .account_container__content__header__title,
+.account_container__content.purple .account_container__content__body p {
+  color: #fff;
+}
+.account_container__content.purple .account_container__content__body button {
+  color: #766EDF;
   background-color: #fff;
 }
 .account_container__content.solo_position {
@@ -1052,6 +1112,16 @@ h2 {
   font-size: 0.8rem;
 }
 
+.requests_container {
+  width: 100%;
+  height: 100%;
+}
+.requests_container.body {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
 .staff_module {
   flex: 1;
 }
@@ -1108,6 +1178,15 @@ h2 {
 
 .margin-block-1 {
   margin-block: 1rem !important;
+}
+
+.center {
+  align-items: center;
+  justify-content: center;
+}
+
+.centet-self {
+  align-self: center;
 }
 
 .height-100 {

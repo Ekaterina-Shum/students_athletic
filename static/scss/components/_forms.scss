@@ -24,6 +24,56 @@
     
 }
 
+.upload_files {
+    background-color: #766EDF !important;
+    color: #fff !important;
+    cursor: pointer;
+    padding: 1rem;
+    border-radius: .7rem;
+
+    &.hidden {
+        opacity: 0;
+    }
+}
+
+.uploaded_files {
+    width: 100%;
+    height: 100%;
+    border: 1px solid $color-gray-2;
+    border-radius: .7rem;
+    padding: 1rem;
+
+    h3 {
+        font-size: .9rem;
+        margin-bottom: 1rem;
+    }
+
+    &__list {
+        @include flex-column-start;
+        height: 100%;
+        gap: .8rem;
+
+        li {
+            width: 100%;
+            padding: .8rem;
+            border: 1px solid $color-gray;
+            border-radius: .7rem;
+            display: flex;
+            align-items: center;
+            font-size: .8rem;
+            color: $color-dark;
+
+            button {
+                margin-left: auto;
+                color: #F11845;
+                padding: .3rem;
+                width: 5rem;
+                border: 1px solid #F11845;
+            }
+        }
+    }
+}
+
 .container_input {
     min-height: 47px;
     font-size: 15px;

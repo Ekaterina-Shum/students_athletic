@@ -119,11 +119,14 @@ def account(request):
     
     student = get_object_or_404(Student, user=request.user)
 
+    request_created = RequestSportAchievement.objects.filter(student=student)
+
     title = 'Личный кабинет'
 
     context = {
         "title": title,
-        "student": student
+        "student": student,
+        'request_created': request_created
     }
 
     if request.htmx:
@@ -174,7 +177,7 @@ def create_request(request):
 
     if request.method == 'POST':
         files = request.FILES.getlist('files')
-        student = request.user.student
+        student = Student.objects.get(user=request.user)
         request_obj = RequestSportAchievement.objects.create(student=student)
         for file in files:
             RequestFiles.objects.create(request=request_obj, file=file)

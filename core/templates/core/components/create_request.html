@@ -1,23 +1,22 @@
 {% extends "../../staff_module/components/modals/modal_base.html" %}
 {% load static %}
 {% block modal_content %}
-<form method="POST" class="filters_module_form" id="lk-mysports" enctype="multipart/form-data">
+<form method="POST" class="filters_module_form" id="create-request" enctype="multipart/form-data">
   {% csrf_token %}
 <div class="modal-body__header">
   <h2 class="modal-body__header__title">Спортивные достижения вне университета</h2>
-  <p>Пожалуйста, приложите отсканированный документы, подтверждающие ваши успехи в выбранных категориях спорта</p>
+  <p class="modal-body__header__description">Пожалуйста, приложите отсканированный документы, подтверждающие ваши успехи в выбранных категориях спорта</p>
 </div>
 
 <div class="modal-body__content">
-  <div class="modal-body-column">
-    <div class="form_container">
-      <label>Отсканированные награды</label>
-      <input type="file" id="upload-files" name="files" multiple
-      _="on load initFileUpload('#upload-files', '#file-list')">
+  <div class="modal-body-column height-100">
+    <div class="form_container сenter">
+      <label class="upload_files centet-self" for="upload-files">Прикрепить документы</label>
+        <input type="file" id="upload-files" name="files" class="upload_files hidden" multiple
+        _="on load initFileUpload('#upload-files', '#file-list')">
     </div>
-    <div id="uploaded-files" class="uploaded-files">
-      <ul id="file-list">
-        <!-- Список прикрепленных файлов -->
+    <div id="uploaded-files" class="uploaded_files">
+      <ul id="file-list" class="uploaded_files__list">
       </ul>
     </div>
   </div>
@@ -25,14 +24,13 @@
 
 <div class="modal-body__footer">
   <div class="modal-body__footer__buttons">
-    <button class="button cancel" _="on click trigger closeModal" type="button">Отмена</button>
     <button class="button create full-bg" 
     _="on click trigger closeModal" 
-    hx-post="{% url 'core:lk-mysports' %}"
+    hx-post="{% url 'core:lk-create-request' %}"
     hx-target="#app-container"
-    hx-include="#lk-mysports"
+    hx-include="#create-request"
     hx-swap="innerHTML"
-    type="button">Создать</button>
+    type="button">Создать запрос</button>
   </div>
 </div>
 </form>

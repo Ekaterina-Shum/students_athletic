@@ -1,4 +1,26 @@
 <div class="account_container__row">
+    {% if not student.main_sport and not student.additional_sport %}
+    <div class="account_container__content solo_position">
+        <div class="account_container__content__header">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.14 19.5C20.91 17.7 22 15.22 22 12.5C22 6.98 17.52 2.5 12 2.5C6.48 2.5 2 6.98 2 12.5C2 15.22 3.08 17.68 4.84 19.49" stroke="#766EDF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12.0001 21.5C13.8668 21.5 15.3801 19.9867 15.3801 18.12C15.3801 16.2533 13.8668 14.74 12.0001 14.74C10.1334 14.74 8.62012 16.2533 8.62012 18.12C8.62012 19.9867 10.1334 21.5 12.0001 21.5Z" stroke="#766EDF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M15.25 12H16C16.82 12 17.5 11.33 17.5 10.5C17.5 9.68 16.82 9 16 9C15.18 9 14.5 9.67 14.5 10.5V11.25C14.5 11.66 14.84 12 15.25 12Z" stroke="#766EDF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>                
+            <h1 class="account_container__content__header__title">Укажите информацию о себе</h1>
+        </div>
+        <div class="account_container__content__body">
+            <p>Вы прошли регистрацию в системе и ваша учетная запись была подтверждена куратором. Пожалуйста,
+                укажите ваши предпочтения в спорте
+            </p>
+            <button 
+            hx-target="body" 
+            hx-get="{% url 'core:lk-mysports' %}"
+            hx-swap="beforeend"
+            class="button create">Предоставить информацию</button>
+        </div>
+    </div>
+    {% else %}
     <div class="account_container__content solo_position height-100">
         <div class="account_container__content__header">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -9,18 +31,22 @@
             <h1 class="account_container__content__header__title">Спортивные дисциплины</h1>
         </div>
         <div class="account_container__content__body">
-            <h2>Ваш основной вид спорта - Футбол</h2>
-            <h3>Дополнительный вид спорта - Бег</h3>
+            <h2>Ваш основной вид спорта - {{ student.main_sport }}</h2>
+            <h3>Дополнительный вид спорта - {{ student.additional_sport }}</h3>
         </div>
     </div>
-    <div class="account_container__content solo_position height-100">
+    {% endif %}
+    {% if not request_created %}
+    <div class="account_container__content solo_position purple height-100">
         <div class="account_container__content__header">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19.14 19.5C20.91 17.7 22 15.22 22 12.5C22 6.98 17.52 2.5 12 2.5C6.48 2.5 2 6.98 2 12.5C2 15.22 3.08 17.68 4.84 19.49" stroke="#766EDF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M12.0001 21.5C13.8668 21.5 15.3801 19.9867 15.3801 18.12C15.3801 16.2533 13.8668 14.74 12.0001 14.74C10.1334 14.74 8.62012 16.2533 8.62012 18.12C8.62012 19.9867 10.1334 21.5 12.0001 21.5Z" stroke="#766EDF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M15.25 12H16C16.82 12 17.5 11.33 17.5 10.5C17.5 9.68 16.82 9 16 9C15.18 9 14.5 9.67 14.5 10.5V11.25C14.5 11.66 14.84 12 15.25 12Z" stroke="#766EDF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>                
-            <h1 class="account_container__content__header__title">Перейти в категорию Спортсмены</h1>
+                <path d="M16.42 7.95012C18.86 10.3901 18.86 14.3501 16.42 16.7901C13.98 19.2301 10.02 19.2301 7.58 16.7901C5.14 14.3501 5.14 10.3901 7.58 7.95012C10.02 5.51012 13.98 5.51012 16.42 7.95012Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8.24999 21.6399C6.24999 20.8399 4.49999 19.3899 3.33999 17.3799C2.19999 15.4099 1.81999 13.2199 2.08999 11.1299" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M5.85059 4.48034C7.55059 3.15034 9.68058 2.36035 12.0006 2.36035C14.2706 2.36035 16.3606 3.13033 18.0406 4.41033" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M15.75 21.6399C17.75 20.8399 19.5 19.3899 20.66 17.3799C21.8 15.4099 22.18 13.2199 21.91 11.1299" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                              
+            <h1 class="account_container__content__header__title">Перейти в категорию "Спортсмены"</h1>
         </div>
         <div class="account_container__content__body">
             <p>На данный момент, вы зачислены в категорию любители. Если вы являетесь спортсменом, 
@@ -33,6 +59,30 @@
             class="button create">Предоставить информацию</button>
         </div>
     </div>
+    {% else %}
+    <div class="account_container__content solo_position purple height-100">
+        <div class="account_container__content__header">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16.42 7.95012C18.86 10.3901 18.86 14.3501 16.42 16.7901C13.98 19.2301 10.02 19.2301 7.58 16.7901C5.14 14.3501 5.14 10.3901 7.58 7.95012C10.02 5.51012 13.98 5.51012 16.42 7.95012Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8.24999 21.6399C6.24999 20.8399 4.49999 19.3899 3.33999 17.3799C2.19999 15.4099 1.81999 13.2199 2.08999 11.1299" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M5.85059 4.48034C7.55059 3.15034 9.68058 2.36035 12.0006 2.36035C14.2706 2.36035 16.3606 3.13033 18.0406 4.41033" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M15.75 21.6399C17.75 20.8399 19.5 19.3899 20.66 17.3799C21.8 15.4099 22.18 13.2199 21.91 11.1299" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                              
+            <h1 class="account_container__content__header__title">Ваш запрос на рассмотрении</h1>
+        </div>
+        <div class="account_container__content__body">
+            <p>Вы успешно подали запрос на рассмотрение о переходе в категорию "Спортсмены"
+            </p>
+            <button 
+            hx-target="#app-container"
+            hx-swap="innerHTML transition:true"
+            hx-push-url="true"
+            hx-get="{% url "core:lk-requests" %}"
+            class="button create">Мои запросы</button>
+        </div>
+    </div>
+    {% endif %}
 </div>
 <div class="account_container__row">
     <div class="account_container__content">

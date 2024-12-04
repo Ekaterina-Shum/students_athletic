@@ -16,8 +16,7 @@
         gap: .1rem;
 
         &__title {
-            font-size: 25px;
-            font-weight: 500;
+            font-size: 1.5rem;
             &.color {
                 color: inherit;
                 -webkit-box-decoration-break: clone;
@@ -34,6 +33,22 @@
         border-radius: 1rem;
         padding: 3rem;
         background-color: #fff;
+
+        &.purple {
+            background-color: #766EDF !important;
+
+            .account_container__content__header__title, 
+            .account_container__content__body p {
+                color: #fff;
+            }
+
+            .account_container__content__body {
+                button {
+                    color: #766EDF;
+                    background-color: #fff;
+                }
+            }
+        }
 
         &.solo_position {
             flex: none;

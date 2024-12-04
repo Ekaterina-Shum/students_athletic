@@ -5,14 +5,14 @@
   {% csrf_token %}
 <div class="modal-body__header">
   <h2 class="modal-body__header__title">Спортивные увлечения</h2>
-  <p>Пожалуйста, выберите основной и дополнительный вид спорта, где вы хотите принимать участие</p>
+  <p class="modal-body__header__description">Пожалуйста, выберите основной и дополнительный вид спорта, где вы хотите принимать участие</p>
 </div>
 
 <div class="modal-body__content">
   <div class="modal-body-column">
     <div class="form_container">
         <label for="main-sport">Основной вид спорта</label>
-        <select name="main_sport" class="container_select select_create" id="main-sport">
+        <select required name="main_sport" class="container_select select_create" id="main-sport">
             {% for sport in sports %}
                 <option value="{{ sport.id }}">{{ sport.name }}</option>
             {% endfor %}    

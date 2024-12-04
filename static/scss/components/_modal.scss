@@ -21,15 +21,18 @@
         &__header {
             gap: 9px;
             width: 100%;
+            justify-content: center;
+            align-items: center !important;
             @include flex-column-start;
-            padding-inline: 25px;
-            margin-block: 21px;
+            padding-inline: 3rem;
+            margin-block: 3rem;
             &__title {
                 font-size: 21px;
             }
 
             &__description {
                 font-size: 15px;
+                text-align: center;
                 color: #959595;
             }
         }

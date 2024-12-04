@@ -19,7 +19,7 @@
       {% endif %}
       {% block sidebar %}{% endblock sidebar %}
     </section>
-    <section id="app-container" class="main_container content {% if request.resolver_match.url_name == 'lk' or request.resolver_match.url_name == 'staff-home' %}full{% endif %}" hx-history-elt>
+    <section id="app-container" class="main_container content full" hx-history-elt>
         {% block content %}{% endblock content %}
     </section>
 </body>

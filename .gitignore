@@ -2,6 +2,7 @@
 venv
 .venv
 *.pyc
+media/*
 db.sqlite3
 
 core/migrations/0*.py
