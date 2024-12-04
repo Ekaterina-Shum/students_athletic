@@ -18,6 +18,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(_("Имя"), max_length=100)
     last_name = models.CharField(_("Фамилия"), max_length=100)
     patronymic = models.CharField(_("Отчество"), max_length=100, blank=True, null=True)
+    create_date = models.DateTimeField(auto_now_add=True)
     username = None
 
     groups = models.ManyToManyField(
@@ -62,7 +63,6 @@ class Sports(models.Model):
 
 class SportCategory(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    description = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -71,8 +71,8 @@ class SportEvent(models.Model):
     name = models.CharField(max_length=100)
     date = models.DateField()
     location = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)
     category = models.ForeignKey(SportCategory, on_delete=models.SET_NULL, null=True, related_name='events')
+    create_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -94,9 +94,9 @@ class SportAchievement(models.Model):
     event = models.ForeignKey(SportEvent, on_delete=models.CASCADE, related_name="achievements", null=True, blank=True)
     sport = models.ForeignKey(Sports, on_delete=models.CASCADE, related_name='achievements')
     position = models.CharField(max_length=20, choices=POSITION_CHOICES, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
     date_awarded = models.DateField(auto_now_add=True)
     scope = models.CharField(max_length=20, choices=ACHIEVEMENT_SCOPE, default='out_university')
+    create_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.student} - {self.sport.name} - {self.position or 'Участие'}"
@@ -119,6 +119,7 @@ class Student(models.Model):
     main_sport = models.ForeignKey("Sports", verbose_name=_("Основной вид спорта"), null=True, blank=True, on_delete=models.CASCADE)
     additional_sport = models.ForeignKey("Sports", verbose_name=_("Дополнительный вид спорта"), null=True, blank=True, related_name='additional_sport', on_delete=models.CASCADE)
     country = models.CharField(max_length=10, choices=COUNTRY_CHOICES, default='not_specified', null=True)
+    create_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.patronymic} {self.user.last_name}"
