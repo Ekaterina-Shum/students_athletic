@@ -6,9 +6,13 @@
     </div>
     <ul class="navigation__container">
         <li class="navigation__container__element">
-            <a
+            <a 
             class="navigation__container__element__link"
-            href="#">
+            href="!#"
+            hx-target="#app-container"
+            hx-swap="innerHTML transition:true"
+            hx-push-url="true"
+            hx-get="{% url "staff_module:staff-home" %}">
             <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5.20866 4.16602H9.37533C9.65159 4.16602 9.91654 4.27576 10.1119 4.47111C10.3072 4.66646 10.417 4.93142 10.417 5.20768V11.4577C10.417 11.7339 10.3072 11.9989 10.1119 12.1943C9.91654 12.3896 9.65159 12.4993 9.37533 12.4993H5.20866C4.93239 12.4993 4.66744 12.3896 4.47209 12.1943C4.27674 11.9989 4.16699 11.7339 4.16699 11.4577V5.20768C4.16699 4.93142 4.27674 4.66646 4.47209 4.47111C4.66744 4.27576 4.93239 4.16602 5.20866 4.16602Z" fill="#8B939D" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M5.20866 16.666H9.37533C9.65159 16.666 9.91654 16.7758 10.1119 16.9711C10.3072 17.1665 10.417 17.4314 10.417 17.7077V19.791C10.417 20.0673 10.3072 20.3322 10.1119 20.5276C9.91654 20.7229 9.65159 20.8327 9.37533 20.8327H5.20866C4.93239 20.8327 4.66744 20.7229 4.47209 20.5276C4.27674 20.3322 4.16699 20.0673 4.16699 19.791V17.7077C4.16699 17.4314 4.27674 17.1665 4.47209 16.9711C4.66744 16.7758 4.93239 16.666 5.20866 16.666Z" fill="#8B939D" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -22,7 +26,11 @@
         <li class="navigation__container__element">
             <a 
             class="navigation__container__element__link"
-            href="#">
+            href="!#"
+            hx-target="#app-container"
+            hx-swap="innerHTML transition:true"
+            hx-push-url="true"
+            hx-get="{% url "staff_module:staff-users" %}">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5 7C5 8.06087 5.42143 9.07828 6.17157 9.82843C6.92172 10.5786 7.93913 11 9 11C10.0609 11 11.0783 10.5786 11.8284 9.82843C12.5786 9.07828 13 8.06087 13 7C13 5.93913 12.5786 4.92172 11.8284 4.17157C11.0783 3.42143 10.0609 3 9 3C7.93913 3 6.92172 3.42143 6.17157 4.17157C5.42143 4.92172 5 5.93913 5 7Z" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M3 21V19C3 17.9391 3.42143 16.9217 4.17157 16.1716C4.92172 15.4214 5.93913 15 7 15H11C12.0609 15 13.0783 15.4214 13.8284 16.1716C14.5786 16.9217 15 17.9391 15 19V21" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -35,7 +43,11 @@
         <li class="navigation__container__element">
             <a 
             class="navigation__container__element__link"
-            href="#">
+            href="!#"
+            hx-target="#app-container"
+            hx-swap="innerHTML transition:true"
+            hx-push-url="true"
+            hx-get="{% url "staff_module:events" %}">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2 4C2 4.53043 2.21071 5.03914 2.58579 5.41421C2.96086 5.78929 3.46957 6 4 6C4.53043 6 5.03914 5.78929 5.41421 5.41421C5.78929 5.03914 6 4.53043 6 4C6 3.46957 5.78929 2.96086 5.41421 2.58579C5.03914 2.21071 4.53043 2 4 2C3.46957 2 2.96086 2.21071 2.58579 2.58579C2.21071 2.96086 2 3.46957 2 4Z" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M18 10C18 10.5304 18.2107 11.0391 18.5858 11.4142C18.9609 11.7893 19.4696 12 20 12C20.5304 12 21.0391 11.7893 21.4142 11.4142C21.7893 11.0391 22 10.5304 22 10C22 9.46957 21.7893 8.96086 21.4142 8.58579C21.0391 8.21071 20.5304 8 20 8C19.4696 8 18.9609 8.21071 18.5858 8.58579C18.2107 8.96086 18 9.46957 18 10Z" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>

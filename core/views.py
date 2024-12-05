@@ -82,7 +82,7 @@ def lk_login(request):
                     return JsonResponse({'redirect_url': reverse('core:lk')}, status=200)
                 else:
                     return render(request, 'core/partials/loginerror.html', context={
-                        'error_text': 'Ваш профиль еще не подтвержден куратором.'
+                        'error_text': 'Ваш профиль еще не подтвержден'
                     }, status=400)
 
             if user.is_superuser:
@@ -92,7 +92,7 @@ def lk_login(request):
             staff = Staff.objects.filter(user=user).first()
             if staff and user.is_active:
                 if user.is_staff:
-                    curator_group = Group.objects.filter(name='Кураторы').first()
+                    curator_group = Group.objects.filter(name='Преподаватели').first()
                     if curator_group and curator_group in user.groups.all():
                         login(request, user)
                         return JsonResponse({'redirect_url': reverse('staff_module:staff-home')}, status=200)

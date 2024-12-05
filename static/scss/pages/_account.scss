@@ -1,8 +1,9 @@
 .account_container {
     @include flex-column-start;
-    width: 100%;
+    width: calc(100% - 1rem);
+    left: 4rem;
     gap: 2rem;
-    padding: 5rem;
+    position: relative;
     height: 100%;
 
     &__row {

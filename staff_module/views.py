@@ -20,16 +20,18 @@ def staff_home(request):
         'staffs': staffs
     }
 
-    if request.user.groups.filter(name="Кураторы").exists():
+    if request.user.groups.filter(name="Преподаватели").exists():
         approved_students = Student.objects.filter(approved=False, study_group__curator=request.user)
         context['approved_students'] = approved_students
     if request.user.is_superuser:
         students = Student.objects.all()
         
-    elif request.user.groups.filter(name="Кураторы").exists():
+    elif request.user.groups.filter(name="Преподаватели").exists():
         students = Student.objects.filter(study_group__curator=request.user)
     context['students'] = students
 
+    if request.htmx:
+        return render(request, './staff_module/partials/home.html', context) 
     return render(request, template, context)
 
 
@@ -78,27 +80,17 @@ def staff_create(request):
             return render(request, './staff_module/partials/partial_staffs.html', context)
 
 
-def staff_requests(request):
-    template = './staff_module/pages/requests.html'
-
-    title = 'Личный кабинет'
-
-    context = {
-        "title": title
-    }
-
-    return render(request, template, context)
-
-
-def staff_events(request):
+def events(request):
     template = './staff_module/pages/events.html'
 
-    title = 'Личный кабинет'
+    title = 'Спортивные мероприятия'
 
     context = {
         "title": title
     }
 
+    if request.htmx:
+        return render(request, './staff_module/partials/events.html', context)
     return render(request, template, context)
 
 
@@ -119,15 +111,16 @@ def staff_students_approved(request, *args, **kwargs):
 
         return render(request, './staff_module/partials/partial_approved_students.html', context)
 
-def staff_students(request):
-    template = './staff_module/pages/events.html'
+def users(request):
+    template = './staff_module/pages/users.html'
 
     title = 'Личный кабинет'
 
     context = {
         "title": title
     }
-
+    if request.htmx:
+        return render(request, './staff_module/partials/users.html', context)  
     return render(request, template, context)
 
 

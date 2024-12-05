@@ -921,9 +921,10 @@ h2 {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  width: 100%;
+  width: calc(100% - 1rem);
+  left: 4rem;
   gap: 2rem;
-  padding: 5rem;
+  position: relative;
   height: 100%;
 }
 .account_container__row {

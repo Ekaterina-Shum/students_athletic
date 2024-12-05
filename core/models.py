@@ -27,6 +27,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True,
         related_name="groups",
     )
+
     permissions = models.ManyToManyField(
         Permission, 
         verbose_name=_("Права пользователя"),
@@ -38,7 +39,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = AccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'patronymic']
 
     def __str__(self):
         return self.email

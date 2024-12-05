@@ -1,6 +1,6 @@
 <div class="account_container">
     <div class="account_container__header">
-        <h1 class="account_container__header__title">Здравствуйте, Владислав</h1>
+        <h1 class="account_container__header__title">Здравствуйте, {{ request.user.first_name }} {{ request.user.patronymic }}</h1>
         <h1 class="account_container__header__title color">Ваши спортивные достижения</h1>
     </div>
     

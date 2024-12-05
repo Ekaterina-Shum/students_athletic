@@ -1,12 +1,9 @@
 <nav class="navigation_panel">
     <div class="navigation_panel__row">
-        <span class="user_initials">А</span>
+        <span class="user_initials">{{ request.user.last_name.0 }}{{ request.user.first_name.0 }}</span>
         <div class="navigation_panel__user_auth">
             <p>
-            {% if request.user.is_superuser %}Администратор
-            {% else %}
                 {{ request.user.get_name_initials }}
-            {% endif %}
             </p>
             <span>
             {% if request.user.is_superuser %}    

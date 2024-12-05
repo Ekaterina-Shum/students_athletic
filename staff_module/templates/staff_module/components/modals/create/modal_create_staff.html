@@ -5,6 +5,7 @@
   {% csrf_token %}
 <div class="modal-body__header">
   <h2 class="modal-body__header__title">Создание нового сотрудника</h2>
+  <p class="modal-body__header__description">Укажите данные учетной записи, чтобы создать профиль сотрудника</p>
 </div>
 
 <div class="modal-body__content">
@@ -18,7 +19,7 @@
       <input required type="password" name="password" class="container_input inputing" id="staff-password">
   </div>
   <div class="form_container">
-    <label for="group-system">Группа в системе</label>
+    <label for="group-system">Роль в системе</label>
     <select name="group_system" class="container_select select_create" id="group-system">
         {% for group in groups %}
             <option value="{{ group.id }}">{{ group.name }}</option>
@@ -37,21 +38,11 @@
     <label for="staff-patronymic">Отчество</label>
     <input required name="patronymic" class="container_input inputing" id="staff-patronymic">
   </div>
-    <div class="form_container">
-      <label for="group-curator">Куратор группы</label>
-      <select name="group_curator" class="container_select select_create" id="group-curator">
-          <option>Нет</option>
-          {% for education_group in education_groups %}
-              <option value="{{ education_group.id }}">{{ education_group.name }}</option>
-          {% endfor %}    
-      </select>
-      </div>
   </div>
 </div>
 
 <div class="modal-body__footer">
   <div class="modal-body__footer__buttons">
-    <button class="button cancel" _="on click trigger closeModal" type="button">Отмена</button>
     <button class="button create full-bg" 
     _="on click trigger closeModal" 
     hx-post="{% url 'staff_module:create-staff' %}"

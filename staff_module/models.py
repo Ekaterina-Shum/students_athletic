@@ -27,12 +27,14 @@ class SportEvent(models.Model):
     RESULT_CHOICES = [
         ('win', 'Победа'),
         ('defeat', 'Поражение'),
-        ('draw', 'Ничья')
+        ('draw', 'Ничья'),
+        ('participant', 'Участие'),
     ]
+
     type = models.CharField(max_length=30, choices=TYPE_CHOICES, blank=True)
     sport = models.ForeignKey("core.Sports", verbose_name=_("Вид спорта"), on_delete=models.CASCADE)
     type_event = models.ForeignKey("core.SportCategory", verbose_name=_("Тип мероприятия"), on_delete=models.CASCADE)
-    result = models.CharField(max_length=30, choices=RESULT_CHOICES, blank=True)
+    result = models.CharField(max_length=30, choices=RESULT_CHOICES, default='participant', blank=True)
     position = models.CharField(max_length=30, choices=POSITION_CHOICES, blank=True, null=True)
 
 class ParticipantsSportEvent(models.Model):
