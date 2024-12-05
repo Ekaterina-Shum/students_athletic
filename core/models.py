@@ -68,15 +68,6 @@ class SportCategory(models.Model):
     def __str__(self):
         return self.name
 
-class SportEvent(models.Model):
-    name = models.CharField(max_length=100)
-    date = models.DateField()
-    location = models.CharField(max_length=255)
-    category = models.ForeignKey(SportCategory, on_delete=models.SET_NULL, null=True, related_name='events')
-    create_date = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.name
 
 class SportAchievement(models.Model):
     ACHIEVEMENT_SCOPE = [
@@ -92,7 +83,7 @@ class SportAchievement(models.Model):
     ]
 
     student = models.ForeignKey('Student', on_delete=models.CASCADE, related_name="achievements")
-    event = models.ForeignKey(SportEvent, on_delete=models.CASCADE, related_name="achievements", null=True, blank=True)
+    event = models.ForeignKey('staff_module.SportEvent', on_delete=models.CASCADE, related_name="achievements", null=True, blank=True)
     sport = models.ForeignKey(Sports, on_delete=models.CASCADE, related_name='achievements')
     position = models.CharField(max_length=20, choices=POSITION_CHOICES, blank=True, null=True)
     date_awarded = models.DateField(auto_now_add=True)
