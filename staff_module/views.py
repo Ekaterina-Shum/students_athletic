@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.contrib.auth.models import Group
-from core.models import User, Student, StudyGroup
+from django.db.models import Q
+from core.models import User, Student, StudyGroup, Sports, SportCategory
 from .models import Staff, SportEvent, ParticipantsSportEvent
 from django.contrib.auth.hashers import make_password
 
@@ -83,6 +84,131 @@ def staff_create(request):
 def events(request):
     template = './staff_module/pages/events.html'
 
+    events = SportEvent.objects.all()
+
+    sports = Sports.objects.all()
+    type_event = SportEvent.TYPE_EVENT
+
+    status_list = SportEvent.EVENT_STATUS
+    categorys = SportCategory.objects.all()
+
+    participants = ParticipantsSportEvent.objects.all()
+
+    title = 'Спортивные мероприятия'
+
+    context = {
+        "title": title,
+        'type_list': type_event,
+        'sports': sports,
+        'status_list': status_list,
+        "events": events,
+        'category_list': categorys,
+        'participants': participants
+    }
+
+    if request.htmx:
+        return render(request, './staff_module/partials/events.html', context)
+    return render(request, template, context)
+
+def filter_event(request):
+    filter_sport = request.GET.get("filter_sport")
+    filter_status = request.GET.get("filter_status")
+    filter_type = request.GET.get("filter_type")
+    filter_category = request.GET.get("filter_category")
+    filter_student = request.GET.get("filter_student")
+    filter_start_date = request.GET.get("start_date")
+    filter_completed_date = request.GET.get("completed_date")
+
+    events = SportEvent.objects.all()
+    participants = ParticipantsSportEvent.objects.all()
+    if filter_start_date:
+        events = events.filter(start_event=filter_start_date)
+    if filter_completed_date:
+        events = events.filter(end_event=filter_completed_date)
+    if filter_student:
+        participant_events = ParticipantsSportEvent.objects.filter(
+            Q(student__user__last_name__icontains=filter_student) |
+            Q(student__user__first_name__icontains=filter_student)
+        ).values_list("event_id", flat=True)
+        events = events.filter(id__in=participant_events)
+    if filter_sport:
+        events = events.filter(sport_id=filter_sport)
+    if filter_status and filter_status != "all_status":
+        events = events.filter(status=filter_status)
+    if filter_type and filter_type != "all_types":
+        events = events.filter(type=filter_type)
+    if filter_category and filter_category != "all_categorys":
+        category_event= SportCategory.objects.get(id=filter_category)
+        events = events.filter(category_event=category_event)
+
+    context = {'participants':participants,
+               "events": events}
+
+    return render(request, "./staff_module/partials/events_data.html", context)
+
+def event_create(request):
+    if request.method == 'GET':
+        template = './staff_module/components/modals/create/modal_create_event.html'
+
+        sports = Sports.objects.all()
+        type_event = SportEvent.TYPE_EVENT
+        categorys = SportCategory.objects.all()
+
+        if request.htmx:
+            if 'event_sport' in request.GET:
+                sport_id = request.GET.get('event_sport')
+                students = Student.objects.filter(main_sport__id=sport_id)
+                return render(request, './staff_module/partials/students_data.html', {'students': students})
+            
+        context = {'middle_modal': True, 
+                   'sports': sports,
+                   'categorys': categorys,
+                   'type_events': type_event,
+                   'small_modal': False }
+        
+        return render(request, template, context)
+
+    if request.method == 'POST':
+        event_sport_id = request.POST.get('event_sport')
+        type_event = request.POST.get('type_event')
+        event_category_id = request.POST.get('event_category')
+        date_start = request.POST.get('date_start')
+        date_end = request.POST.get('date_end')
+        students = request.POST.getlist('students')
+
+        print(students)
+
+        event_sport = Sports.objects.get(id=event_sport_id) if event_sport_id != None else None
+        event_category = SportCategory.objects.get(id=event_category_id)
+
+        try:
+            event = SportEvent.objects.create(
+                type=type_event,
+                sport=event_sport,
+                category_event=event_category,
+                start_event=date_start,
+                end_event=date_end,
+            )
+
+            for student_id in students:
+                student = Student.objects.get(user__id=student_id)
+                participant = ParticipantsSportEvent.objects.create(
+                    student=student,
+                    event=event
+                )
+                participant.save()
+
+            events = SportEvent.objects.all()
+            participants = ParticipantsSportEvent.objects.all()
+
+            return render(request, './staff_module/partials/events_data.html', {'events': events, 'participants': participants})
+        except Exception as e:
+            print(e)
+            return render(request, './staff_module/partials/events_data.html', context)
+
+def event_detail(request):
+    template = './staff_module/pages/events.html'
+
     title = 'Спортивные мероприятия'
 
     context = {
@@ -92,7 +218,6 @@ def events(request):
     if request.htmx:
         return render(request, './staff_module/partials/events.html', context)
     return render(request, template, context)
-
 
 def staff_students_approved(request, *args, **kwargs):
     if request.method == 'POST':
@@ -122,21 +247,3 @@ def users(request):
     if request.htmx:
         return render(request, './staff_module/partials/users.html', context)  
     return render(request, template, context)
-
-
-
-
-def event_create(request):
-    if request.method == 'GET':
-        template = './staff_module/components/modals/create/modal_create_event.html'
-        education_groups = StudyGroup.objects.all()
-        groups = Group.objects.all()
-
-        context = {'middle_modal': True, 'groups': groups, 'education_groups':education_groups, 'small_modal': False }
-        
-        return render(request, template, context)
-
-    if request.method == 'POST':
-        email = request.POST.get('email')
-
-        return render(request, './staff_module/partials/partial_staffs.html', context)

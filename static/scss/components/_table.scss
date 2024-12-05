@@ -2,6 +2,8 @@
     display: grid;
     border-collapse: collapse;
     width: 100%;
+    background-color: #fff;
+    border-radius: .8rem;
     min-width: 100%;
 
     thead,
@@ -22,6 +24,7 @@
       padding: 19px;
       overflow: hidden;
       color: #2b2b2b;
+      border-bottom: 1px solid $color-gray-2;
       font-size: .8rem;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -61,4 +64,17 @@
         minmax(0px, 1fr)
         minmax(0px, .5fr);
     }
+
+
+    &.events {
+      grid-template-columns:
+      minmax(0px, .2fr)
+      minmax(0px, .7fr)
+      minmax(0px, 1fr)
+      minmax(0px, 1fr)
+      minmax(0px, 1fr)
+      minmax(0px, 1fr)
+      minmax(0px, 1fr)
+      minmax(0px, .4fr);
+  }
 }

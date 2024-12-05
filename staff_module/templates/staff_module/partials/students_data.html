@@ -1,0 +1,8 @@
+{% for student in students %}
+<div class="form_container">
+    <label class="student_container" for="student-{{ student.user.id }}">
+        <input type="checkbox" name="students" value="{{ student.user.id }}" id="student-{{ student.user.id }}" />
+        {{ student.user.get_full_name }} ({{ student.study_group }})
+    </label>
+</div>
+{% endfor %}

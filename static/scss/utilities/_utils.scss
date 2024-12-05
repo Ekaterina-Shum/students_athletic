@@ -14,6 +14,11 @@
     }
 }
 
+.border-gray {
+    border: 1px solid $color-gray-2;
+}
+
+
 .margin-block-1 {
     margin-block: 1rem !important;
 }
@@ -27,6 +32,9 @@
     align-self: center;
 }
 
+.height-fit {
+    height: fit-content !important;
+}
 
 .height-100 {
     height: 100% !important;

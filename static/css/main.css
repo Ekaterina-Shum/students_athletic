@@ -177,6 +177,11 @@ h2 {
   width: 100%;
   font-size: 14px;
 }
+.form_container .student_container {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
 .form_container.row-option {
   box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset;
   border: 1px solid #dbdbdb;
@@ -196,6 +201,19 @@ h2 {
 .form_container label {
   font-size: 15px;
   color: #6E7689;
+}
+.form_container.small label {
+  color: #2b2b2b;
+  padding-left: 5px;
+  font-size: 13px !important;
+}
+.form_container.small .container_select,
+.form_container.small .container_input.inputing {
+  background-color: transparent;
+  padding: 5px;
+  min-height: 2.2rem;
+  font-size: 12px;
+  padding-right: 7px;
 }
 
 .upload_files {
@@ -256,10 +274,8 @@ h2 {
   color: #959595;
 }
 .container_input.inputing {
-  box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset;
-  border: 1px solid #dbdbdb;
-  transition: all 0.3s ease-in-out;
   min-height: 44px;
+  border: 1px solid #dbdbdb !important;
   color: #2b2b2b;
   transition: 0.4s ease-in-out;
 }
@@ -267,10 +283,8 @@ h2 {
   border: 1px solid #70A8FF;
 }
 .container_input.textarea {
-  box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset;
-  border: 1px solid #dbdbdb;
-  transition: all 0.3s ease-in-out;
   padding: 9px;
+  border: 1px solid #dbdbdb !important;
   font-size: 13px;
   min-height: -moz-fit-content;
   min-height: fit-content;
@@ -320,21 +334,16 @@ h2 {
 }
 
 .container_select {
-  position: relative;
   width: 100%;
-  display: inline-block;
 }
 .container_select.select_create {
   height: 100%;
   width: 100%;
   padding: 10px;
   background-color: #fff;
-  border: 1px solid #D0D4DD !important;
+  border: 1px solid #dbdbdb !important;
   border: none;
   cursor: pointer;
-}
-.container_select.select_create:focus {
-  outline: none;
 }
 .container_select .select_search {
   height: 100%;
@@ -351,16 +360,6 @@ h2 {
 }
 .container_select .select_search:focus {
   outline: none;
-}
-.container_select::after {
-  content: "";
-  position: absolute;
-  top: 60%;
-  right: 10px;
-  transform: translateY(-50%);
-  border: 5px solid transparent;
-  border-top-color: #73768E;
-  pointer-events: none;
 }
 
 .selected_filters {
@@ -572,6 +571,11 @@ h2 {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
+}
+.modal .modal-body-column.participants {
+  padding: 1rem;
+  height: 100%;
+  max-height: 18rem;
 }
 .modal .modal-body-row {
   width: 100%;
@@ -810,6 +814,8 @@ h2 {
   display: grid;
   border-collapse: collapse;
   width: 100%;
+  background-color: #fff;
+  border-radius: 0.8rem;
   min-width: 100%;
 }
 .table__content thead,
@@ -829,6 +835,7 @@ h2 {
   padding: 19px;
   overflow: hidden;
   color: #2b2b2b;
+  border-bottom: 1px solid #EBEEF4;
   font-size: 0.8rem;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -857,6 +864,9 @@ h2 {
 }
 .table__content.approved_students {
   grid-template-columns: minmax(0px, 0.3fr) minmax(0px, 0.7fr) minmax(0px, 1fr) minmax(0px, 0.5fr);
+}
+.table__content.events {
+  grid-template-columns: minmax(0px, 0.2fr) minmax(0px, 0.7fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 0.4fr);
 }
 
 .login_container {
@@ -921,7 +931,7 @@ h2 {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  width: calc(100% - 1rem);
+  width: calc(100% - 2rem);
   left: 4rem;
   gap: 2rem;
   position: relative;
@@ -957,6 +967,22 @@ h2 {
   border-radius: 1rem;
   padding: 3rem;
   background-color: #fff;
+}
+.account_container__content__row {
+  width: 100%;
+  gap: 1rem;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+.account_container__content__row .button.create {
+  height: 2.2rem;
+  width: -moz-fit-content;
+  width: fit-content;
+  align-self: flex-end;
 }
 .account_container__content.purple {
   background-color: #766EDF !important;
@@ -1215,6 +1241,10 @@ h2 {
   margin-block: 1.4rem;
 }
 
+.border-gray {
+  border: 1px solid #EBEEF4;
+}
+
 .margin-block-1 {
   margin-block: 1rem !important;
 }
@@ -1226,6 +1256,11 @@ h2 {
 
 .centet-self {
   align-self: center;
+}
+
+.height-fit {
+  height: -moz-fit-content !important;
+  height: fit-content !important;
 }
 
 .height-100 {

@@ -1,6 +1,6 @@
 .account_container {
     @include flex-column-start;
-    width: calc(100% - 1rem);
+    width: calc(100% - 2rem);
     left: 4rem;
     gap: 2rem;
     position: relative;
@@ -34,6 +34,21 @@
         border-radius: 1rem;
         padding: 3rem;
         background-color: #fff;
+
+        &__row {
+            width: 100%;
+            gap: 1rem;
+            @include flex-row;
+            align-items: center;
+            justify-content: space-between;
+            .button {
+                &.create {
+                    height: 2.2rem;
+                    width: fit-content;
+                    align-self: flex-end;
+                }
+            }
+        }
 
         &.purple {
             background-color: #766EDF !important;

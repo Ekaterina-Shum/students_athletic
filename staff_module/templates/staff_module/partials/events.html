@@ -1,5 +1,82 @@
 <div class="account_container"> 
     <div class="account_container__header">
-        <h1 class="account_container__header__title">Спортивные мероприятяи</h1>
+        <h1 class="account_container__header__title">Все спортивные мероприятия</h1>
     </div>
+    <div id="sports-events-filters" class="account_container__content__row">
+        <form method="GET"
+        hx-trigger="change, keyup delay:500ms"
+        hx-swap="innerHTML transition:true"
+        hx-get="{% url 'staff_module:events-filters' %}" hx-target="#events-data">
+        <div class="form_container small">
+            <label for="event-sport">Вид спорта</label>
+            <select name="filter_sport" class="container_select select_create" id="event-sport">
+                {% for sport in sports %}
+                    <option value="{{ sport.id }}">{{ sport.name }}</option>
+                {% endfor %}    
+            </select>
+        </div>
+        <div class="form_container small">
+            <label for="event-status">Статус мероприятия</label>
+            <select name="filter_status" class="container_select select_create" id="event-status">
+                <option value="all_status">Все</option>
+                {% for status in status_list %}
+                    <option value="{{ status.0 }}">{{ status.1 }}</option>
+                {% endfor %}    
+            </select>
+        </div>
+        <div class="form_container small">
+            <label for="event-type">Тип мероприятия</label>
+            <select name="filter_type" class="container_select select_create" id="event-type">
+                <option value="all_types">Все</option>
+                {% for type in type_list %}
+                    <option value="{{ type.0 }}">{{ type.1 }}</option>
+                {% endfor %}    
+            </select>
+        </div>
+        <div class="form_container small">
+            <label for="event-category">Категория мероприятия</label>
+            <select name="filter_category" class="container_select select_create" id="event-category">
+                <option value="all_categorys">Все</option>
+                {% for category in category_list %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}    
+            </select>
+        </div>
+        <div class="form_container small">
+            <label for="event-student">ФИО Студента</label>
+            <input type="text" name="filter_student" class="container_input inputing" id="event-student">
+        </div>
+        <div class="form_container small">
+            <label for="event-date-start">Дата начала</label>
+            <input type="date" name="start_date" class="container_select select_create" id="event-date-start">
+        </div>
+        <div class="form_container small">
+            <label for="event-date-completed">Дата окончания</label>
+            <input type="date" name="completed_date" class="container_select select_create" id="event-date-completed">
+        </div>
+    </form>
+        <button 
+        hx-target="body" 
+        hx-get="{% url 'staff_module:event-create' %}"
+        hx-swap="beforeend"
+        class="button create" 
+        type="button">Создать</button>
+    </div>
+    <table cellpadding="7" cellspacing="7" class="table__content events"  id="sports-events">
+        <thead>
+          <tr>
+            <th>№</th>
+            <th>Вид спорта</th>
+            <th>Тип мероприятия</th>
+            <th>Дата начала</th>
+            <th>Дата окончания</th>
+            <th>Участники</th>
+            <th>Статус</th>
+            <th></th>
+          </tr>
+      </thead>
+        <tbody id="events-data">
+            {% include './events_data.html' %}
+        </tbody>
+    </table>
 </div>

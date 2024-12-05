@@ -1,0 +1,73 @@
+{% extends "../modal_base.html" %}
+
+{% block modal_content %}
+<form method="POST" class="filters_module_form" id="create-event">
+  {% csrf_token %}
+<div class="modal-body__header">
+  <h2 class="modal-body__header__title">Создание нового спортивного мероприятия</h2>
+</div>
+
+<div class="modal-body__content">
+  <div class="modal-body-column height-100">
+    <div class="form_container small">
+        <label for="create-event-sport">Вид спорта</label>
+        <select name="event_sport" 
+        hx-get="{% url 'staff_module:event-create' %}"
+        hx-trigger="change"
+        hx-target="#participants-list"
+        class="container_select select_create" id="create-event-sport">
+            <option value="">-- Выберите вид спорта --</option>
+            {% for sport in sports %}
+                <option value="{{ sport.id }}" 
+
+                >{{ sport.name }}</option>
+            {% endfor %}    
+        </select>
+      </div>
+      <div class="form_container small">
+        <label for="create-event-type">Тип мероприятия</label>
+        <select name="type_event" class="container_select select_create" id="create-event-type">
+            {% for event in type_events %}
+                <option value="{{ event.0 }}">{{ event.1 }}</option>
+            {% endfor %}    
+        </select>
+      </div>
+      <div class="form_container small">
+        <label for="create-event-category">Категория мероприятия</label>
+        <select name="event_category" class="container_select select_create" id="create-event-category">
+            {% for category in categorys %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}    
+        </select>
+      </div>
+      <div class="modal-body-row height-fit">
+        <div class="form_container small">
+            <label for="create-event-date-start">Дата начала</label>
+            <input required type="date" name="date_start" class="container_input inputing" id="create-event-date-start">
+        </div>
+        <div class="form_container small">
+            <label for="create-event-date-end">Дата окончания</label>
+            <input required type="date" name="date_end" class="container_input inputing" id="create-event-date-end">
+        </div>
+     </div>
+     <div class="modal-body-column height-100">
+        <h3>Участники</h3>
+        <ul id="participants-list" class="modal-body-column participants border-gray">
+        </ul>
+     </div>
+  </div>
+</div>
+
+<div class="modal-body__footer">
+  <div class="modal-body__footer__buttons">
+    <button class="button create full-bg" 
+    _="on click trigger closeModal" 
+    hx-post="{% url 'staff_module:event-create' %}"
+    hx-target="#events-data"
+    hx-include="#create-event"
+    hx-swap="innerHTML"
+    type="button">Создать мероприятие</button>
+  </div>
+</div>
+</form>
+{% endblock modal_content %}

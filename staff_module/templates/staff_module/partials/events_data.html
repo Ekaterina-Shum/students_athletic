@@ -1,0 +1,22 @@
+{% for event in events %}
+    <tr class="table-row">
+        <td>{{ event.id }}</td>
+        <td>{{ event.sport }}</td>
+        <td>{{ event.get_type_display }}</td>
+        <td>{{ event.start_event }}</td>
+        <td>{{ event.end_event }}</td>
+        <td>
+            {% for participant in participants %}
+                {% if participant.event.id == event.id %}
+                    {{ participant.student.user.get_full_name }}
+                {% endif %}
+            {% endfor %}
+        </td>
+        <td>{{ event.get_status_display }}</td>
+        <td></td>
+    </tr>
+    {% empty %}
+        <tr class="not_found_elements">
+            <td>Нет мероприятий</td>
+        </tr>
+{% endfor %}
