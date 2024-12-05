@@ -12,11 +12,24 @@ class Staff(models.Model):
 
 
 class SportEvent(models.Model):
-    TYPE_CHOICES = [
+    TYPE_EVENT = [
         ('solo', 'Индивидуальное'),
         ('team', 'Командное'),
     ]
 
+    EVENT_STATUS = [
+        ('in_process', 'В процессе'),
+        ('completed', 'Завершено'),
+    ]
+
+    type = models.CharField(max_length=30, choices=TYPE_EVENT, blank=True)
+    status = models.CharField(max_length=30, choices=EVENT_STATUS, default='in_process', blank=True)
+    sport = models.ForeignKey("core.Sports", verbose_name=_("Вид спорта"), on_delete=models.CASCADE)
+    type_event = models.ForeignKey("core.SportCategory", verbose_name=_("Категория мероприятия"), on_delete=models.CASCADE)
+    start_event = models.DateField("Дата начала мероприятия", auto_now_add=False, null=True)
+    end_event = models.DateField("Дата окончания мероприятия", auto_now_add=False, null=True)
+
+class ParticipantsSportEvent(models.Model):
     POSITION_CHOICES = [
         ('1st', '1-Место'),
         ('2nd', '2-Место'),
@@ -31,13 +44,8 @@ class SportEvent(models.Model):
         ('participant', 'Участие'),
     ]
 
-    type = models.CharField(max_length=30, choices=TYPE_CHOICES, blank=True)
-    sport = models.ForeignKey("core.Sports", verbose_name=_("Вид спорта"), on_delete=models.CASCADE)
-    type_event = models.ForeignKey("core.SportCategory", verbose_name=_("Тип мероприятия"), on_delete=models.CASCADE)
-    result = models.CharField(max_length=30, choices=RESULT_CHOICES, default='participant', blank=True)
-    position = models.CharField(max_length=30, choices=POSITION_CHOICES, blank=True, null=True)
-
-class ParticipantsSportEvent(models.Model):
     event = models.ForeignKey(SportEvent, verbose_name=_("Мероприятие"), on_delete=models.CASCADE)
     student = models.ForeignKey("core.Student", verbose_name=_("Студент"), on_delete=models.CASCADE, related_name="participants")
-    mvp = models.BooleanField(_("МВП"), default=False)
+    result = models.CharField(max_length=30, choices=RESULT_CHOICES, default='participant', blank=True)
+    position = models.CharField(max_length=30, choices=POSITION_CHOICES, blank=True, null=True)
+    mvp = models.BooleanField(_("MVP"), default=False)
