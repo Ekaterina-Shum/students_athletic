@@ -1,8 +1,45 @@
 .requests_container {
     width: 100%;
     height: 100%;
-    
+
     &.body {
         @include flex-column-start;
+
+        &__element {
+            width: 55rem;
+            height: fit-content;
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: .7rem;
+            border: 1px solid $color-gray-2;
+            @include flex-column-start;
+
+            &__header {
+                @include flex-start;
+                align-items: center;
+                &__title {
+                    font-size: 1rem;
+                    color: $color-gray;
+                }
+
+                &__status {
+                    @include flex-column-center;
+                    align-items: center;
+                    width: fit-content;
+                    margin-left: auto;
+                    font-size: .8rem;
+                    width: 7rem;
+                    padding: .3rem;
+                    background-color: $color-gray-2;
+                    color: $color-gray;
+                }
+            }
+
+            &__body {
+                p {
+                    font-size: .8rem;
+                }
+            }
+        }
     }
 }

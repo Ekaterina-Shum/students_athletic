@@ -6,7 +6,6 @@ from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.models import Group
 from django.http import JsonResponse
 from .models import User, Student, StudyGroup, Sports
-from staff_module.models import RequestFiles, RequestSportAchievement
 from django.urls import reverse
 from staff_module.models import Staff
 from django.contrib.auth.hashers import make_password
@@ -119,7 +118,7 @@ def account(request):
     
     student = get_object_or_404(Student, user=request.user)
 
-    request_created = RequestSportAchievement.objects.filter(student=student)
+    request_created = None
 
     title = 'Личный кабинет'
 
@@ -166,49 +165,14 @@ def lk_mysports(request):
                 pass
 
 
-def create_request(request):
-    if request.method == 'GET':
-        template = './core/components/create_request.html'
-        sports = Sports.objects.all()
-
-        context = {'middle_modal': True, 'sports': sports, 'small_modal': False }
-        
-        return render(request, template, context)
-
-    if request.method == 'POST':
-        files = request.FILES.getlist('files')
-        student = Student.objects.get(user=request.user)
-        request_obj = RequestSportAchievement.objects.create(student=student)
-        for file in files:
-            RequestFiles.objects.create(request=request_obj, file=file)
-        return JsonResponse({'success': True})
-
-def requests(request):
-    template = './core/pages/requests.html'
-    student = get_object_or_404(Student, user=request.user)
-    requests = RequestSportAchievement.objects.filter(student=student)
-
-    title = 'Запросы'
-
-    context = {
-        "title": title,
-        "requests": requests
-    }
-
-    if request.htmx:
-        return render(request, './core/partials/partial_requests.html', context)
-    return render(request, template, context)
-
 def achievements(request):
     template = './core/pages/achievements.html'
     student = get_object_or_404(Student, user=request.user)
-    requests = RequestSportAchievement.objects.filter(student=student)
 
     title = 'Спортивные достижения'
 
     context = {
         "title": title,
-        "requests": requests
     }
 
     if request.htmx:
@@ -218,13 +182,11 @@ def achievements(request):
 def tournaments(request):
     template = './core/pages/tournaments.html'
     student = get_object_or_404(Student, user=request.user)
-    requests = RequestSportAchievement.objects.filter(student=student)
 
     title = 'Спортивный рейтинг'
 
     context = {
         "title": title,
-        "requests": requests
     }
 
     if request.htmx:
@@ -235,13 +197,11 @@ def tournaments(request):
 def events(request):
     template = './core/pages/events.html'
     student = get_object_or_404(Student, user=request.user)
-    requests = RequestSportAchievement.objects.filter(student=student)
 
     title = 'Спортивные мероприятия'
 
     context = {
         "title": title,
-        "requests": requests
     }
 
     if request.htmx:

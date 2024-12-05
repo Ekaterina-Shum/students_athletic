@@ -1,6 +1,7 @@
 from django.utils.translation import gettext_lazy as _
 from django.db import models
 import os
+from django.utils import timezone
 from core.models import User
 
 class Staff(models.Model):
@@ -38,29 +39,3 @@ class ParticipantsSportEvent(models.Model):
     event = models.ForeignKey(SportEvent, verbose_name=_("Мероприятие"), on_delete=models.CASCADE)
     student = models.ForeignKey("core.Student", verbose_name=_("Студент"), on_delete=models.CASCADE, related_name="participants")
     mvp = models.BooleanField(_("МВП"), default=False)
-
-class RequestSportAchievement(models.Model):
-    STATUS_CHOICES = [
-        ('created', 'Создано'),
-        ('accepted', 'Одобрено'),
-        ('rejected', 'Отклонено'),
-    ]
-    student = models.ForeignKey("core.Student", verbose_name=_("Студент"), on_delete=models.CASCADE, related_name="request")
-    status = models.CharField(max_length=30, choices=STATUS_CHOICES, default='created', blank=True)
-
-    def __str__(self):
-        return f"Запрос от {self.student}"
-
-
-class RequestFiles(models.Model):
-    request = models.ForeignKey(RequestSportAchievement, verbose_name=_("Запрос"), on_delete=models.CASCADE, related_name="file")
-    file = models.FileField(upload_to='media/request_files/',verbose_name=_("Файл"),blank=True,null=True)
-    uploaded_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Дата загрузки"))
-
-    def __str__(self):
-        return f"Файл запроса: {self.request}"
-    
-    def delete(self, *args, **kwargs):
-        if self.file and os.path.isfile(self.file.path):
-            os.remove(self.file.path)
-        super().delete(*args, **kwargs)
