@@ -58,7 +58,7 @@ def system_data(request):
         students = Student.objects.all()
 
     if request.htmx:
-        return render(request, './staff_module/partials/home.html', context) 
+        return render(request, './staff_module/partials/system_data.html', context) 
     return render(request, template, context)
 
 
@@ -352,7 +352,7 @@ def event_create(request):
         if request.htmx:
             if 'event_sport' in request.GET:
                 sport_id = request.GET.get('event_sport')
-                students = Student.objects.filter(main_sport__id=sport_id)
+                students = Student.objects.filter(Q(main_sport__id=sport_id) | Q(additional_sport__id=sport_id))
                 return render(request, './staff_module/partials/students_data.html', {'students': students})
             
         context = {'middle_modal': True, 
@@ -485,7 +485,7 @@ def event_add_student(request, *args, **kwargs):
         if request.htmx:
             if 'event_sport' in request.GET:
                 sport_id = request.GET.get('event_sport')
-                students = Student.objects.filter(main_sport__id=sport_id)
+                students = Student.objects.filter(Q(main_sport__id=sport_id) | Q(additional_sport__id=sport_id))
                 return render(request, './staff_module/partials/students_data.html', {'students': students})
             
         context = {'middle_modal': True, 
