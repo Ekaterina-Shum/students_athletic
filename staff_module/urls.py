@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import staff_home, events, event_add_student, staff_create, event_create, users, event_detail, staff_students_approved, filter_event
+from .views import staff_home, events, event_add_student, event_complete, staff_create, event_detail_save_achievement, event_create, users, event_detail, staff_students_approved, filter_event
 from django.contrib.auth.decorators import login_required
 
 app_name = 'staff_module'
@@ -12,6 +12,8 @@ urlpatterns = [
     path('events/filters/', login_required(filter_event), name='events-filters'),
     path('events/create/', login_required(event_create), name='event-create'),
     path('events/<int:event_id>/', login_required(event_detail), name='event-detail'),
+    path('events/<int:event_id>/complete/', login_required(event_complete), name='event-detail-complete'),
+    path('events/<int:event_id>/student/<int:student_id>/save/achievement/', login_required(event_detail_save_achievement), name='event-detail-save-achievement'),
     path('events/<int:event_id>/<int:sport_id>/add/student/', login_required(event_add_student), name='event-detail-add-student'),
     path('users/', login_required(users), name='staff-users'),
 

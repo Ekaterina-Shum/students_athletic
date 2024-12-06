@@ -6,19 +6,15 @@
 
     &__inputs {
         background-color: #fff;
-        min-width: 33rem;
+        min-width: 35rem;
         @include flex-column-start;
-        gap: 1rem;
+        gap: 1.5rem;
         border: 1px solid $color-gray-2;
         padding: 1.7rem;
 
-        &__header {
-            
-        }
-
         &__body {
             width: 100%;
-            gap: 1rem;
+            gap: .8rem;
             @include flex-row;
         }
     }

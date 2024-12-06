@@ -44,6 +44,11 @@
     align-items: center;
 }
 
+.flex-row {
+    @include flex-row;
+    flex-wrap: wrap;
+}
+
 .width-fit {
     width: fit-content !important;
 }

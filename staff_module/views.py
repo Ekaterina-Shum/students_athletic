@@ -3,7 +3,7 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.contrib.auth.models import Group
 from django.db.models import Q
-from core.models import User, Student, StudyGroup, Sports, SportCategory
+from core.models import User, Student, StudyGroup, Sports, SportCategory, SportAchievement
 from .models import Staff, SportEvent, ParticipantsSportEvent
 from django.contrib.auth.hashers import make_password
 
@@ -142,6 +142,30 @@ def filter_event(request):
 
     return render(request, "./staff_module/partials/events_data.html", context)
 
+def event_complete(request, *args, **kwargs):
+    event_id = kwargs.get('event_id')
+    template = './staff_module/partials/event_detail.html'
+
+    event = get_object_or_404(SportEvent, id=event_id)
+    participants = ParticipantsSportEvent.objects.filter(event=event)
+    event_result = ParticipantsSportEvent.RESULT_CHOICES
+    event_position = ParticipantsSportEvent.POSITION_CHOICES
+    if request.method == 'GET':
+        event.status = 'completed'
+        event.save()
+        
+        title = 'Спортивное мероприятие'
+
+        context = {
+            "title": title,
+            'event': event,
+            'event_result': event_result,
+            'event_position': event_position,
+            'participants': participants
+        }
+
+        return render(request, template, context)
+
 def event_create(request):
     if request.method == 'GET':
         template = './staff_module/components/modals/create/modal_create_event.html'
@@ -208,17 +232,66 @@ def event_detail(request, *args, **kwargs):
 
     participants = ParticipantsSportEvent.objects.filter(event=event)
 
-    title = 'Спортивные мероприятия'
+    event_result = ParticipantsSportEvent.RESULT_CHOICES
+    event_position = ParticipantsSportEvent.POSITION_CHOICES
+    if request.method == 'GET':
+        title = 'Спортивное мероприятие'
 
-    context = {
-        "title": title,
-        'event': event,
-        'participants': participants
-    }
+        context = {
+            "title": title,
+            'event': event,
+            'event_result': event_result,
+            'event_position': event_position,
+            'participants': participants
+        }
 
-    if request.htmx:
-        return render(request, './staff_module/partials/event_detail.html', context)
-    return render(request, template, context)
+        if request.htmx:
+            return render(request, './staff_module/partials/event_detail.html', context)
+        return render(request, template, context)
+
+
+def event_detail_save_achievement(request, *args, **kwargs):
+    event_id = kwargs.get('event_id')
+    student_id = kwargs.get('student_id')
+    mvp_status = kwargs.get('mvp_status')
+
+    mvp = False
+
+    if mvp_status == 'mvp_true':
+        mvp = True
+
+    event = get_object_or_404(SportEvent, id=event_id)
+
+    student = Student.objects.get(user__id=student_id)
+    participant = ParticipantsSportEvent.objects.get(event=event)
+    
+
+    if request.method == 'POST':
+        event_position = request.POST.get('event_position')
+        event_result = request.POST.get('event_result')
+
+        try:
+            achievement = SportAchievement.objects.create(
+                student = student,
+                sport=event.sport,
+                event=event,
+                position=event_position
+            )
+            achievement.save()
+
+            participant.result=event_result
+            participant.position=event_position
+            participant.mvp=mvp
+            participant.save()
+
+
+            participants = ParticipantsSportEvent.objects.filter(event=event)
+
+            return render(request, './staff_module/partials/event_students_participants.html', {'participants': participants})
+        except Exception as e:
+            print(e)
+            return render(request, './staff_module/partials/event_students_participants.html', {'participants': participants})
+
 
 def event_add_student(request, *args, **kwargs):
     event_id = kwargs.get('event_id')
