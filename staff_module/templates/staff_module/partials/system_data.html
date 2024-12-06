@@ -1,0 +1,71 @@
+<div class="account_container"> 
+    <div class="account_container__header">
+        <h1 class="account_container__header__title">Управление данными системы</h1>
+    </div>
+    <div id="sports-events-filters" class="account_container__content__row height-100">
+        <div class="account_container__content height-100">
+            <div class="account_container__content__header">
+                <h1 class="account_container__content__header__title">Учебные группы</h1>
+            </div>
+            <div class="account_container__content__body height-100 border-gray">
+                <div class="account_container__content__body width-100 pad-1">
+                    <ul>
+                        {% for group in education_groups %}
+                            <li class="account_container__content__row width-100">
+                                <div>{{ group.name }} ({{ group.course }} курс)({{ group.term }} семестр)</div>
+                                <div>({{ group.specialization.code }}) -</div>
+                                <div>{{ group.specialization }}</div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <button 
+                    hx-target="body" 
+                    hx-get="{% url 'staff_module:system-create-education-group' %}"
+                    hx-swap="beforeend"
+                    class="button create full">Добавить учебную группу</button>
+                </div>
+            </div>
+        </div>
+        <div class="account_container__content">
+            <div class="account_container__content__header">
+                <h1 class="account_container__content__header__title">Виды спорта</h1>
+            </div>
+            <div class="account_container__content__body height-100 border-gray">
+                <div class="account_container__content__body width-100 pad-1">
+                    <ul>
+                        {% for sport in sports %}
+                            <li>{{ sport.name }}</li>
+                        {% endfor %}
+                    </ul>
+                    <button 
+                    hx-target="body" 
+                    hx-get="{% url 'staff_module:system-create-sport' %}"
+                    hx-swap="beforeend"
+                    class="button create full">Добавить вид спорта</button>
+                </div>
+            </div>
+        </div>
+        <div class="account_container__content">
+            <div class="account_container__content__header">
+                <h1 class="account_container__content__header__title">Специальности</h1>
+            </div>
+            <div class="account_container__content__body height-100 border-gray">
+                <div class="account_container__content__body width-100 pad-1">
+                    <ul>
+                        {% for specialization in specializations %}
+                        <li class="account_container__content__row width-100">
+                            <div>{{ specialization.code }}</div>
+                            <div>{{ specialization.name }}</div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <button 
+                    hx-target="body" 
+                    hx-get="{% url 'staff_module:system-create-specialization' %}"
+                    hx-swap="beforeend"
+                    class="button create full">Добавить специальность</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

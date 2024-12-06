@@ -86,4 +86,15 @@
       minmax(0px, 1fr)
       minmax(0px, 1fr);
     }
+
+    &.students {
+      grid-template-columns:
+      minmax(0px, .2fr)
+      minmax(0px, 1fr)
+      minmax(0px, 1fr)
+      minmax(0px, 1fr)
+      minmax(0px, 1fr)
+      minmax(0px, 1fr)
+      minmax(0px, 1fr);
+    }
 }

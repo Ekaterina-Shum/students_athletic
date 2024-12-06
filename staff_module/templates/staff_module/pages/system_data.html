@@ -7,9 +7,7 @@
 
 
 {% block content %}
-    {% if request.user|has_group:"Преподаватели" %}
-        {% include '../partials/home_teacher.html' %}
-    {% else %}
-        {% include '../partials/home.html' %}
+    {% if request.user.is_superuser %}
+        {% include '../partials/system_data.html' %}
     {% endif %}
 {% endblock content %}

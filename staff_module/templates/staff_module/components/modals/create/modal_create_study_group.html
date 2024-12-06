@@ -1,0 +1,56 @@
+{% extends "../modal_base.html" %}
+
+{% block modal_content %}
+<form method="POST" class="filters_module_form" id="sytem-create-study-group">
+  {% csrf_token %}
+<div class="modal-body__header">
+  <h2 class="modal-body__header__title">Создание новой учебной группы</h2>
+  <p class="modal-body__header__description">Укажите данные учетной записи, чтобы создать профиль сотрудника</p>
+</div>
+
+<div class="modal-body__content">
+  <div class="modal-body-column">
+    <div class="form_container">
+        <label for="system-group-name">Наименование</label>
+        <input required name="name_group" class="container_input inputing" id="system-group-name">
+    </div>
+  <div class="form_container">
+    <label for="system-education-level">Уровень</label>
+    <select name="level_education" class="container_select select_create" id="system-education-level">
+        {% for level in levels_education %}
+            <option value="{{ level.0 }}">{{ level.1 }}</option>
+        {% endfor %}    
+    </select>
+  </div>
+  <div class="form_container">
+    <label for="system-group-specialization">Специальность</label>
+    <select name="specialization_id" class="container_select select_create" id="system-group-specialization">
+        {% for specialization in specializations %}
+            <option value="{{ specialization.id }}">{{ specialization.code }} {{ specialization.name }}</option>
+        {% endfor %}    
+    </select>
+  </div>
+  <div class="form_container">
+    <label for="create-group-term">Номер семестра</label>
+    <input required name="group_term" type="number" class="container_input inputing" id="create-group-term">
+  </div>
+  <div class="form_container">
+    <label for="create-group-course">Номер курса</label>
+    <input required name="group_course" type="number" class="container_input inputing" id="create-group-course">
+  </div>
+  </div>
+</div>
+
+<div class="modal-body__footer">
+  <div class="modal-body__footer__buttons">
+    <button class="button create full-bg" 
+    _="on click trigger closeModal" 
+    hx-post="{% url 'staff_module:system-create-education-group' %}"
+    hx-target="#app-container"
+    hx-include="#sytem-create-study-group"
+    hx-swap="innerHTML"
+    type="button">Создать</button>
+  </div>
+</div>
+</form>
+{% endblock modal_content %}

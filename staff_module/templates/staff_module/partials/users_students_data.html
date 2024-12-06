@@ -1,0 +1,15 @@
+{% for student in students %}
+    <tr class="table-row">
+        <td>{{ student.user.id }}</td>
+        <td>{{ student.study_group }}</td>
+        <td>{{ student.main_sport }}</td>
+        <td>{{ student.additional_sport }}</td>
+        <td>{{ student.user.get_full_name }}</td>
+        <td>{{ student.user.email }}</td>
+        <td>{{ student.user.create_date }}</td>
+    </tr>
+    {% empty %}
+        <tr class="not_found_elements">
+            <td>Студенты не найдены</td>
+        </tr>
+{% endfor %}

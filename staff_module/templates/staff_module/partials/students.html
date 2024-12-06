@@ -1,48 +1,64 @@
 <div class="account_container"> 
     <div class="account_container__header">
-        <h1 class="account_container__header__title">Зарегистрированные студенты</h1>
+        <h1 class="account_container__header__title">Учетные записи студентов</h1>
     </div>
-    <div id="sports-events-filters" class="account_container__content__row">
+    <div id="users-students-filters" class="account_container__content__row">
         <form method="GET"
         hx-trigger="change, keyup delay:500ms"
         hx-swap="innerHTML transition:true"
         hx-get="{% url 'staff_module:events-filters' %}" hx-target="#users-data">
         <div class="form_container small">
-            <label for="user-role">Роль</label>
-            <select name="filter_sport" class="container_select select_create" id="user-role">
+            <label for="students-study-group">Учебная группа</label>
+            <input type="text" name="study_group" class="container_input inputing" id="students-study-group">
+        </div>
+        <div class="form_container small">
+            <label for="students-main-sport">Основной вид спорта</label>
+            <select name="filter_sport" class="container_select select_create" id="students-main-sport">
                 {% for sport in sports %}
                     <option value="{{ sport.id }}">{{ sport.name }}</option>
                 {% endfor %}    
             </select>
         </div>
         <div class="form_container small">
-            <label for="name-user">ФИО Сотрудника</label>
-            <input type="text" name="name_user" class="container_input inputing" id="name-user">
+            <label for="students-adds-sport">Дополнительный вид спорта</label>
+            <select name="filter_sport" class="container_select select_create" id="students-adds-sport">
+                {% for sport in sports %}
+                    <option value="{{ sport.id }}">{{ sport.name }}</option>
+                {% endfor %}    
+            </select>
         </div>
         <div class="form_container small">
-            <label for="email-user">E-mail сотрудника</label>
-            <input type="text" name="email_user" class="container_input inputing" id="email-user">
+            <label for="name-student">ФИО Студента</label>
+            <input type="text" name="name_student" class="container_input inputing" id="name-student">
+        </div>
+        <div class="form_container small">
+            <label for="email-student">E-mail студента</label>
+            <input type="text" name="email_student" class="container_input inputing" id="email-student">
         </div>
     </form>
-        <button 
-        hx-target="body" 
-        hx-get="{% url 'staff_module:create-staff' %}"
-        hx-swap="beforeend"
-        class="button create" 
-        type="button">Создать</button>
+        {% if request.user.is_superuser %}
+            <button 
+            hx-target="body" 
+            hx-get="{% url 'staff_module:create-student' %}"
+            hx-swap="beforeend"
+            class="button create" 
+            type="button">Создать</button>
+        {% endif %}
     </div>
-    <table cellpadding="7" cellspacing="7" class="table__content users"  id="sports-events">
+    <table cellpadding="7" cellspacing="7" class="table__content students"  id="users-students">
         <thead>
           <tr>
             <th>ID</th>
-            <th>Роль</th>
+            <th>Учебная группа</th>
+            <th>Вид спорта</th>
+            <th>Дополнительный вид спорта</th>
             <th>ФИО</th>
             <th>E-mail</th>
             <th>Дата регистрации</th>
           </tr>
       </thead>
-        <tbody id="users-data">
-            {% include './users_data.html' %}
+        <tbody id="students-data">
+            {% include './users_students_data.html' %}
         </tbody>
     </table>
 </div>

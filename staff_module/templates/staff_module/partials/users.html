@@ -1,6 +1,6 @@
 <div class="account_container"> 
     <div class="account_container__header">
-        <h1 class="account_container__header__title">Зарегистрированные сотрудники</h1>
+        <h1 class="account_container__header__title">Учетные записи сотрудников</h1>
     </div>
     <div id="sports-events-filters" class="account_container__content__row">
         <form method="GET"
@@ -24,12 +24,14 @@
             <input type="text" name="email_user" class="container_input inputing" id="email-user">
         </div>
     </form>
+    {% if request.user.is_superuser %}
         <button 
         hx-target="body" 
         hx-get="{% url 'staff_module:create-staff' %}"
         hx-swap="beforeend"
         class="button create" 
         type="button">Создать</button>
+        {% endif %}
     </div>
     <table cellpadding="7" cellspacing="7" class="table__content users"  id="sports-events">
         <thead>

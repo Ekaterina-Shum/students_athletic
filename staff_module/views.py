@@ -3,7 +3,7 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.contrib.auth.models import Group
 from django.db.models import Q
-from core.models import User, Student, StudyGroup, Sports, SportCategory, SportAchievement
+from core.models import User, Student, StudyGroup, Sports, SportCategory, SportAchievement, Specialization
 from .models import Staff, SportEvent, ParticipantsSportEvent
 from django.contrib.auth.hashers import make_password
 
@@ -30,6 +30,135 @@ def staff_home(request):
     if request.htmx:
         return render(request, './staff_module/partials/home.html', context) 
     return render(request, template, context)
+
+
+def system_data(request):
+    template = './staff_module/pages/system_data.html'
+
+    sports = Sports.objects.all()
+    study_groups = StudyGroup.objects.all()
+    specializations = Specialization.objects.all()
+    staffs = Staff.objects.all()
+
+
+    title = 'Управление данными системы'
+
+    context = {
+        "title": title,
+        'sports': sports,
+        'specializations': specializations,
+        'education_groups': study_groups,
+        'staffs': staffs
+    }
+
+    if request.user.groups.filter(name="Преподаватели").exists():
+        approved_students = Student.objects.all()
+        context['approved_students'] = approved_students
+    if request.user.is_superuser:
+        students = Student.objects.all()
+
+    if request.htmx:
+        return render(request, './staff_module/partials/home.html', context) 
+    return render(request, template, context)
+
+
+def system_sports(request):
+    sports = Sports.objects.all()
+    specializations = Specialization.objects.all()
+    education_groups = StudyGroup.objects.all()
+
+    if request.method == 'GET':
+        template = './staff_module/components/modals/create/modal_create_sport.html'
+        education_groups = StudyGroup.objects.all()
+
+        context = {'middle_modal': True, 'small_modal': True }
+        
+        return render(request, template, context)
+
+    if request.method == 'POST':
+        sport_name = request.POST.get('sport_name')
+
+
+        if sport_name:
+            Sports.objects.create(
+                name=sport_name,
+            )
+
+            context = {'sports': sports, 'specializations': specializations, 'education_groups': education_groups}
+
+            return render(request, './staff_module/partials/system_data.html', context)
+
+
+def system_specialization(request):
+    sports = Sports.objects.all()
+    specializations = Specialization.objects.all()
+    education_groups = StudyGroup.objects.all()
+
+    if request.method == 'GET':
+        template = './staff_module/components/modals/create/modal_create_specialization.html'
+        education_groups = StudyGroup.objects.all()
+
+        context = {'middle_modal': True, 'small_modal': True }
+        
+        return render(request, template, context)
+
+    if request.method == 'POST':
+        specialization_name = request.POST.get('specialization_name')
+        specialization_code = request.POST.get('specialization_code')
+
+
+        if specialization_name and specialization_code:
+            Specialization.objects.create(
+                name=specialization_name,
+                code=specialization_code
+            )
+
+            context = {'sports': sports, 
+                       'education_groups': education_groups,
+                       'specializations': specializations}
+
+            return render(request, './staff_module/partials/system_data.html', context)
+
+
+def system_education_group(request):
+    sports = Sports.objects.all()
+    specializations = Specialization.objects.all()
+    education_groups = StudyGroup.objects.all()
+
+    if request.method == 'GET':
+        template = './staff_module/components/modals/create/modal_create_study_group.html'
+        education_groups = StudyGroup.objects.all()
+        level_education = StudyGroup.LEVEL_EDUCATION
+
+        context = {'middle_modal': True, 
+                   'specializations': specializations, 
+                   'levels_education':level_education, 'education_groups':education_groups, 'small_modal': False }
+        
+        return render(request, template, context)
+
+    if request.method == 'POST':
+        name_group = request.POST.get('name_group')
+        specialization_id = request.POST.get('specialization_id')
+        level_education = request.POST.get('level_education')
+        group_term = request.POST.get('group_term')
+        group_course = request.POST.get('group_course')
+
+        specialization = Specialization.objects.get(id=specialization_id)
+
+        if specialization_id and name_group:
+            StudyGroup.objects.create(
+                name=name_group,
+                course=group_course,
+                specialization=specialization,
+                term=group_term,
+                level_education=level_education
+            )
+
+            context = {'sports': sports, 
+                       'education_groups': education_groups,
+                       'specializations': specializations}
+
+            return render(request, './staff_module/partials/system_data.html', context)
 
 
 def staff_create(request):
@@ -75,6 +204,52 @@ def staff_create(request):
             study_group.curator = staff
 
             return render(request, './staff_module/partials/partial_staffs.html', context)
+
+
+def student_create(request):
+    if request.method == 'GET':
+        template = './staff_module/components/modals/create/modal_create_student.html'
+        education_groups = StudyGroup.objects.all()
+
+        context = {'middle_modal': True, 'education_groups':education_groups, 'small_modal': False }
+        
+        return render(request, template, context)
+
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        last_name = request.POST.get('last_name')
+        first_name = request.POST.get('first_name')
+        patronymic = request.POST.get('patronymic')
+        education_group_id = request.POST.get('education_group')
+
+        group = Group.objects.get(name='Студенты') 
+        study_group = StudyGroup.objects.get(id=education_group_id)
+
+        if email and password:
+            if User.objects.filter(email=email).exists():
+                return render(request, 'core/partials/signuprejected.html', context={'error_text':'Пользователь с таким email уже существует'})
+            user = User.objects.create(
+                email=email,
+                password=make_password(password),
+                is_staff=True,
+                first_name=first_name,
+                last_name=last_name,
+                patronymic=patronymic,
+            )
+            user.groups.add(group)
+            
+
+            Student.objects.create(
+                user=user,
+                approved=True,
+                study_group=study_group
+            )
+
+            students = Student.objects.all()
+
+            return render(request, './staff_module/pages/students.html', {"students": students})
+
 
 
 def events(request):

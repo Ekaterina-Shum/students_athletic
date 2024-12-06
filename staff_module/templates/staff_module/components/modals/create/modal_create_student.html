@@ -1,0 +1,56 @@
+{% extends "../modal_base.html" %}
+
+{% block modal_content %}
+<form method="POST" class="filters_module_form" id="create-student">
+  {% csrf_token %}
+<div class="modal-body__header">
+  <h2 class="modal-body__header__title">Создание нового студента</h2>
+  <p class="modal-body__header__description">Укажите данные учетной записи, чтобы создать профиль студента</p>
+</div>
+
+<div class="modal-body__content">
+  <div class="modal-body-column">
+    <div class="form_container">
+        <label for="staff-email">E-mail</label>
+        <input required name="email" class="container_input inputing" id="staff-email">
+    </div>
+    <div class="form_container">
+      <label for="staff-password">Пароль</label>
+      <input required type="password" name="password" class="container_input inputing" id="staff-password">
+  </div>
+    <div class="form_container">
+      <label for="staff-last-name">Фамилия</label>
+      <input required name="last_name" class="container_input inputing" id="staff-last-name">
+  </div>
+  <div class="form_container">
+    <label for="staff-first-name">Имя</label>
+    <input required name="first_name" class="container_input inputing" id="staff-first-name">
+  </div>
+  <div class="form_container">
+    <label for="staff-patronymic">Отчество</label>
+    <input required name="patronymic" class="container_input inputing" id="staff-patronymic">
+  </div>
+  <div class="form_container">
+    <label for="education-group">Учебная группа</label>
+    <select name="education_group" class="container_select select_create" id="education-group">
+        {% for group in education_groups %}
+            <option value="{{ group.id }}">{{ group.name }}</option>
+        {% endfor %}    
+    </select>
+  </div>
+  </div>
+</div>
+
+<div class="modal-body__footer">
+  <div class="modal-body__footer__buttons">
+    <button class="button create full-bg" 
+    _="on click trigger closeModal" 
+    hx-post="{% url 'staff_module:create-student' %}"
+    hx-target="#app-container"
+    hx-include="#create-student"
+    hx-swap="innerHTML"
+    type="button">Создать</button>
+  </div>
+</div>
+</form>
+{% endblock modal_content %}

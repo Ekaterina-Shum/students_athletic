@@ -28,6 +28,11 @@
       color: #766EDF;
       transition: .6s ease-in-out;
 
+      &.full {
+        align-self: center !important;
+        width: 100% !important;
+      }
+
       &.fill {
         background-color: #766EDF;
         color: #fff;

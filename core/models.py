@@ -106,7 +106,7 @@ class Student(models.Model):
     sport_level = models.CharField(max_length=32, choices=SPORT_LVL, default='RU', null=True)
     main_sport = models.ForeignKey("Sports", verbose_name=_("Основной вид спорта"), null=True, blank=True, on_delete=models.CASCADE)
     additional_sport = models.ForeignKey("Sports", verbose_name=_("Дополнительный вид спорта"), null=True, blank=True, related_name='additional_sport', on_delete=models.CASCADE)
-    country = models.CharField(max_length=10, choices=COUNTRY_CHOICES, default='not_specified', null=True)
+    country = models.CharField(max_length=10, choices=COUNTRY_CHOICES, default='RU', null=True)
     create_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -128,11 +128,11 @@ class StudyGroup(models.Model):
         ('postgraduate', 'Аспирантура'),
     ]
 
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=60, unique=True)
     course = models.IntegerField(_("Курс"))
     term = models.IntegerField(_("Семестр"))
     specialization = models.ForeignKey("Specialization", verbose_name=_("Специальность"), blank=True, null=True, on_delete=models.CASCADE)
-    level_education = models.CharField(max_length=50, choices=LEVEL_EDUCATION, default='bachelor')
+    level_education = models.CharField(max_length=60, choices=LEVEL_EDUCATION, default='bachelor')
     create_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
