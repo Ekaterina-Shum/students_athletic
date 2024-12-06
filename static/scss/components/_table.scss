@@ -77,4 +77,13 @@
       minmax(0px, .5fr)
       minmax(0px, .3fr);
     }
+
+    &.users {
+      grid-template-columns:
+      minmax(0px, .2fr)
+      minmax(0px, 1fr)
+      minmax(0px, 1fr)
+      minmax(0px, 1fr)
+      minmax(0px, 1fr);
+    }
 }

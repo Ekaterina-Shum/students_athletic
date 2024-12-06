@@ -368,3 +368,19 @@ def users(request):
     if request.htmx:
         return render(request, './staff_module/partials/users.html', context)  
     return render(request, template, context)
+
+
+def students(request):
+    template = './staff_module/pages/students.html'
+
+    title = 'Студенты'
+
+    students = Student.objects.all()
+
+    context = {
+        "title": title,
+        "students": students
+    }
+    if request.htmx:
+        return render(request, './staff_module/partials/students.html', context)  
+    return render(request, template, context)

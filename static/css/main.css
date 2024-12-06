@@ -898,6 +898,9 @@ h2 {
 .table__content.events {
   grid-template-columns: minmax(0px, 0.2fr) minmax(0px, 0.7fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 0.5fr) minmax(0px, 0.3fr);
 }
+.table__content.users {
+  grid-template-columns: minmax(0px, 0.2fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr);
+}
 
 .login_container {
   width: 100%;
