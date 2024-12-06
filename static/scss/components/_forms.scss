@@ -4,6 +4,25 @@
     width: 100%;
     font-size: 14px;
 
+    &__inputs {
+        background-color: #fff;
+        min-width: 33rem;
+        @include flex-column-start;
+        gap: 1rem;
+        border: 1px solid $color-gray-2;
+        padding: 1.7rem;
+
+        &__header {
+            
+        }
+
+        &__body {
+            width: 100%;
+            gap: 1rem;
+            @include flex-row;
+        }
+    }
+
     .student_container {
         display: flex;
         gap: .5rem;

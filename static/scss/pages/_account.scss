@@ -25,6 +25,10 @@
                 -webkit-background-clip: text !important;
                 background: linear-gradient(114.69deg, #1AE1CA, #40E6D3 0.01%, #547DD2);
             }
+
+            span {
+                color: #766EDF;
+            }
         }
     }
 
@@ -89,6 +93,7 @@
                 font-size: 1.2rem;
             }
 
+
             button {
                 margin-left: auto;
                 width: fit-content;
@@ -101,7 +106,7 @@
             @include flex-column-start;
 
             h2 {
-                font-size: 1.3rem;
+                font-size: 1.1rem;
             }
 
             ul {

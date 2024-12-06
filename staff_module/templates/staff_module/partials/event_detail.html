@@ -1,0 +1,30 @@
+<div class="account_container">
+    <div class="account_container__header">
+        <h1 class="account_container__header__title">
+            Спортивное мероприятие - <span>{{ event.sport }}</span>
+        </h1>
+        <div class="account_container__row">
+            <p class="clr-gray">ID: {{ event.id }}</p>
+            <p class="clr-gray">Категория: {{ event.category_event }}</p>
+            <p class="clr-gray">Тип: {{ event.get_type_display }}</p>
+            <p class="clr-gray">Статус: {{ event.get_status_display }}</p>   
+        </div>
+        <div class="account_container__row mar-t-1">
+            <p class="clr-gray">Начало: {{ event.start_event }}</p>
+            <p class="clr-gray">Конец: {{ event.end_event }}</p>
+        </div>
+    </div>
+    <div class="account_container__content__body width-100 height-100">
+        <div class="account_container__row align-center">
+        <h2 class="account_container__header__subtitle">Участники и результаты</h2>
+        <button 
+        hx-target="body" 
+        hx-get="{% url 'staff_module:event-detail-add-student' event_id=event.id sport_id=event.sport.id %}"
+        hx-swap="beforeend"
+        type="button" class="button create width-fit margin-left">Добавить участника</button>
+    </div>
+        <ul id="participant-list" class="account_container__content__body width-100 pad-1 height-100 border-gray">
+            {% include './event_students_participants.html' %}
+        </ul>
+    </div>
+</div>

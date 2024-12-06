@@ -3,7 +3,7 @@ from .models import StudyGroup, Student, SportCategory, User, Sports
 
 @admin.register(StudyGroup)
 class StudyGroupAdmin(admin.ModelAdmin):
-    list_display = ('name', 'curator')
+    list_display = ('name',)
 
 @admin.register(SportCategory)
 class SportsAdmin(admin.ModelAdmin):

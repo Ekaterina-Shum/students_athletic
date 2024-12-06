@@ -13,7 +13,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=100, unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    is_locked = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     first_name = models.CharField(_("Имя"), max_length=100)
     last_name = models.CharField(_("Фамилия"), max_length=100)
@@ -68,13 +67,11 @@ class SportCategory(models.Model):
     def __str__(self):
         return self.name
 
+"""
+Модель спортивных достижений студента
+"""
 
 class SportAchievement(models.Model):
-    ACHIEVEMENT_SCOPE = [
-        ('university', 'В рамках университета'),
-        ('out_university', 'Вне университета'),
-    ]
-
     POSITION_CHOICES = [
         ('1st', '1-Место'),
         ('2nd', '2-Место'),
@@ -87,7 +84,6 @@ class SportAchievement(models.Model):
     sport = models.ForeignKey(Sports, on_delete=models.CASCADE, related_name='achievements')
     position = models.CharField(max_length=20, choices=POSITION_CHOICES, blank=True, null=True)
     date_awarded = models.DateField(auto_now_add=True)
-    scope = models.CharField(max_length=20, choices=ACHIEVEMENT_SCOPE, default='out_university')
     create_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -136,7 +132,6 @@ class StudyGroup(models.Model):
     course = models.IntegerField(_("Курс"))
     term = models.IntegerField(_("Семестр"))
     specialization = models.ForeignKey("Specialization", verbose_name=_("Специальность"), blank=True, null=True, on_delete=models.CASCADE)
-    curator = models.OneToOneField("User", on_delete=models.SET_NULL, null=True, blank=True)
     level_education = models.CharField(max_length=50, choices=LEVEL_EDUCATION, default='bachelor')
     create_date = models.DateTimeField(auto_now_add=True)
 

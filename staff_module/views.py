@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.contrib.auth.models import Group
@@ -22,14 +22,10 @@ def staff_home(request):
     }
 
     if request.user.groups.filter(name="Преподаватели").exists():
-        approved_students = Student.objects.filter(approved=False, study_group__curator=request.user)
+        approved_students = Student.objects.all()
         context['approved_students'] = approved_students
     if request.user.is_superuser:
         students = Student.objects.all()
-        
-    elif request.user.groups.filter(name="Преподаватели").exists():
-        students = Student.objects.filter(study_group__curator=request.user)
-    context['students'] = students
 
     if request.htmx:
         return render(request, './staff_module/partials/home.html', context) 
@@ -176,8 +172,6 @@ def event_create(request):
         date_end = request.POST.get('date_end')
         students = request.POST.getlist('students')
 
-        print(students)
-
         event_sport = Sports.objects.get(id=event_sport_id) if event_sport_id != None else None
         event_category = SportCategory.objects.get(id=event_category_id)
 
@@ -206,18 +200,72 @@ def event_create(request):
             print(e)
             return render(request, './staff_module/partials/events_data.html', context)
 
-def event_detail(request):
-    template = './staff_module/pages/events.html'
+def event_detail(request, *args, **kwargs):
+    event_id = kwargs.get('event_id')
+    template = './staff_module/pages/event_detail.html'
+
+    event = get_object_or_404(SportEvent, id=event_id)
+
+    participants = ParticipantsSportEvent.objects.filter(event=event)
 
     title = 'Спортивные мероприятия'
 
     context = {
-        "title": title
+        "title": title,
+        'event': event,
+        'participants': participants
     }
 
     if request.htmx:
-        return render(request, './staff_module/partials/events.html', context)
+        return render(request, './staff_module/partials/event_detail.html', context)
     return render(request, template, context)
+
+def event_add_student(request, *args, **kwargs):
+    event_id = kwargs.get('event_id')
+    sport_id = kwargs.get('sport_id')
+
+    sport = Sports.objects.get(id=sport_id)
+    event = SportEvent.objects.get(id=event_id)
+
+    participants = ParticipantsSportEvent.objects.filter(event=event).values_list('student_id', flat=True)
+
+    if request.method == 'GET':
+        template = './staff_module/components/modals/add/modal_add_student_event.html'
+
+        students = Student.objects.filter(main_sport=sport).exclude(user__id__in=participants)
+
+        if request.htmx:
+            if 'event_sport' in request.GET:
+                sport_id = request.GET.get('event_sport')
+                students = Student.objects.filter(main_sport__id=sport_id)
+                return render(request, './staff_module/partials/students_data.html', {'students': students})
+            
+        context = {'middle_modal': True, 
+                   'sport': sport,
+                   'students': students,
+                   'event': event,
+                   'small_modal': False }
+        
+        return render(request, template, context)
+    
+    if request.method == 'POST':
+        students = request.POST.getlist('students')
+
+        try:
+            for student_id in students:
+                student = Student.objects.get(user__id=student_id)
+                participant = ParticipantsSportEvent.objects.create(
+                    student=student,
+                    event=event
+                )
+                participant.save()
+
+            participants = ParticipantsSportEvent.objects.all()
+
+            return render(request, './staff_module/partials/event_students_participants.html', {'participants': participants})
+        except Exception as e:
+            print(e)
+            return render(request, './staff_module/partials/event_students_participants.html', {'participants': participants})
 
 def staff_students_approved(request, *args, **kwargs):
     if request.method == 'POST':

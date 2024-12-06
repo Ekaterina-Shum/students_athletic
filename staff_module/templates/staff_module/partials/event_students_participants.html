@@ -1,0 +1,32 @@
+{% for participant in participants %}
+<li class="form_container">
+    <div class="form_container__inputs">
+        <div class="form_container__inputs__header">
+            <p>{{ participant.student.user.get_full_name }}</p>
+            <p class="clr-gray">Учебная группа: {{ participant.student.study_group }}</p>
+        </div>
+        <form method="POST">
+            <div class="form_container__inputs__body">
+                <div class="form_container small">
+                    <label for="event-category">Результат</label>
+                    <select name="filter_category" class="container_select select_create" id="event-participant-result">
+                        <option value="all_categorys">Все</option>
+                        {% for category in category_list %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}    
+                    </select>
+                </div>
+                <div class="form_container small">
+                    <label for="event-participant-position">Место</label>
+                    <select name="position" class="container_select select_create" id="event-participant-position">
+                        <option value="none_position"></option>
+                        {% for category in category_list %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}    
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+</li>
+{% endfor %}

@@ -36,6 +36,34 @@
     height: fit-content !important;
 }
 
+.margin-left {
+    margin-left: auto;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.width-fit {
+    width: fit-content !important;
+}
+
+.width-100 {
+    width: 100% !important;
+}
+
 .height-100 {
     height: 100% !important;
+}
+
+.pad-1 {
+    padding: 1rem;
+}
+
+.mar-t-1 {
+    margin-top: 1rem;
+}
+
+.clr-gray {
+    color: $color-gray;
 }

@@ -1,0 +1,37 @@
+{% extends "../modal_base.html" %}
+
+{% block modal_content %}
+<form method="POST" class="filters_module_form" id="add-student-event">
+  {% csrf_token %}
+<div class="modal-body__header">
+  <h2 class="modal-body__header__title">Добавить участника на мероприятие</h2>
+</div>
+
+<div class="modal-body__content">
+  <div class="modal-body-column height-100">
+     <div class="modal-body-column height-100">
+        <h3>Студенты</h3>
+        <ul id="participants-list" class="modal-body-column height-100 pad-1 border-gray">
+            {% if students %}
+                {% include '../../../partials/students_data.html' %}
+            {% else %}
+                <p>Отсутствуют студенты, которых можно заявить на мероприятие</p>
+            {% endif %}
+        </ul>
+     </div>
+  </div>
+</div>
+
+<div class="modal-body__footer">
+  <div class="modal-body__footer__buttons">
+    <button class="button create full-bg" 
+    _="on click trigger closeModal" 
+    hx-post="{% url 'staff_module:event-detail-add-student' event_id=event.id sport_id=sport.id %}"
+    hx-target="#participant-list"
+    hx-include="#add-student-event"
+    hx-swap="innerHTML"
+    type="button">Добавить участника</button>
+  </div>
+</div>
+</form>
+{% endblock modal_content %}
