@@ -10,6 +10,10 @@ from django.contrib.auth.hashers import make_password
 def staff_home(request):
     template = './staff_module/pages/home.html'
 
+    users_count = User.objects.all().count()
+    staffs_count = Staff.objects.all().count()
+    students_count = Student.objects.all().count()
+    events_count = SportEvent.objects.all().count()
 
     staffs = Staff.objects.all()
 
@@ -18,6 +22,10 @@ def staff_home(request):
 
     context = {
         "title": title,
+        'users_count': users_count,
+        'staffs_count': staffs_count,
+        'events_count': events_count,
+        'students_count': students_count,
         'staffs': staffs
     }
 
