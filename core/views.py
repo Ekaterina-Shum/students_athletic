@@ -181,7 +181,6 @@ def achievements(request):
 
 def tournaments(request):
     template = './core/pages/tournaments.html'
-    student = get_object_or_404(Student, user=request.user)
 
     title = 'Спортивный рейтинг'
 
@@ -196,7 +195,6 @@ def tournaments(request):
 
 def events(request):
     template = './core/pages/events.html'
-    student = get_object_or_404(Student, user=request.user)
 
     title = 'Спортивные мероприятия'
 

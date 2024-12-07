@@ -1,16 +1,13 @@
-{% for user in users %}
+{% for staff in staffs %}
     <tr class="table-row">
-        <td>{{ user.id }}</td>
-        <td>{{ event.sport }}</td>
-        <td>{{ event.get_type_display }}</td>
-        <td>
-            {% for participant in participants %}
-                {% if participant.event.id == event.id %}
-                    {{ participant.student.user.get_full_name }}
-                {% endif %}
-            {% endfor %}
+        <td>{{ staff.user.id }}</td>
+        <td>{% for group in staff.user.groups.all %}
+            {{ group.name }}
+        {% endfor %}</td>
+        <td>{{ staff.user.get_full_name }}</td>
+        <td>{{ staff.user.email }}
         </td>
-        <td>{{ event.get_status_display }}</td>
+        <td>{{ staff.user.create_date }}</td>
     </tr>
     {% empty %}
         <tr class="not_found_elements">

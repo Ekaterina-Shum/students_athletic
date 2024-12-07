@@ -6,22 +6,15 @@
         <form method="GET"
         hx-trigger="change, keyup delay:500ms"
         hx-swap="innerHTML transition:true"
-        hx-get="{% url 'staff_module:events-filters' %}" hx-target="#users-data">
+        hx-get="{% url 'staff_module:students-filters' %}" hx-target="#students-data">
         <div class="form_container small">
             <label for="students-study-group">Учебная группа</label>
             <input type="text" name="study_group" class="container_input inputing" id="students-study-group">
         </div>
         <div class="form_container small">
-            <label for="students-main-sport">Основной вид спорта</label>
+            <label for="students-main-sport">Вид спорта</label>
             <select name="filter_sport" class="container_select select_create" id="students-main-sport">
-                {% for sport in sports %}
-                    <option value="{{ sport.id }}">{{ sport.name }}</option>
-                {% endfor %}    
-            </select>
-        </div>
-        <div class="form_container small">
-            <label for="students-adds-sport">Дополнительный вид спорта</label>
-            <select name="filter_sport" class="container_select select_create" id="students-adds-sport">
+                <option value="all_sports">Все</option>
                 {% for sport in sports %}
                     <option value="{{ sport.id }}">{{ sport.name }}</option>
                 {% endfor %}    

@@ -10,6 +10,7 @@
         <div class="form_container small">
             <label for="event-sport">Вид спорта</label>
             <select name="filter_sport" class="container_select select_create" id="event-sport">
+                <option value="all_sports">Все</option>
                 {% for sport in sports %}
                     <option value="{{ sport.id }}">{{ sport.name }}</option>
                 {% endfor %}    

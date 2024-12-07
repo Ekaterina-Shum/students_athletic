@@ -172,10 +172,9 @@ def system_education_group(request):
 def staff_create(request):
     if request.method == 'GET':
         template = './staff_module/components/modals/create/modal_create_staff.html'
-        education_groups = StudyGroup.objects.all()
         groups = Group.objects.all()
 
-        context = {'middle_modal': True, 'groups': groups, 'education_groups':education_groups, 'small_modal': False }
+        context = {'middle_modal': True, 'groups': groups, 'small_modal': False }
         
         return render(request, template, context)
 
@@ -186,7 +185,6 @@ def staff_create(request):
         last_name = request.POST.get('last_name')
         first_name = request.POST.get('first_name')
         patronymic = request.POST.get('patronymic')
-        education_group = request.POST.get('education_group')
 
         group = Group.objects.get(id=group_system) 
 
@@ -204,14 +202,34 @@ def staff_create(request):
             user.groups.add(group)
             
 
-            staff = Staff.objects.create(
+            Staff.objects.create(
                 user=user
             )
 
-            study_group = StudyGroup.objects.get(id=education_group) if education_group != 'Нет' else None
-            study_group.curator = staff
+            context = {
+                'staffs': Staff.objects.all()
+            }
 
-            return render(request, './staff_module/partials/partial_staffs.html', context)
+            return render(request, './staff_module/partials/users.html', context)
+
+
+def filter_staffs(request):
+    email_staff = request.GET.get("email_staff")
+    name_staff = request.GET.get("name_staff")
+
+    staffs = Staff.objects.all()
+
+    if name_staff:
+        staffs = Staff.objects.filter(
+            Q(user__last_name__icontains=name_staff) |
+            Q(user__first_name__icontains=name_staff)
+        )
+    if email_staff:
+        staffs = Staff.objects.filter(user__email__icontains=email_staff)
+
+    context = {'staffs': staffs}
+
+    return render(request, "./staff_module/partials/users_data.html", context)
 
 
 def student_create(request):
@@ -240,7 +258,7 @@ def student_create(request):
             user = User.objects.create(
                 email=email,
                 password=make_password(password),
-                is_staff=True,
+                is_staff=False,
                 first_name=first_name,
                 last_name=last_name,
                 patronymic=patronymic,
@@ -256,7 +274,7 @@ def student_create(request):
 
             students = Student.objects.all()
 
-            return render(request, './staff_module/pages/students.html', {"students": students})
+            return render(request, './staff_module/partials/students.html', {"students": students})
 
 
 
@@ -310,7 +328,7 @@ def filter_event(request):
             Q(student__user__first_name__icontains=filter_student)
         ).values_list("event_id", flat=True)
         events = events.filter(id__in=participant_events)
-    if filter_sport:
+    if filter_sport and filter_sport != "all_sports":
         events = events.filter(sport_id=filter_sport)
     if filter_status and filter_status != "all_status":
         events = events.filter(status=filter_status)
@@ -543,10 +561,13 @@ def staff_students_approved(request, *args, **kwargs):
 def users(request):
     template = './staff_module/pages/users.html'
 
-    title = 'Личный кабинет'
+    title = 'Сотрудники'
+
+    staffs = Staff.objects.all()
 
     context = {
-        "title": title
+        "title": title,
+        'staffs': staffs
     }
     if request.htmx:
         return render(request, './staff_module/partials/users.html', context)  
@@ -559,11 +580,42 @@ def students(request):
     title = 'Студенты'
 
     students = Student.objects.all()
+    sports = Sports.objects.all()
 
     context = {
         "title": title,
+        'sports': sports,
         "students": students
     }
     if request.htmx:
         return render(request, './staff_module/partials/students.html', context)  
     return render(request, template, context)
+
+
+def filter_students(request):
+    email_student = request.GET.get("email_student")
+    name_student = request.GET.get("name_student")
+    filter_sport_id = request.GET.get("filter_sport")
+    study_group = request.GET.get("study_group")
+
+    students = Student.objects.all()
+
+    if filter_sport_id and filter_sport_id != "all_sports":
+        students = Student.objects.filter(
+            Q(main_sport_id=filter_sport_id) |
+            Q(additional_sport__id=filter_sport_id)
+        )
+
+    if name_student:
+        students = Student.objects.filter(
+            Q(user__last_name__icontains=name_student) |
+            Q(user__first_name__icontains=name_student)
+        )
+    if email_student:
+        students = Student.objects.filter(user__email__icontains=email_student)
+    if study_group:
+        students = Student.objects.filter(study_group__name__icontains=study_group)
+    
+    context = {'students': students}
+
+    return render(request, "./staff_module/partials/users_students_data.html", context)

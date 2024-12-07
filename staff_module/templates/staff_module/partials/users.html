@@ -2,26 +2,18 @@
     <div class="account_container__header">
         <h1 class="account_container__header__title">Учетные записи сотрудников</h1>
     </div>
-    <div id="sports-events-filters" class="account_container__content__row">
+    <div id="staffs-filters" class="account_container__content__row">
         <form method="GET"
         hx-trigger="change, keyup delay:500ms"
         hx-swap="innerHTML transition:true"
-        hx-get="{% url 'staff_module:events-filters' %}" hx-target="#users-data">
+        hx-get="{% url 'staff_module:staff-filters' %}" hx-target="#users-data">
         <div class="form_container small">
-            <label for="user-role">Роль</label>
-            <select name="filter_sport" class="container_select select_create" id="user-role">
-                {% for sport in sports %}
-                    <option value="{{ sport.id }}">{{ sport.name }}</option>
-                {% endfor %}    
-            </select>
+            <label for="name-staff">ФИО Сотрудника</label>
+            <input type="text" name="name_staff" class="container_input inputing" id="name-staff">
         </div>
         <div class="form_container small">
-            <label for="name-user">ФИО Сотрудника</label>
-            <input type="text" name="name_user" class="container_input inputing" id="name-user">
-        </div>
-        <div class="form_container small">
-            <label for="email-user">E-mail сотрудника</label>
-            <input type="text" name="email_user" class="container_input inputing" id="email-user">
+            <label for="email-staff">E-mail сотрудника</label>
+            <input type="text" name="email_staff" class="container_input inputing" id="email-staff">
         </div>
     </form>
     {% if request.user.is_superuser %}

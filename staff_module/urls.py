@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import staff_home, events, system_data, system_education_group, student_create, system_specialization, system_sports, event_add_student, students, event_complete, staff_create, event_detail_save_achievement, event_create, users, event_detail, staff_students_approved, filter_event
+from .views import staff_home, events, filter_students, system_data, filter_staffs, system_education_group, student_create, system_specialization, system_sports, event_add_student, students, event_complete, staff_create, event_detail_save_achievement, event_create, users, event_detail, staff_students_approved, filter_event
 from django.contrib.auth.decorators import login_required
 
 app_name = 'staff_module'
@@ -21,8 +21,12 @@ urlpatterns = [
     path('events/<int:event_id>/complete/', login_required(event_complete), name='event-detail-complete'),
     path('events/<int:event_id>/student/<int:student_id>/save/achievement/', login_required(event_detail_save_achievement), name='event-detail-save-achievement'),
     path('events/<int:event_id>/<int:sport_id>/add/student/', login_required(event_add_student), name='event-detail-add-student'),
+    
+    path('users/filters/', login_required(filter_staffs), name='staff-filters'),
     path('users/', login_required(users), name='staff-users'),
+   
     path('students/', login_required(students), name='staff-students'),
+    path('students/filters/', login_required(filter_students), name='students-filters'),
 
     path('students/approved/<int:id>/', login_required(staff_students_approved), name='staff-students-approved'),
 ]
