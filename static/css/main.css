@@ -908,6 +908,9 @@ h2 {
 .table__content.students {
   grid-template-columns: minmax(0px, 0.2fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr);
 }
+.table__content.tournaments {
+  grid-template-columns: minmax(0px, 0.4fr) minmax(0px, 1fr) minmax(0px, 0.7fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 0.7fr) minmax(0px, 0.7fr) minmax(0px, 0.7fr) minmax(0px, 1fr) minmax(0px, 1fr);
+}
 
 .login_container {
   width: 100%;

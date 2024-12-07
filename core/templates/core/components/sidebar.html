@@ -25,13 +25,16 @@
         <li class="navigation__container__element">
             <a 
             class="navigation__container__element__link"
-            href="#">
-            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8.67 14H4C2.9 14 2 14.9 2 16V22H8.67V14Z" stroke="#8B939D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M13.3301 10H10.6601C9.56016 10 8.66016 10.9 8.66016 12V22H15.3301V12C15.3301 10.9 14.4401 10 13.3301 10Z" stroke="#8B939D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M20.0001 17H15.3301V22H22.0001V19C22.0001 17.9 21.1001 17 20.0001 17Z" stroke="#8B939D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M12.5202 2.06982L13.0502 3.12981C13.1202 3.27981 13.3102 3.41981 13.4702 3.43981L14.4302 3.59982C15.0402 3.69982 15.1902 4.1498 14.7502 4.5798L14.0002 5.3298C13.8702 5.4598 13.8002 5.69981 13.8402 5.86981L14.0502 6.78982C14.2202 7.51982 13.8302 7.79982 13.1902 7.41982L12.2902 6.88982C12.1302 6.78982 11.8602 6.78982 11.7002 6.88982L10.8002 7.41982C10.1602 7.79982 9.77022 7.51982 9.94022 6.78982L10.1502 5.86981C10.1902 5.69981 10.1202 5.4498 9.99023 5.3298L9.25023 4.58981C8.81023 4.14981 8.95023 3.7098 9.57023 3.6098L10.5302 3.44982C10.6902 3.41982 10.8802 3.27982 10.9502 3.13982L11.4802 2.0798C11.7702 1.4998 12.2302 1.49982 12.5202 2.06982Z" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>  
+            hx-target="#app-container"
+            hx-swap="innerHTML transition:true"
+            hx-push-url="true"
+            hx-get="{% url "core:lk-tournaments" %}">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.5 5H16.5C17.12 5 17.67 5.02 18.16 5.09C20.79 5.38 21.5 6.62 21.5 10V14C21.5 17.38 20.79 18.62 18.16 18.91C17.67 18.98 17.12 19 16.5 19H7.5C6.88 19 6.33 18.98 5.84 18.91C3.21 18.62 2.5 17.38 2.5 14V10C2.5 6.62 3.21 5.38 5.84 5.09C6.33 5.02 6.88 5 7.5 5Z" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4.5 2H19.5" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M5 22H20" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                 
             </a>
         </li>
         <li class="navigation__container__element">
@@ -51,6 +54,25 @@
                 <path d="M18.5303 11.6496C19.2803 11.4096 19.9403 10.9696 20.4603 10.4496C21.3603 9.44961 21.9603 8.24961 21.9603 6.84961C21.9603 5.44961 20.8603 4.34961 19.4603 4.34961H18.8103C19.0103 4.80961 19.1103 5.31961 19.1103 5.84961V8.84961C19.1103 9.84961 18.9003 10.7896 18.5303 11.6496Z" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
                 
+            </a>
+        </li>
+        <li class="navigation__container__element">
+            <a 
+            class="navigation__container__element__link"
+            href="!#"
+            hx-target="#app-container"
+            hx-swap="innerHTML transition:true"
+            hx-push-url="true"
+            hx-get="{% url "core:lk-events" %}">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 4C2 4.53043 2.21071 5.03914 2.58579 5.41421C2.96086 5.78929 3.46957 6 4 6C4.53043 6 5.03914 5.78929 5.41421 5.41421C5.78929 5.03914 6 4.53043 6 4C6 3.46957 5.78929 2.96086 5.41421 2.58579C5.03914 2.21071 4.53043 2 4 2C3.46957 2 2.96086 2.21071 2.58579 2.58579C2.21071 2.96086 2 3.46957 2 4Z" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M18 10C18 10.5304 18.2107 11.0391 18.5858 11.4142C18.9609 11.7893 19.4696 12 20 12C20.5304 12 21.0391 11.7893 21.4142 11.4142C21.7893 11.0391 22 10.5304 22 10C22 9.46957 21.7893 8.96086 21.4142 8.58579C21.0391 8.21071 20.5304 8 20 8C19.4696 8 18.9609 8.21071 18.5858 8.58579C18.2107 8.96086 18 9.46957 18 10Z" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 12C2 12.5304 2.21071 13.0391 2.58579 13.4142C2.96086 13.7893 3.46957 14 4 14C4.53043 14 5.03914 13.7893 5.41421 13.4142C5.78929 13.0391 6 12.5304 6 12C6 11.4696 5.78929 10.9609 5.41421 10.5858C5.03914 10.2107 4.53043 10 4 10C3.46957 10 2.96086 10.2107 2.58579 10.5858C2.21071 10.9609 2 11.4696 2 12Z" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22C4.53043 22 5.03914 21.7893 5.41421 21.4142C5.78929 21.0391 6 20.5304 6 20C6 19.4696 5.78929 18.9609 5.41421 18.5858C5.03914 18.2107 4.53043 18 4 18C3.46957 18 2.96086 18.2107 2.58579 18.5858C2.21071 18.9609 2 19.4696 2 20Z" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 12H9C9.26522 12 9.51957 12.1054 9.70711 12.2929C9.89464 12.4804 10 12.7348 10 13V19C10 19.2652 9.89464 19.5196 9.70711 19.7071C9.51957 19.8946 9.26522 20 9 20H6" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 4H13C13.2652 4 13.5196 4.10536 13.7071 4.29289C13.8946 4.48043 14 4.73478 14 5V15C14 15.2652 13.8946 15.5196 13.7071 15.7071C13.5196 15.8946 13.2652 16 13 16H11" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14 10H18" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg> 
             </a>
         </li>
     </ul>

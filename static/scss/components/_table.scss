@@ -97,4 +97,19 @@
       minmax(0px, 1fr)
       minmax(0px, 1fr);
     }
+
+    
+    &.tournaments {
+        grid-template-columns:
+        minmax(0px, .4fr)
+        minmax(0px, 1fr)
+        minmax(0px, .7fr)
+        minmax(0px, 1fr)
+        minmax(0px, 1fr)
+        minmax(0px, .7fr)
+        minmax(0px, .7fr)
+        minmax(0px, .7fr)
+        minmax(0px, 1fr)
+        minmax(0px, 1fr);
+      }
 }

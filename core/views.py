@@ -5,7 +5,8 @@ from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.models import Group
 from django.http import JsonResponse
-from .models import User, Student, StudyGroup, Sports
+from django.db.models import Count, Q
+from .models import User, Student, StudyGroup, Sports, SportAchievement
 from django.urls import reverse
 from staff_module.models import Staff
 from django.contrib.auth.hashers import make_password
@@ -118,6 +119,23 @@ def account(request):
     
     student = get_object_or_404(Student, user=request.user)
 
+    tournaments = (
+        Student.objects.annotate(
+            first_places=Count('achievements', filter=Q(achievements__position='1st')),
+            second_places=Count('achievements', filter=Q(achievements__position='2nd')),
+            third_places=Count('achievements', filter=Q(achievements__position='3rd')),
+            total_prizes=Count('achievements', filter=Q(achievements__position__in=['1st', '2nd', '3rd'])),
+            participations=Count('achievements'),
+        )
+        .order_by('-first_places', '-second_places', '-third_places')
+    )
+
+    try:
+            user_student = Student.objects.get(user=request.user)
+            student_rank = list(tournaments).index(user_student) + 1
+    except Student.DoesNotExist:
+            pass 
+
     request_created = None
 
     title = 'Личный кабинет'
@@ -125,6 +143,7 @@ def account(request):
     context = {
         "title": title,
         "student": student,
+        'student_rank': student_rank,
         'request_created': request_created
     }
 
@@ -160,9 +179,8 @@ def lk_mysports(request):
 
                 context = {"student": student}
 
-                return render(request, './staff_module/partials/partial_staffs.html', context)
-            else:
-                pass
+                return render(request, './core/partials/partial_account.html', context)
+
 
 
 def achievements(request):
@@ -184,8 +202,20 @@ def tournaments(request):
 
     title = 'Спортивный рейтинг'
 
+    tournaments = (
+        Student.objects.annotate(
+            first_places=Count('achievements', filter=Q(achievements__position='1st')),
+            second_places=Count('achievements', filter=Q(achievements__position='2nd')),
+            third_places=Count('achievements', filter=Q(achievements__position='3rd')),
+            total_prizes=Count('achievements', filter=Q(achievements__position__in=['1st', '2nd', '3rd'])),
+            participations=Count('achievements'),
+        )
+        .order_by('-first_places', '-second_places', '-third_places')
+    )
+
     context = {
         "title": title,
+        'students': tournaments
     }
 
     if request.htmx:
@@ -203,5 +233,5 @@ def events(request):
     }
 
     if request.htmx:
-        return render(request, './core/partials/partial_requests.html', context)
+        return render(request, './core/partials/events.html', context)
     return render(request, template, context)

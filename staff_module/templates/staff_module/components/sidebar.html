@@ -21,6 +21,7 @@
                 </svg>  
             </a>
         </li>
+        {% if request.user.is_superuser %}
         <li class="navigation__container__element">
             <a 
             class="navigation__container__element__link"
@@ -38,6 +39,7 @@
                 
             </a>
         </li>
+        {% endif %}
         <li class="navigation__container__element">
             <a 
             class="navigation__container__element__link"

@@ -36,7 +36,10 @@ def staff_home(request):
         students = Student.objects.all()
 
     if request.htmx:
-        return render(request, './staff_module/partials/home.html', context) 
+        if request.user.groups.filter(name="Преподаватели").exists():
+            return render(request, './staff_module/partials/home_teacher.html', context) 
+        else:
+            return render(request, './staff_module/partials/home.html', context) 
     return render(request, template, context)
 
 
