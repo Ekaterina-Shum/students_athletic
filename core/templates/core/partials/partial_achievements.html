@@ -2,7 +2,30 @@
     <div class="account_container__header">
         <h1 class="account_container__header__title">Ваши спортивные достижения</h1>
     </div>
-    {% for achievement in achievements %}
-        {{ achievement }}
-    {% endfor %}
+    <table cellpadding="7" cellspacing="7" class="table__content achievements"  id="sports-tournaments">
+        <thead>
+          <tr>
+            <th>№</th>
+            <th>Событие</th>
+            <th>Вид спорта</th>
+            <th>Результат</th>
+            <th>Дата получения</th>
+          </tr>
+      </thead>
+        <tbody id="tournaments-data">
+            {% for achievement in achievements %}
+    <tr class="table-row">
+        <td>{{ forloop.counter }}</td>
+        <td>{{ achievement.event.category_event }}</td>
+        <td>{{ achievement.sport }}</td>
+        <td>{{ achievement.get_position_display }}</td>
+        <td>{{ achievement.date_awarded }}</td>
+    </tr>
+    {% empty %}
+        <tr class="not_found_elements">
+            <td>Достижений еще нет</td>
+        </tr>
+{% endfor %}
+        </tbody>
+    </table>
 </div>

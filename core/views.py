@@ -187,10 +187,13 @@ def achievements(request):
     template = './core/pages/achievements.html'
     student = get_object_or_404(Student, user=request.user)
 
+    achievements = SportAchievement.objects.filter(student=student)
+
     title = 'Спортивные достижения'
 
     context = {
         "title": title,
+        'achievements': achievements
     }
 
     if request.htmx:
