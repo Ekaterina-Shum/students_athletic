@@ -6,21 +6,24 @@
     </div>
     <ul class="navigation__container">
         <li class="navigation__container__element">
-            <a 
+            <a
             class="navigation__container__element__link"
             hx-target="#app-container"
             hx-swap="innerHTML transition:true"
             hx-push-url="true"
-            hx-get="{% url "core:lk" %}">
+            hx-get="{% url "core:lk" %}"
+            _="on mouseenter 
+            add .visible to #nav-panel-student
+            on mouseleave 
+                    remove .visible from #nav-panel-student">
             <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5.20866 4.16602H9.37533C9.65159 4.16602 9.91654 4.27576 10.1119 4.47111C10.3072 4.66646 10.417 4.93142 10.417 5.20768V11.4577C10.417 11.7339 10.3072 11.9989 10.1119 12.1943C9.91654 12.3896 9.65159 12.4993 9.37533 12.4993H5.20866C4.93239 12.4993 4.66744 12.3896 4.47209 12.1943C4.27674 11.9989 4.16699 11.7339 4.16699 11.4577V5.20768C4.16699 4.93142 4.27674 4.66646 4.47209 4.47111C4.66744 4.27576 4.93239 4.16602 5.20866 4.16602Z" fill="#8B939D" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M5.20866 16.666H9.37533C9.65159 16.666 9.91654 16.7758 10.1119 16.9711C10.3072 17.1665 10.417 17.4314 10.417 17.7077V19.791C10.417 20.0673 10.3072 20.3322 10.1119 20.5276C9.91654 20.7229 9.65159 20.8327 9.37533 20.8327H5.20866C4.93239 20.8327 4.66744 20.7229 4.47209 20.5276C4.27674 20.3322 4.16699 20.0673 4.16699 19.791V17.7077C4.16699 17.4314 4.27674 17.1665 4.47209 16.9711C4.66744 16.7758 4.93239 16.666 5.20866 16.666Z" fill="#8B939D" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M15.6247 12.5H19.7913C20.0676 12.5 20.3326 12.6097 20.5279 12.8051C20.7233 13.0004 20.833 13.2654 20.833 13.5417V19.7917C20.833 20.0679 20.7233 20.3329 20.5279 20.5282C20.3326 20.7236 20.0676 20.8333 19.7913 20.8333H15.6247C15.3484 20.8333 15.0835 20.7236 14.8881 20.5282C14.6928 20.3329 14.583 20.0679 14.583 19.7917V13.5417C14.583 13.2654 14.6928 13.0004 14.8881 12.8051C15.0835 12.6097 15.3484 12.5 15.6247 12.5Z" fill="#8B939D" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M15.6247 4.16602H19.7913C20.0676 4.16602 20.3326 4.27576 20.5279 4.47111C20.7233 4.66646 20.833 4.93142 20.833 5.20768V7.29102C20.833 7.56728 20.7233 7.83223 20.5279 8.02758C20.3326 8.22294 20.0676 8.33268 19.7913 8.33268H15.6247C15.3484 8.33268 15.0835 8.22294 14.8881 8.02758C14.6928 7.83223 14.583 7.56728 14.583 7.29102V5.20768C14.583 4.93142 14.6928 4.66646 14.8881 4.47111C15.0835 4.27576 15.3484 4.16602 15.6247 4.16602Z" fill="#8B939D" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                
-                
             </a>
+            <span id="nav-panel-student" class="navigation__container__element__link__title">Панель студента</span>
         </li>
         <li class="navigation__container__element">
             <a 
@@ -28,7 +31,11 @@
             hx-target="#app-container"
             hx-swap="innerHTML transition:true"
             hx-push-url="true"
-            hx-get="{% url "core:lk-tournaments" %}">
+            hx-get="{% url "core:lk-tournaments" %}"
+            _="on mouseenter 
+            add .visible to #nav-tournaments
+            on mouseleave 
+                    remove .visible from #nav-tournaments">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7.5 5H16.5C17.12 5 17.67 5.02 18.16 5.09C20.79 5.38 21.5 6.62 21.5 10V14C21.5 17.38 20.79 18.62 18.16 18.91C17.67 18.98 17.12 19 16.5 19H7.5C6.88 19 6.33 18.98 5.84 18.91C3.21 18.62 2.5 17.38 2.5 14V10C2.5 6.62 3.21 5.38 5.84 5.09C6.33 5.02 6.88 5 7.5 5Z" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M4.5 2H19.5" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -36,6 +43,7 @@
                 </svg>
                  
             </a>
+            <span id="nav-tournaments" class="navigation__container__element__link__title">Спортивный рейтинг</span>
         </li>
         <li class="navigation__container__element">
             <a 
@@ -44,7 +52,11 @@
             hx-target="#app-container"
             hx-swap="innerHTML transition:true"
             hx-push-url="true"
-            hx-get="{% url "core:lk-achievements" %}">
+            hx-get="{% url "core:lk-achievements" %}"
+            _="on mouseenter 
+            add .visible to #nav-achievements
+            on mouseleave 
+                    remove .visible from #nav-achievements">
             <svg width="25" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12.1494 16.5V18.6" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M7.14941 22H17.1494V21C17.1494 19.9 16.2494 19 15.1494 19H9.14941C8.04941 19 7.14941 19.9 7.14941 21V22Z" stroke="#8B939D" stroke-width="1.5" stroke-miterlimit="10"/>
@@ -55,6 +67,7 @@
                 </svg>
                 
             </a>
+            <span id="nav-achievements" class="navigation__container__element__link__title">Спортивные достижения</span>
         </li>
         <li class="navigation__container__element">
             <a 
@@ -63,7 +76,11 @@
             hx-target="#app-container"
             hx-swap="innerHTML transition:true"
             hx-push-url="true"
-            hx-get="{% url "core:lk-events" %}">
+            hx-get="{% url "core:lk-events" %}"
+            _="on mouseenter 
+            add .visible to #nav-events
+            on mouseleave 
+                    remove .visible from #nav-events">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2 4C2 4.53043 2.21071 5.03914 2.58579 5.41421C2.96086 5.78929 3.46957 6 4 6C4.53043 6 5.03914 5.78929 5.41421 5.41421C5.78929 5.03914 6 4.53043 6 4C6 3.46957 5.78929 2.96086 5.41421 2.58579C5.03914 2.21071 4.53043 2 4 2C3.46957 2 2.96086 2.21071 2.58579 2.58579C2.21071 2.96086 2 3.46957 2 4Z" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M18 10C18 10.5304 18.2107 11.0391 18.5858 11.4142C18.9609 11.7893 19.4696 12 20 12C20.5304 12 21.0391 11.7893 21.4142 11.4142C21.7893 11.0391 22 10.5304 22 10C22 9.46957 21.7893 8.96086 21.4142 8.58579C21.0391 8.21071 20.5304 8 20 8C19.4696 8 18.9609 8.21071 18.5858 8.58579C18.2107 8.96086 18 9.46957 18 10Z" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -74,6 +91,7 @@
                 <path d="M14 10H18" stroke="#8B939D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg> 
             </a>
+            <span id="nav-events" class="navigation__container__element__link__title">Спортивные мероприятия</span>
         </li>
     </ul>
     <a 

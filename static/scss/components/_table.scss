@@ -95,13 +95,24 @@
       minmax(0px, 1fr)
       minmax(0px, 1fr)
       minmax(0px, 1fr)
-      minmax(0px, 1fr);
+      minmax(0px, 1fr)
+      minmax(0px, .3fr);
     }
     
 
     &.achievements {
         grid-template-columns:
         minmax(0px, .4fr)
+        minmax(0px, 1fr)
+        minmax(0px, 1fr)
+        minmax(0px, 1fr)
+        minmax(0px, .7fr);
+      }
+
+      &.tournaments_students {
+        grid-template-columns:
+        minmax(0px, .4fr)
+        minmax(0px, 1fr)
         minmax(0px, 1fr)
         minmax(0px, 1fr)
         minmax(0px, 1fr)
@@ -118,6 +129,7 @@
         minmax(0px, .7fr)
         minmax(0px, .7fr)
         minmax(0px, .7fr)
+        minmax(0px, 1fr)
         minmax(0px, 1fr)
         minmax(0px, 1fr);
       }

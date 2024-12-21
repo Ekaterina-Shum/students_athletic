@@ -804,6 +804,7 @@ h2 {
 .navigation__container__element {
   display: flex;
   align-items: center;
+  position: relative;
 }
 .navigation__container__element__link {
   display: flex;
@@ -812,6 +813,26 @@ h2 {
   border-radius: 0.7rem;
   background-color: #F6F7F8;
   cursor: pointer;
+}
+.navigation__container__element__link__title {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: -moz-fit-content;
+  width: fit-content;
+  min-width: 15rem;
+  min-height: 40px;
+  max-height: 40px;
+  padding: 0.5rem;
+  border-radius: 0.7rem;
+  background-color: #F6F7F8;
+  position: absolute;
+  transition: all 0.4s ease-in-out;
+  left: 3rem;
+}
+.navigation__container__element__link__title.visible {
+  display: flex;
+  transition: all 0.4s ease-in-out;
 }
 
 .navigation_panel {
@@ -906,13 +927,16 @@ h2 {
   grid-template-columns: minmax(0px, 0.2fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr);
 }
 .table__content.students {
-  grid-template-columns: minmax(0px, 0.2fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr);
+  grid-template-columns: minmax(0px, 0.2fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 0.3fr);
 }
 .table__content.achievements {
   grid-template-columns: minmax(0px, 0.4fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 0.7fr);
 }
+.table__content.tournaments_students {
+  grid-template-columns: minmax(0px, 0.4fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 0.7fr);
+}
 .table__content.tournaments {
-  grid-template-columns: minmax(0px, 0.4fr) minmax(0px, 1fr) minmax(0px, 0.7fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 0.7fr) minmax(0px, 0.7fr) minmax(0px, 0.7fr) minmax(0px, 1fr) minmax(0px, 1fr);
+  grid-template-columns: minmax(0px, 0.4fr) minmax(0px, 1fr) minmax(0px, 0.7fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 0.7fr) minmax(0px, 0.7fr) minmax(0px, 0.7fr) minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr);
 }
 
 .login_container {
@@ -1276,6 +1300,16 @@ h2 {
   align-items: flex-start;
 }
 
+.system_data__element {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
 .content {
   max-width: calc(80rem + 30px);
   margin-inline: auto;
@@ -1301,6 +1335,10 @@ h2 {
 .center {
   align-items: center;
   justify-content: center;
+}
+
+.space-between {
+  justify-content: space-between;
 }
 
 .centet-self {

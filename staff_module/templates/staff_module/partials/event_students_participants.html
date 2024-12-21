@@ -5,7 +5,7 @@
             <p>{{ participant.student.user.get_full_name }}</p>
             <p class="clr-gray">Учебная группа: {{ participant.student.study_group }}</p>
         </div>
-        <form method="POST" id="add-participant-event">
+        <form method="POST" id="add-participant-event-{{ participant.id }}">
             {% csrf_token %}
             <div class="form_container__inputs__body">
                 {% if not participant.position %}
@@ -35,7 +35,7 @@
                 <button class="button save" 
                 hx-post="{% url 'staff_module:event-detail-save-achievement' event_id=event.id student_id=participant.student.user.id %}"
                 hx-target="#participant-list"
-                hx-include="#add-participant-event"
+                hx-include="#add-participant-event-{{ participant.id }}"
                 hx-swap="innerHTML"
                 type="button">
                     <svg width="33" height="33" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

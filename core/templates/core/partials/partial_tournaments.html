@@ -15,6 +15,7 @@
             <th>3е-место</th>
             <th>Всего призовых мест</th>
             <th>Участий</th>
+            <th>Баллов</th>
           </tr>
       </thead>
         <tbody id="tournaments-data">
@@ -30,6 +31,7 @@
         <td>{{ student.third_places }}</td>
         <td>{{ student.total_prizes }}</td>
         <td>{{ student.participations }}</td>
+        <td>{{ student.total_points }}</td>
     </tr>
     {% empty %}
         <tr class="not_found_elements">

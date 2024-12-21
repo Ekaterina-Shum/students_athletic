@@ -23,6 +23,7 @@
         &__element {
             display: flex;
             align-items: center;
+            position: relative;
 
             &__link {
                 display: flex;
@@ -31,6 +32,29 @@
                 border-radius: .7rem;
                 background-color: #F6F7F8;
                 cursor: pointer;
+
+                &__title {
+                    display: none;
+                    align-items: center;
+                    justify-content: center;
+                    width: fit-content;
+                    min-width: 15rem;
+                    min-height: 40px;
+                    max-height: 40px;
+                    padding: .5rem;
+                    border-radius: .7rem;
+                    background-color: #F6F7F8;
+                    position: absolute;
+                    transition: all .4s ease-in-out;
+                    left: 3rem;
+
+                    &.visible {
+                        display: flex;
+                        transition: all .4s ease-in-out;
+                    }
+                }
+
+                
             }
         }
     }

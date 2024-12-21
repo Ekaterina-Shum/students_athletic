@@ -5,10 +5,10 @@ from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.models import Group
 from django.http import JsonResponse
-from django.db.models import Count, Q
+from django.db.models import Count, Q, Sum
 from .models import User, Student, StudyGroup, Sports, SportAchievement
 from django.urls import reverse
-from staff_module.models import Staff
+from staff_module.models import Staff, SportEvent, ParticipantsSportEvent
 from django.contrib.auth.hashers import make_password
 
 
@@ -119,6 +119,8 @@ def account(request):
     
     student = get_object_or_404(Student, user=request.user)
 
+    achievements = SportAchievement.objects.filter(student=student)
+
     tournaments = (
         Student.objects.annotate(
             first_places=Count('achievements', filter=Q(achievements__position='1st')),
@@ -142,6 +144,7 @@ def account(request):
 
     context = {
         "title": title,
+        'achievements': achievements,
         "student": student,
         'student_rank': student_rank,
         'request_created': request_created
@@ -207,6 +210,7 @@ def tournaments(request):
 
     tournaments = (
         Student.objects.annotate(
+            total_points=Sum('achievements__points'), 
             first_places=Count('achievements', filter=Q(achievements__position='1st')),
             second_places=Count('achievements', filter=Q(achievements__position='2nd')),
             third_places=Count('achievements', filter=Q(achievements__position='3rd')),
@@ -228,11 +232,16 @@ def tournaments(request):
 
 def events(request):
     template = './core/pages/events.html'
+    student = get_object_or_404(Student, user=request.user)
 
     title = 'Спортивные мероприятия'
 
+    participants = ParticipantsSportEvent.objects.filter(student=student).values_list('event__id', flat=True)
+    events = SportEvent.objects.filter(id__in=participants)
+
     context = {
         "title": title,
+        'events': events
     }
 
     if request.htmx:

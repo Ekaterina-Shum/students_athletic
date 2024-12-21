@@ -9,7 +9,12 @@
         hx-get="{% url 'staff_module:students-filters' %}" hx-target="#students-data">
         <div class="form_container small">
             <label for="students-study-group">Учебная группа</label>
-            <input type="text" name="study_group" class="container_input inputing" id="students-study-group">
+            <select name="study_group" class="container_select select_create" id="students-study-group">
+                <option value="all_groups">Все</option>
+                {% for group in study_groups %}
+                    <option value="{{ group.id }}">{{ group.name }}</option>
+                {% endfor %}    
+            </select>
         </div>
         <div class="form_container small">
             <label for="students-main-sport">Вид спорта</label>
@@ -48,6 +53,7 @@
             <th>ФИО</th>
             <th>E-mail</th>
             <th>Дата регистрации</th>
+            <th></th>
           </tr>
       </thead>
         <tbody id="students-data">

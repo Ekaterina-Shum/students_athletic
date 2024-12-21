@@ -1,0 +1,21 @@
+<div class="account_container">
+    <div class="account_container__header">
+        <h1 class="account_container__header__title">
+            Информация о студенте - <span>{{ student.user.get_full_name }}</span>
+        </h1>
+        <div class="account_container__column margin-block-1">
+            <p class="clr-dark">ID: {{ student.user.id }}</p>
+            <p class="clr-dark">Дата создания учетной записи: {{ student.create_date }}</p> 
+            <p class="clr-dark">ФИО: {{ student.user.get_full_name }}</p>
+            <p class="clr-dark">Страна: {{ student.country }}</p>   
+            <p class="clr-dark">Учебная группа: {{ student.study_group }}</p>
+            <p class="clr-dark">Курс: {{ student.study_group.course }}</p>
+            <p class="clr-dark">Семестр: {{ student.study_group.term }}</p>
+            <p class="clr-dark">Специализация: {{ student.study_group.specialization }}</p>
+            <p class="clr-dark">Образование: {{ student.study_group.get_level_education_display }}</p>
+            <p class="clr-dark">Основной вид спорта: {{ student.main_sport }}</p> 
+            <p class="clr-dark">Дополнительный вид спорта: {{ student.additional_sport }}</p>   
+        </div>
+    </div>
+    </div>
+</div>

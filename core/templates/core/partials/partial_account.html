@@ -4,7 +4,7 @@
         <h1 class="account_container__header__title color">Ваши спортивные достижения</h1>
     </div>
     
-    {% if not student.sport_level == 'not_specified' %}
+    {% if student.sport_level %}
         {% include "../partials/lk_dashboard.html" %} 
     {% elif not student.main_sport and not student.additional_sport %}
 

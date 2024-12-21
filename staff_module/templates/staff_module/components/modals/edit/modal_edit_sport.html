@@ -1,0 +1,31 @@
+{% extends "../modal_base.html" %}
+
+{% block modal_content %}
+<form method="POST" class="filters_module_form" id="system-edit-sport">
+  {% csrf_token %}
+<div class="modal-body__header">
+  <h2 class="modal-body__header__title">Редактирование вида спорта</h2>
+</div>
+
+<div class="modal-body__content">
+  <div class="modal-body-column">
+    <div class="form_container">
+        <label for="sytem-sport-name">Наименование</label>
+        <input required value="{{ sport.name }}" name="sport_name" class="container_input inputing" id="sytem-sport-name">
+    </div>
+  </div>
+</div>
+
+<div class="modal-body__footer">
+  <div class="modal-body__footer__buttons">
+    <button class="button create full-bg" 
+    _="on click trigger closeModal" 
+    hx-post="{% url 'staff_module:system-edit-sport' sport_id=sport.id %}"
+    hx-target="#app-container"
+    hx-include="#system-edit-sport"
+    hx-swap="innerHTML"
+    type="button">Сохранить</button>
+  </div>
+</div>
+</form>
+{% endblock modal_content %}

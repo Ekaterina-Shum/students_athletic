@@ -15,6 +15,31 @@
                                 <div>{{ group.name }} ({{ group.course }} курс)({{ group.term }} семестр)</div>
                                 <div>({{ group.specialization.code }}) -</div>
                                 <div>{{ group.specialization }}</div>
+                                <div class="pad-1">
+                                    <button 
+                                    hx-delete="{% url 'staff_module:system-delete-education-group' education_group_id=group.id %}"
+                                    hx-push-url="false"
+                                    hx-swap="innerHTML transition: true"
+                                    hx-target="#app-container"
+                                    type="button"><svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12.291 3.05116C11.3518 2.95783 10.4126 2.88783 9.46763 2.83533V2.82949L9.3393 2.07116C9.2518 1.53449 9.12347 0.729492 7.75847 0.729492H6.23013C4.87097 0.729492 4.74263 1.49949 4.6493 2.06533L4.5268 2.81199C3.9843 2.84699 3.4418 2.88199 2.8993 2.93449L1.7093 3.05116C1.4643 3.07449 1.2893 3.29033 1.31263 3.52949C1.33597 3.76866 1.54597 3.94366 1.79097 3.92033L2.98097 3.80366C6.03763 3.50033 9.11763 3.61699 12.2093 3.92616C12.2268 3.92616 12.2385 3.92616 12.256 3.92616C12.4776 3.92616 12.6701 3.75699 12.6935 3.52949C12.711 3.29033 12.536 3.07449 12.291 3.05116Z" fill="#F11845"/>
+                                        <path opacity="0.3991" d="M11.2175 4.74801C11.0775 4.60217 10.885 4.52051 10.6867 4.52051H3.31335C3.11502 4.52051 2.91668 4.60217 2.78252 4.74801C2.64835 4.89384 2.57252 5.09217 2.58418 5.29634L2.94585 11.2813C3.01002 12.168 3.09168 13.2763 5.12752 13.2763H8.87252C10.9083 13.2763 10.99 12.1738 11.0542 11.2813L11.4158 5.30217C11.4275 5.09217 11.3517 4.89384 11.2175 4.74801Z" fill="#F11845"/>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.58789 9.91699C5.58789 9.67537 5.78377 9.47949 6.02539 9.47949H7.96789C8.20952 9.47949 8.40539 9.67537 8.40539 9.91699C8.40539 10.1586 8.20952 10.3545 7.96789 10.3545H6.02539C5.78377 10.3545 5.58789 10.1586 5.58789 9.91699Z" fill="#F11845"/>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.10449 7.58301C5.10449 7.34138 5.30037 7.14551 5.54199 7.14551H8.45866C8.70028 7.14551 8.89616 7.34138 8.89616 7.58301C8.89616 7.82463 8.70028 8.02051 8.45866 8.02051H5.54199C5.30037 8.02051 5.10449 7.82463 5.10449 7.58301Z" fill="#F11845"/>
+                                        </svg>
+                                        </button>
+                                        <button
+                                        type="button"
+                                        hx-target="body" 
+                                        hx-get="{% url 'staff_module:system-edit-education-group' education_group_id=group.id %}"
+                                        hx-swap="beforeend">
+                                            <svg width="16" height="16" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M6.61941 1.79452L1.69441 6.71952C1.50691 6.90702 1.31941 7.27577 1.28191 7.54452L1.01316 9.42577C0.913157 10.107 1.39441 10.582 2.07566 10.4883L3.95691 10.2195C4.21941 10.182 4.58816 9.99452 4.78191 9.80702L9.70691 4.88202C10.5569 4.03202 10.9569 3.04452 9.70691 1.79452C8.45691 0.544518 7.46941 0.944518 6.61941 1.79452Z" stroke="#455A76" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M5.91309 2.50098C6.33184 3.99473 7.50059 5.16348 9.00059 5.58848" stroke="#455A76" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                
+                                        </button>
+                                </div>
                             </li>
                         {% endfor %}
                     </ul>
@@ -23,6 +48,7 @@
                     hx-get="{% url 'staff_module:system-create-education-group' %}"
                     hx-swap="beforeend"
                     class="button create full">Добавить учебную группу</button>
+
                 </div>
             </div>
         </div>
@@ -32,9 +58,36 @@
             </div>
             <div class="account_container__content__body height-100 border-gray">
                 <div class="account_container__content__body width-100 pad-1">
-                    <ul>
+                    <ul class="width-100">
+                        
                         {% for sport in sports %}
-                            <li>{{ sport.name }}</li>
+                            <li class="system_data__element">{{ sport.name }}
+                                <div class="pad-1">
+                            <button 
+                            hx-delete="{% url 'staff_module:system-delete-sport' sport_id=sport.id %}"
+                            hx-push-url="false"
+                            hx-swap="innerHTML transition: true"
+                            hx-target="#app-container"
+                            type="button"><svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.291 3.05116C11.3518 2.95783 10.4126 2.88783 9.46763 2.83533V2.82949L9.3393 2.07116C9.2518 1.53449 9.12347 0.729492 7.75847 0.729492H6.23013C4.87097 0.729492 4.74263 1.49949 4.6493 2.06533L4.5268 2.81199C3.9843 2.84699 3.4418 2.88199 2.8993 2.93449L1.7093 3.05116C1.4643 3.07449 1.2893 3.29033 1.31263 3.52949C1.33597 3.76866 1.54597 3.94366 1.79097 3.92033L2.98097 3.80366C6.03763 3.50033 9.11763 3.61699 12.2093 3.92616C12.2268 3.92616 12.2385 3.92616 12.256 3.92616C12.4776 3.92616 12.6701 3.75699 12.6935 3.52949C12.711 3.29033 12.536 3.07449 12.291 3.05116Z" fill="#F11845"/>
+                                <path opacity="0.3991" d="M11.2175 4.74801C11.0775 4.60217 10.885 4.52051 10.6867 4.52051H3.31335C3.11502 4.52051 2.91668 4.60217 2.78252 4.74801C2.64835 4.89384 2.57252 5.09217 2.58418 5.29634L2.94585 11.2813C3.01002 12.168 3.09168 13.2763 5.12752 13.2763H8.87252C10.9083 13.2763 10.99 12.1738 11.0542 11.2813L11.4158 5.30217C11.4275 5.09217 11.3517 4.89384 11.2175 4.74801Z" fill="#F11845"/>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.58789 9.91699C5.58789 9.67537 5.78377 9.47949 6.02539 9.47949H7.96789C8.20952 9.47949 8.40539 9.67537 8.40539 9.91699C8.40539 10.1586 8.20952 10.3545 7.96789 10.3545H6.02539C5.78377 10.3545 5.58789 10.1586 5.58789 9.91699Z" fill="#F11845"/>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.10449 7.58301C5.10449 7.34138 5.30037 7.14551 5.54199 7.14551H8.45866C8.70028 7.14551 8.89616 7.34138 8.89616 7.58301C8.89616 7.82463 8.70028 8.02051 8.45866 8.02051H5.54199C5.30037 8.02051 5.10449 7.82463 5.10449 7.58301Z" fill="#F11845"/>
+                                </svg>
+                                </button>
+                                <button
+                                type="button"
+                                hx-target="body" 
+                                hx-get="{% url 'staff_module:system-edit-sport' sport_id=sport.id %}"
+                                hx-swap="beforeend">
+                                    <svg width="16" height="16" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6.61941 1.79452L1.69441 6.71952C1.50691 6.90702 1.31941 7.27577 1.28191 7.54452L1.01316 9.42577C0.913157 10.107 1.39441 10.582 2.07566 10.4883L3.95691 10.2195C4.21941 10.182 4.58816 9.99452 4.78191 9.80702L9.70691 4.88202C10.5569 4.03202 10.9569 3.04452 9.70691 1.79452C8.45691 0.544518 7.46941 0.944518 6.61941 1.79452Z" stroke="#455A76" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M5.91309 2.50098C6.33184 3.99473 7.50059 5.16348 9.00059 5.58848" stroke="#455A76" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        
+                                </button>
+                            </div>
+                            </li>
                         {% endfor %}
                     </ul>
                     <button 
@@ -51,11 +104,36 @@
             </div>
             <div class="account_container__content__body height-100 border-gray">
                 <div class="account_container__content__body width-100 pad-1">
-                    <ul>
+                    <ul class="width-100">
                         {% for specialization in specializations %}
-                        <li class="account_container__content__row width-100">
+                        <li class="account_container__content__row width-100 space-between">
                             <div>{{ specialization.code }}</div>
                             <div>{{ specialization.name }}</div>
+                            <div class="pad-1">
+                                <button 
+                                hx-delete="{% url 'staff_module:system-delete-specialization' specialization_id=specialization.id %}"
+                                hx-push-url="false"
+                                hx-swap="innerHTML transition: true"
+                                hx-target="#app-container"
+                                type="button"><svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.291 3.05116C11.3518 2.95783 10.4126 2.88783 9.46763 2.83533V2.82949L9.3393 2.07116C9.2518 1.53449 9.12347 0.729492 7.75847 0.729492H6.23013C4.87097 0.729492 4.74263 1.49949 4.6493 2.06533L4.5268 2.81199C3.9843 2.84699 3.4418 2.88199 2.8993 2.93449L1.7093 3.05116C1.4643 3.07449 1.2893 3.29033 1.31263 3.52949C1.33597 3.76866 1.54597 3.94366 1.79097 3.92033L2.98097 3.80366C6.03763 3.50033 9.11763 3.61699 12.2093 3.92616C12.2268 3.92616 12.2385 3.92616 12.256 3.92616C12.4776 3.92616 12.6701 3.75699 12.6935 3.52949C12.711 3.29033 12.536 3.07449 12.291 3.05116Z" fill="#F11845"/>
+                                    <path opacity="0.3991" d="M11.2175 4.74801C11.0775 4.60217 10.885 4.52051 10.6867 4.52051H3.31335C3.11502 4.52051 2.91668 4.60217 2.78252 4.74801C2.64835 4.89384 2.57252 5.09217 2.58418 5.29634L2.94585 11.2813C3.01002 12.168 3.09168 13.2763 5.12752 13.2763H8.87252C10.9083 13.2763 10.99 12.1738 11.0542 11.2813L11.4158 5.30217C11.4275 5.09217 11.3517 4.89384 11.2175 4.74801Z" fill="#F11845"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M5.58789 9.91699C5.58789 9.67537 5.78377 9.47949 6.02539 9.47949H7.96789C8.20952 9.47949 8.40539 9.67537 8.40539 9.91699C8.40539 10.1586 8.20952 10.3545 7.96789 10.3545H6.02539C5.78377 10.3545 5.58789 10.1586 5.58789 9.91699Z" fill="#F11845"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M5.10449 7.58301C5.10449 7.34138 5.30037 7.14551 5.54199 7.14551H8.45866C8.70028 7.14551 8.89616 7.34138 8.89616 7.58301C8.89616 7.82463 8.70028 8.02051 8.45866 8.02051H5.54199C5.30037 8.02051 5.10449 7.82463 5.10449 7.58301Z" fill="#F11845"/>
+                                    </svg>
+                                    </button>
+                                    <button
+                                    type="button"
+                                    hx-target="body" 
+                                    hx-get="{% url 'staff_module:system-edit-specialization' specialization_id=specialization.id %}"
+                                    hx-swap="beforeend">
+                                        <svg width="16" height="16" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6.61941 1.79452L1.69441 6.71952C1.50691 6.90702 1.31941 7.27577 1.28191 7.54452L1.01316 9.42577C0.913157 10.107 1.39441 10.582 2.07566 10.4883L3.95691 10.2195C4.21941 10.182 4.58816 9.99452 4.78191 9.80702L9.70691 4.88202C10.5569 4.03202 10.9569 3.04452 9.70691 1.79452C8.45691 0.544518 7.46941 0.944518 6.61941 1.79452Z" stroke="#455A76" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M5.91309 2.50098C6.33184 3.99473 7.50059 5.16348 9.00059 5.58848" stroke="#455A76" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            
+                                    </button>
+                                </div>
                         </li>
                         {% endfor %}
                     </ul>
@@ -64,6 +142,7 @@
                     hx-get="{% url 'staff_module:system-create-specialization' %}"
                     hx-swap="beforeend"
                     class="button create full">Добавить специальность</button>
+
                 </div>
             </div>
         </div>

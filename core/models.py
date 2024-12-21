@@ -41,7 +41,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['first_name', 'last_name', 'patronymic']
 
     def __str__(self):
-        return self.email
+        full_name = [self.last_name, self.first_name, self.patronymic]
+        return " ".join(filter(None, full_name))
     
     def get_full_name(self):
         parts = [self.last_name, self.first_name, self.patronymic]
@@ -83,11 +84,23 @@ class SportAchievement(models.Model):
     event = models.ForeignKey('staff_module.SportEvent', on_delete=models.CASCADE, related_name="achievements", null=True, blank=True)
     sport = models.ForeignKey(Sports, on_delete=models.CASCADE, related_name='achievements')
     position = models.CharField(max_length=20, choices=POSITION_CHOICES, blank=True, null=True)
+    points = models.FloatField(_("Очки"), null=True, blank=True)
     date_awarded = models.DateField(auto_now_add=True)
     create_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.student} - {self.sport.name} - {self.position or 'Участие'}"
+    
+    def calculate_points(event_position):
+        if event_position == '1st':
+            return 1.0
+        elif event_position == '2nd':
+            return 1.0
+        elif event_position == '3rd':
+            return 1.0
+        elif event_position == 'participant':
+            return 0.5
+        return 0 
 
 class Student(models.Model):
     COUNTRY_CHOICES = [
@@ -101,11 +114,11 @@ class Student(models.Model):
     ]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='user')
-    study_group =models.ForeignKey("StudyGroup", verbose_name=_("Группа"), on_delete=models.CASCADE, blank=True, null=True)
+    study_group =models.ForeignKey("StudyGroup", verbose_name=_("Группа"), on_delete=models.SET_NULL, blank=True, null=True)
     approved = models.BooleanField(_("Учетная запись подтверждена"), default=False)
-    sport_level = models.CharField(max_length=32, choices=SPORT_LVL, default='RU', null=True)
-    main_sport = models.ForeignKey("Sports", verbose_name=_("Основной вид спорта"), null=True, blank=True, on_delete=models.CASCADE)
-    additional_sport = models.ForeignKey("Sports", verbose_name=_("Дополнительный вид спорта"), null=True, blank=True, related_name='additional_sport', on_delete=models.CASCADE)
+    sport_level = models.CharField(max_length=32, choices=SPORT_LVL, default='not_specified', null=True)
+    main_sport = models.ForeignKey("Sports", verbose_name=_("Основной вид спорта"), null=True, blank=True, on_delete=models.SET_NULL)
+    additional_sport = models.ForeignKey("Sports", verbose_name=_("Дополнительный вид спорта"), null=True, blank=True, related_name='additional_sport', on_delete=models.SET_NULL)
     country = models.CharField(max_length=10, choices=COUNTRY_CHOICES, default='RU', null=True)
     create_date = models.DateTimeField(auto_now_add=True)
 
@@ -131,7 +144,7 @@ class StudyGroup(models.Model):
     name = models.CharField(max_length=60, unique=True)
     course = models.IntegerField(_("Курс"))
     term = models.IntegerField(_("Семестр"))
-    specialization = models.ForeignKey("Specialization", verbose_name=_("Специальность"), blank=True, null=True, on_delete=models.CASCADE)
+    specialization = models.ForeignKey("Specialization", verbose_name=_("Специальность"), blank=True, null=True, on_delete=models.SET_NULL)
     level_education = models.CharField(max_length=60, choices=LEVEL_EDUCATION, default='bachelor')
     create_date = models.DateTimeField(auto_now_add=True)
 
